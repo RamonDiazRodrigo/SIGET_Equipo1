@@ -34,5 +34,5 @@ Feature: Registrarse
   @tag3
   Scenario Outline: Registro con password incorrecto
     Given Escribo las credenciales que quiero
-    When Valido la operacion con "nombre" bien y "password" incorrecto
+    When Valido la operacion con "nombre" bien y "password" vacio
     Then Da un error
