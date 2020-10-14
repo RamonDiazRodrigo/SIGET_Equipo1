@@ -1,0 +1,11 @@
+language: java
+
+script:
+- mvn clean install
+- mvn test
+- mvn package
+
+deploy: &heroku
+        provider: heroku
+        app: siget_equiopo1
+        api_key: 7b433b1f-96d8-46a1-9cc9-37a506551f7f
