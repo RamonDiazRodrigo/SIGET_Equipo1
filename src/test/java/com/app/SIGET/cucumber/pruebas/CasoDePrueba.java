@@ -20,7 +20,7 @@ public class CasoDePrueba {
 
 	@Then("^da error$")
 	public void da_error() throws Throwable {
-	 Usuario.DAO.error();
+	 UsuarioDAO.error();
 	}
 
 	@Given("^Escribo las credenciales que quiero$")
