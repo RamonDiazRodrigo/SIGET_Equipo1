@@ -47,7 +47,7 @@ public class CasoDePrueba {
 
 	@Then("^Da un error$")
 	public void da_un_error() throws Throwable {
-		UsuarioDAO.error()
+		UsuarioDAO.error();
 	}
 
 	@When("^Valido la operacion \"([^\"]*)\" bien y \"([^\"]*)\" incorrecto$")
