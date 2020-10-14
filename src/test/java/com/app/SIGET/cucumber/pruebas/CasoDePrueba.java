@@ -9,8 +9,7 @@ public class CasoDePrueba {
 	
 	@Given("^Pongo mis credenciales$")
 	public void pongo_mis_credenciales() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@When("^intento acceder con el \"([^\"]*)\" correcto y \"([^\"]*)\" mal$")
@@ -25,19 +24,17 @@ public class CasoDePrueba {
 
 	@Given("^Escribo las credenciales que quiero$")
 	public void escribo_las_credenciales_que_quiero() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@When("^Valido la operacion \"([^\"]*)\" y \"([^\"]*)\"$")
 	public void valido_la_operacion_y(String arg1, String arg2) throws Throwable {
 	    UsuarioDAO.register(arg1,arg2);
-	    throw new PendingException();
 	}
 
 	@Then("^Crea un usuario$")
 	public void crea_un_usuario() throws Throwable {
-	   UsuarioDAO.crear();
+		
 	}
 
 	@When("^Valido la operacion \"([^\"]*)\" vacio y \"([^\"]*)\" bien$")

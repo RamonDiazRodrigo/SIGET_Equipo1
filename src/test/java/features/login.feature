@@ -20,7 +20,7 @@
 Feature: Login
 
   @tag1
-  Scenario: Acceder a la aplicacion con la contraseña mal puesta
+  Scenario Outline: Acceder a la aplicacion con la contraseña mal puesta
     Given Pongo mis credenciales
     When intento acceder con el "nombre" correcto y "password" mal
     Then da error
@@ -35,5 +35,5 @@ Feature: Login
   Scenario Outline: Acceder a la aplicacion satisfactoriamente
     Given Pongo mis credenciales
     When intento acceder con el "nombre" y "contraeña"
-    Then entro a la aplicacion
+    Then puedo ver mi calendario
 
