@@ -21,7 +21,7 @@ Feature: Registrarse
 
   @tag1
   Scenario Outline: Registro correcto
-    Given Registro con "nombre" y "password"
+    Given Registro con "nombre","email","password" y "rol"
     Then Crea un usuario 
 
 	@tag2

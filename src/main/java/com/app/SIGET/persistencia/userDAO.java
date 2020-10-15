@@ -42,7 +42,7 @@ public class userDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			r = new Reunion(document.getString("name"));// AÑADIR CAMPOS CUANDO SE CREE LA CLASE REUNION
+			r = new Reunion(document.getString("name"),document.getString("fecha"),document.getString("horaI"),document.getString("horaF"));
 			reuniones.add(r);
 		}
 
@@ -58,7 +58,7 @@ public class userDAO {
 			document.append("password", user.getPassword());
 		} else {
 			coleccion = agenteDB.get().getBd("reuniones");
-			document = new Document("name", reunion.name);
+			document = new Document("name", reunion.getNombreReunion());
 		}
 		coleccion.insertOne(document);
 
@@ -74,7 +74,7 @@ public class userDAO {
 			document = new Document("name", user.getName());
 		} else {
 			coleccion = agenteDB.get().getBd("reuniones");
-			document = new Document("name", reunion.name);
+			document = new Document("name", reunion.getNombreReunion());
 		}
 
 		coleccion.findOneAndDelete(document);

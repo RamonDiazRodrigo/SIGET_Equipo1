@@ -35,7 +35,7 @@ public class Manager {
 	}
 	
 
-	public boolean login(String name, String password) throws Exception {
+	public static boolean login(String name, String password) throws Exception {
 		try {
 			boolean loginValido=false;
 			
@@ -47,7 +47,7 @@ public class Manager {
 			throw new Exception("Credenciales inválidas");
 		}
 	}
-	public void register(String name, String email, String password, String rol) throws Exception {
+	public static void register(String name, String email, String password, String rol) throws Exception {
 		
 		userDAO.insertar(new User(name,email,password,rol),null); 
 	}
@@ -106,6 +106,12 @@ public class Manager {
 	}
 
 	public void eliminar(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public static void error() {
 		// TODO Auto-generated method stub
 		
 	}

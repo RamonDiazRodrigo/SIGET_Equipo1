@@ -33,9 +33,9 @@ public class CasoDePrueba {
 		Manager.error();
 	}
 
-	@Given("Registro con \"nombre\" y \"password\"")
-	public void valido_la_operacion_y(String arg1, String arg2) throws Throwable {
-	    Manager.register(arg1,arg2);
+	@Given("Registro con \"nombre\", \"email\", \"password\" y \"rol\"")
+	public void valido_la_operacion_y(String arg1, String arg2,String arg3, String arg4) throws Throwable {
+	    Manager.register(arg1,arg2,arg3,arg4);
 	}
 
 	@Then("crea un usuario")

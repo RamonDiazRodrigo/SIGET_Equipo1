@@ -2,14 +2,14 @@ package com.app.SIGET.dominio;
 
 public class Reunion {
 	private String name;
-	private String fechaI;
+	private String fecha;
 	private String horaI;
 	private String horaF;
 	
 	public Reunion(String nombreReunion, String fechaI, String horaI, String horaF) {
 		super();
 		this.name = nombreReunion;
-		this.fechaI = fechaI;
+		this.fecha = fechaI;
 		this.horaI = horaI;
 		this.horaF = horaF;
 	}
@@ -23,11 +23,11 @@ public class Reunion {
 	}
 
 	public String getFechaI() {
-		return fechaI;
+		return fecha;
 	}
 
 	public void setFechaI(String fechaI) {
-		this.fechaI = fechaI;
+		this.fecha = fechaI;
 	}
 
 	public String getHoraI() {
