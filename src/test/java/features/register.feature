@@ -21,18 +21,17 @@ Feature: Registrarse
 
   @tag1
   Scenario Outline: Registro correcto
-    Given Escribo las credenciales que quiero
-    When Valido la operacion "nombre" y "password"
-    Then Crea un usuario
+    Given Registro con "nombre" y "password"
+    Then Crea un usuario 
 
 	@tag2
   Scenario Outline: Registro con nombre incorrecto
-    Given Escribo las credenciales que quiero
-    When Valido la operacion con "nombre" vacio y "password" bien
-    Then Da un error
+    Given Registro con "nombre" y "password"
+    When el "nombre" esta vacio y "password" bien
+    Then Da un error de registro
     
   @tag3
   Scenario Outline: Registro con password incorrecto
-    Given Escribo las credenciales que quiero
-    When Valido la operacion con "nombre" bien y "password" vacio
-    Then Da un error
+    Given Registro con "nombre" y "password"
+    When el "nombre" esta bien y "password" vacio
+    Then Da un error de registro
