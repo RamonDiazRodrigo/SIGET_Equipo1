@@ -1,9 +1,23 @@
 package com.app.SIGET.dominio;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.app.SIGET.persistencia.userDAO;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+
+import com.app.SIGET.dominio.*;
+import com.mongodb.MongoClientURI;
+
+
+
 
 
 
@@ -19,6 +33,25 @@ public class Manager {
 	public static Manager get() {
 		return ManagerHolder.singleton;
 	}
+	
+
+	public boolean login(String name, String password) throws Exception {
+		try {
+			boolean loginValido=false;
+			
+			ArrayList<User> usuarios=userDAO.leerUsers();
+			//encontrar el usuario despues de esto
+			return loginValido;
+		}
+		catch(Exception e) {
+			throw new Exception("Credenciales inválidas");
+		}
+	}
+	public void register(String name, String email, String password, String rol) throws Exception {
+		
+		userDAO.insertar(new User(name,email,password,rol),null); 
+	}
+	
 /*
 	public void insertar(String nombre) {
 
