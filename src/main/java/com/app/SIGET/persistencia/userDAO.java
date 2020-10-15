@@ -23,7 +23,7 @@ public class userDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			u = new User(document.getString("name"), document.getString("password"));
+			u = new User(document.getString("name"), document.getString("email"), document.getString("password"), document.getString("rol"));
 			usuarios.add(u);
 		}
 
@@ -54,8 +54,8 @@ public class userDAO {
 		MongoCollection<Document> coleccion;
 		if (user != null) {
 			coleccion = agenteDB.get().getBd("users");
-			document = new Document("name", user.name);
-			document.append("password", user.password);
+			document = new Document("name", user.getName());
+			document.append("password", user.getPassword());
 		} else {
 			coleccion = agenteDB.get().getBd("reuniones");
 			document = new Document("name", reunion.name);
@@ -71,7 +71,7 @@ public class userDAO {
 
 		if (user != null) {
 			coleccion = agenteDB.get().getBd("users");
-			document = new Document("name", user.name);
+			document = new Document("name", user.getName());
 		} else {
 			coleccion = agenteDB.get().getBd("reuniones");
 			document = new Document("name", reunion.name);
