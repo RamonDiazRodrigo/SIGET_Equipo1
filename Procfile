@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* com/app/SIGET/SigetEquipo1Application.java
+web: java -jar target/SIGETEquipo1-1.0-SNAPSHOT.jar
