@@ -35,16 +35,29 @@ public class Manager {
 	}
 	
 
-	public static boolean login(String name, String password) throws Exception {
+	public static void login(String name, String password) throws Exception {
 		try {
-			boolean loginValido=false;
-			
+			boolean UsrFound=false;
 			ArrayList<User> usuarios=userDAO.leerUsers();
-			//encontrar el usuario despues de esto
-			return loginValido;
+			for(User u : usuarios) {
+				if(u.getName().equals(name)) {
+					UsrFound = true;
+					if(!(u.getPassword().equals(password))) {
+						throw new Exception("Credenciales inválidas");
+
+					}else {
+						System.out.println("Sucessful login");
+					}
+				}
+			}
+			if(!UsrFound) {
+				throw new Exception("Credenciales inválidas");
+
+			}
+			
 		}
 		catch(Exception e) {
-			throw new Exception("Credenciales inválidas");
+			throw new Exception("Error inesperado");
 		}
 	}
 	public static void register(String name, String email, String password, String rol) throws Exception {
