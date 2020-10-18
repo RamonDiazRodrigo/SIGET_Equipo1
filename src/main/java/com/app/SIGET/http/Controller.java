@@ -21,8 +21,8 @@ public class Controller {
 	@PostMapping("/login")
 	public void login(@RequestBody Map<String, Object> credenciales) throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
-		String name = jso.getString("name");
-		String password = jso.getString("password");
+		String name = jso.getString("userName");
+		String password = jso.getString("pwd");
 		Manager.get().login(name, password);
 
 	}
