@@ -35,7 +35,7 @@ public class Manager {
 	}
 	
 
-	public static void login(String name, String password) throws Exception {
+	public void login(String name, String password) throws Exception {
 		try {
 			boolean UsrFound=false;
 			ArrayList<User> usuarios=userDAO.leerUsers();
@@ -60,7 +60,7 @@ public class Manager {
 			throw new Exception("Error inesperado");
 		}
 	}
-	public static void register(String name, String email, String password, String rol) throws Exception {
+	public void register(String name, String email, String password, String rol) throws Exception {
 		
 		userDAO.insertar(new User(name,email,password,rol),null); 
 	}
