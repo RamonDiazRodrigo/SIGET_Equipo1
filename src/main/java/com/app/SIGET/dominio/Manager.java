@@ -16,7 +16,7 @@ public class Manager {
 		private static Manager singleton = new Manager();
 	}
 
-	public Manager get() {
+	public static Manager get() {
 		return ManagerHolder.singleton;
 	}
 	

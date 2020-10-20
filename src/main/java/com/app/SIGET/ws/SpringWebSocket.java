@@ -13,25 +13,26 @@ import com.app.SIGET.dominio.Manager;
 public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
+	private static final String TYPE = "type";
 	
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
-		if (jso.getString("type").equals("ready")) {
+		if ("ready".equals(jso.getString(TYPE))) {
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
-		if (jso.getString("type").equals("insertar")) {
+		if ("insertar".equals(jso.getString(TYPE))) {
 			Manager.get().insertar((String) jso.get(NOMBRE));
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
-		if (jso.getString("type").equals("actualizar")) {
+		if ("actualizar".equals(jso.getString(TYPE))) {
 			Manager.get().actualizar((String) jso.get(NOMBRE), jso.getBoolean("done"));
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
-		if (jso.getString("type").equals("eliminar")) {
+		if ("eliminar".equals(jso.getString(TYPE))) {
 			Manager.get().eliminar((String) jso.get(NOMBRE));
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
