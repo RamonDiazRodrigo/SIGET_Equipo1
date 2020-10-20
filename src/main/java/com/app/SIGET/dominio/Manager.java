@@ -32,7 +32,6 @@ public class Manager {
 		}
 	}
 	
-	
 	public void checkCredenciales (User u, String name, String password) throws CredencialesInvalidasException {
 		if(u.getName().equals(name)) {
 			if (!(u.getPassword().equals(password))) {

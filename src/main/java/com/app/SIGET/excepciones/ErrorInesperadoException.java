@@ -9,7 +9,6 @@ public class ErrorInesperadoException extends Exception {
 	public ErrorInesperadoException(Exception e) {
 		// No se necesita hacer nada en el contructor
 	}
-
 	/**
 	 * @return "Las contrase�as no coinciden"
 	 */
