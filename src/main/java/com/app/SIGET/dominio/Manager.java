@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.excepciones.ErrorInesperadoException;
-import com.app.SIGET.persistencia.userDAO;
+import com.app.SIGET.persistencia.UserDAO;
 
 public class Manager {
 
@@ -23,7 +23,7 @@ public class Manager {
 
 	public void login(String name, String password) throws ErrorInesperadoException {
 		try {
-			ArrayList<User> usuarios = userDAO.leerUsers();
+			ArrayList<User> usuarios = UserDAO.leerUsers();
 			for(User u : usuarios) {
 				checkCredenciales(u, name, password);
 			}
@@ -42,7 +42,7 @@ public class Manager {
 		}
 	}
 	public void register(String name, String email, String password, String rol) {
-		userDAO.insertar(new User(name,email,password,rol),null); 
+		UserDAO.insertar(new User(name,email,password,rol),null); 
 	}
 
 	public Object leer() {

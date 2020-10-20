@@ -7,7 +7,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class agenteDB {
+public class AgenteDB {
 
 	private MongoClientURI uri;
 	private MongoClient mongoClient;
@@ -15,7 +15,7 @@ public class agenteDB {
 	private MongoCollection<Document> collectionUsers;
 	private MongoCollection<Document> collectionReuniones;
 
-	public agenteDB() {
+	public AgenteDB() {
 		try {
 			uri = new MongoClientURI("mongodb://david:david123@cluster0"
 					+ "-shard-00-00.xmqnt.mongodb.net:27017,cluster0-shard"
@@ -32,16 +32,16 @@ public class agenteDB {
 	}
 
 	private static class BrokerHolder {
-		private static agenteDB singleton = new agenteDB();
+		private static AgenteDB singleton = new AgenteDB();
 	}
 
-	public static agenteDB get() {
+	public static AgenteDB get() {
 		return BrokerHolder.singleton;
 	}
 
 	public MongoCollection<Document> getBd(String collection) {
 		if (this.database != null) {
-			agenteDB.get();
+			AgenteDB.get();
 		}
 		if ("users".equals(collection)) {
 			return this.collectionUsers;
