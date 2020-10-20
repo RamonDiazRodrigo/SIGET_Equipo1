@@ -1,5 +1,4 @@
 package com.app.SIGET.persistencia;
-
 import org.bson.Document;
 
 
@@ -16,9 +15,13 @@ public class agenteDB {
 	private MongoCollection<Document> collectionUsers;
 	private MongoCollection<Document> collectionReuniones;
 
-	private agenteDB() {
+	public agenteDB() {
 		try {
-			uri = new MongoClientURI("mongodb://david:david123@cluster0-shard-00-00.xmqnt.mongodb.net:27017,cluster0-shard-00-01.xmqnt.mongodb.net:27017,cluster0-shard-00-02.xmqnt.mongodb.net:27017/Equipo1?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+			uri = new MongoClientURI("mongodb://david:david123@cluster0"
+					+ "-shard-00-00.xmqnt.mongodb.net:27017,cluster0-shard"
+					+ "-00-01.xmqnt.mongodb.net:27017,cluster0-shard-00-02."
+					+ "xmqnt.mongodb.net:27017/Equipo1?ssl=true&replicaSet=Cluster0"
+					+ "-shard-0&authSource=admin&retryWrites=true&w=majority");
 			mongoClient = new MongoClient(uri);
 			database = mongoClient.getDatabase("Equipo1");
 			collectionUsers = database.getCollection("users");
@@ -29,7 +32,7 @@ public class agenteDB {
 	}
 
 	private static class BrokerHolder {
-		static agenteDB singleton = new agenteDB();
+		private static agenteDB singleton = new agenteDB();
 	}
 
 	public static agenteDB get() {
@@ -38,7 +41,7 @@ public class agenteDB {
 
 	public MongoCollection<Document> getBd(String collection) {
 		if (this.database != null) {
-			this.get();
+			agenteDB.get();
 		}
 		if ("users".equals(collection)) {
 			return this.collectionUsers;
