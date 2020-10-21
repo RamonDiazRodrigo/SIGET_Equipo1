@@ -1,6 +1,8 @@
 package com.app.SIGET.persistencia;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 import com.app.SIGET.dominio.User;
@@ -17,8 +19,8 @@ public final class UserDAO {
 		super();
 	}
 	
-	public static ArrayList<User> leerUsers() {
-		ArrayList<User> usuarios=new ArrayList<User>();
+	public static List<User> leerUsers() {
+		ArrayList<User> usuarios=new ArrayList<>();
 		Document document;
 		User u;
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
@@ -34,8 +36,8 @@ public final class UserDAO {
 		return usuarios;
 	}
 
-	public static ArrayList<Reunion> leerReuniones() {
-		ArrayList<Reunion> reuniones = new ArrayList<Reunion>();
+	public static List<Reunion> leerReuniones() {
+		ArrayList<Reunion> reuniones = new ArrayList<>();
 		Document document;
 		Reunion r;
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(REU);

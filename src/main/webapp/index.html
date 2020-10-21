@@ -20,66 +20,37 @@
 </head>
 <body>
 
-<div class="jumbotron text-center">
+	<div class="jumbotron text-center">
 
-	<h1>Inicio de sesión</h1>
+		<h1>Inicio de sesión</h1>
 
-	<div class="container" id="divFormularios">
-		<div class="row">
-			<div class="col-sm-12 col-centered">
-				<div id="divLogin">		
-					<input type="text" id="username" placeholder="Nombre de usuario"><br>
-					<input type="password" id="password" placeholder="Contraseña"><br>
+		<div class="container" id="divFormularios">
+			<div class="row">
+				<div class="col-sm-12 col-centered">
+					<div id="divLogin">
+						<input type="text" id="username" placeholder="Nombre de usuario"><br>
+						<input type="password" id="password" placeholder="Contraseña"><br>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	</br>
-	
-	<div class="row" id="divMenu">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-3" id="mostrarLogin">
-			<button onclick="login()" id="btnLogin">Iniciar Sesión</button><br>
+
+		</br>
+
+		<div class="row" id="divMenu">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-3" id="mostrarLogin">
+				<button onclick="login()" id="btnLogin">Iniciar Sesión</button>
+				<br>
+			</div>
+			<div class="col-sm-3" id="mostrarRegistro">
+				<button onclick="window.location.href='/register.html'"
+					id="goToRegister">Registrarse</button>
+				<br>
+			</div>
+			<div class="col-sm-3"></div>
 		</div>
-		<div class="col-sm-3" id="mostrarRegistro">
-			<button onclick="window.location.href='/register.html'" id="goToRegister">Registrarse</button><br>
-		</div>
-		<div class="col-sm-3"></div>
 	</div>
-</div>
-
-<!-- LOGIN JAVASCRIPT -->
-<script>
-function login() {
-	var info = {
-		type : "Login",
-		userName : $("#username").val(),
-		pwd : $("#password").val()
-	};
-	
-	var data = {
-		data : JSON.stringify(info),
-		url : "login",
-		type : "post",
-		contentType: 'application/json',
-		/*success : function() {
-			window.location.href="perfil.html";
-		},
-		*/
-		error : function(response) {
-			alert("LOGIN INCORRECTO");
-		}
-	};
-	$.ajax(data);
-}
-
-</script>
-
-
-
-
-
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,8 +65,9 @@ function login() {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 		crossorigin="anonymous"></script>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<!-- KNOCKOUT -->
 	<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>

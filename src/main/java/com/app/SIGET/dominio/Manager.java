@@ -1,12 +1,17 @@
 package com.app.SIGET.dominio;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
-import com.app.SIGET.excepciones.ErrorInesperadoException;
 import com.app.SIGET.persistencia.UserDAO;
 
 public class Manager {
+	
+	private static final Logger LOG = (Logger) LoggerFactory.getLogger(Manager.class);
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -19,30 +24,30 @@ public class Manager {
 	public static Manager get() {
 		return ManagerHolder.singleton;
 	}
-	
 
-	public void login(String name, String password) throws ErrorInesperadoException {
+	public void login(String name, String password) {
 		try {
-			ArrayList<User> usuarios = UserDAO.leerUsers();
-			for(User u : usuarios) {
+			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
+			for (User u : usuarios) {
 				checkCredenciales(u, name, password);
 			}
-		} catch(Exception e) {
-			throw new ErrorInesperadoException(e);
+		} catch (CredencialesInvalidasException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	public void checkCredenciales (User u, String name, String password) throws CredencialesInvalidasException {
-		if(u.getName().equals(name)) {
+
+	public void checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
+		if (u.getName().equals(name)) {
 			if (!(u.getPassword().equals(password))) {
 				throw new CredencialesInvalidasException();
 			} else {
-				System.out.println("Sucessful login");
+				LOG.setLevel(Level.INFO);
 			}
 		}
 	}
+
 	public void register(String name, String email, String password, String rol) {
-		UserDAO.insertar(new User(name,email,password,rol),null); 
+		UserDAO.insertar(new User(name, email, password, rol), null);
 	}
 
 	public Object leer() {
