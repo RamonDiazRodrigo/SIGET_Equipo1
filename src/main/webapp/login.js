@@ -2,7 +2,7 @@ let login  = function() {
 	const info = {
 		type: 'Login',
 		userName: $('#username').val(),
-		pwd: $('#password').val()
+		pwd1: $('#password').val()
 	};
 
 	const data = {
@@ -10,10 +10,9 @@ let login  = function() {
 		url: 'login',
 		type: 'post',
 		contentType: 'application/json',
-		/*success : function() {
-			window.location.href='perfil.html';
-		},
-		*/
+		/*
+		 * success : function() { window.location.href='perfil.html'; },
+		 */
 		error() {
 			alert('LOGIN INCORRECTO');
 		}
