@@ -12,18 +12,16 @@ import com.mongodb.client.MongoCursor;
 public final class UserDAO {
 	public static final String REU="reuniones";
 	public static final String USUARIO="users";
+	
 	private UserDAO() {
 		super();
 	}
 	
 	public static ArrayList<User> leerUsers() {
-
 		ArrayList<User> usuarios=new ArrayList<User>();
 		Document document;
 		User u;
-
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
-
 		MongoCursor<Document> iter = coleccion.find().iterator();
 
 		while ((iter.hasNext())) {
@@ -37,14 +35,10 @@ public final class UserDAO {
 	}
 
 	public static ArrayList<Reunion> leerReuniones() {
-		
-		
 		ArrayList<Reunion> reuniones = new ArrayList<Reunion>();
 		Document document;
 		Reunion r;
-
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(REU);
-
 		MongoCursor<Document> iter = coleccion.find().iterator();
 
 		while ((iter.hasNext())) {
@@ -53,7 +47,6 @@ public final class UserDAO {
 					document.getString("horaI"),document.getString("horaF"));
 			reuniones.add(r);
 		}
-
 		return reuniones;
 	}
 

@@ -1,11 +1,15 @@
 package com.app.SIGET.persistencia;
 import org.bson.Document;
+import org.junit.platform.commons.logging.LoggerFactory;
 
-
+import com.app.SIGET.dominio.Manager;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AgenteDB {
 
@@ -14,7 +18,9 @@ public class AgenteDB {
 	private MongoDatabase database;
 	private MongoCollection<Document> collectionUsers;
 	private MongoCollection<Document> collectionReuniones;
-
+	// assumes the current class is called MyLogger
+	private static final Logger LOG = (Logger) LoggerFactory.getLogger(Manager.class);
+		
 	public AgenteDB() {
 		try {
 			uri = new MongoClientURI("mongodb://david:david123@cluster0"
@@ -27,7 +33,7 @@ public class AgenteDB {
 			collectionUsers = database.getCollection("users");
 			collectionReuniones = database.getCollection("reuniones");
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.setLevel(Level.INFO);
 		}
 	}
 
