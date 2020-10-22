@@ -1,13 +1,11 @@
 package com.app.SIGET.dominio;
 
 import java.util.ArrayList;
-
-import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.UserDAO;
+import com.app.SIGET.excepciones.CredencialesInvalidasException;
 
 public class Manager {
 	
-
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
 	}
