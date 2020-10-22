@@ -10,12 +10,9 @@ public class DiferentesContrasenasException extends Exception {
 		// No se necesita hacer nada en el contructor
 	}
 
-	/**
-	 * @return "Las contraseñas no coinciden"
-	 */
 	@Override
 	public String getMessage() {
-		return "Las contraseñas no coinciden";
+		return "Las contrasenas no coinciden";
 	}
 
 }

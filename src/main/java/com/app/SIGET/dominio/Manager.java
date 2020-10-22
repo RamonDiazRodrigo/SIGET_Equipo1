@@ -1,10 +1,6 @@
 package com.app.SIGET.dominio;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.junit.platform.commons.logging.LoggerFactory;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.UserDAO;
