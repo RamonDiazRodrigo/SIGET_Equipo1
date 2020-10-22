@@ -2,78 +2,66 @@ package com.app.SIGET.dominio;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-
+import com.app.SIGET.excepciones.CredencialesInvalidasException;
+import com.app.SIGET.persistencia.UserDAO;
 
 public class Manager {
+	
 
-	private Manager() {
+	public Manager() {
+		// Metodo constructor vacio (no hay atributos)
 	}
 
 	private static class ManagerHolder {
-		static Manager singleton = new Manager();
+		private static Manager singleton = new Manager();
 	}
 
 	public static Manager get() {
 		return ManagerHolder.singleton;
 	}
-/*
-	public void insertar(String nombre) {
 
-		TareaDAO.insertar(nombre);
-
+	public void login(String name, String password) {
+		try {
+			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
+			for (User u : usuarios) {
+				checkCredenciales(u, name, password);
+			}
+		} catch (CredencialesInvalidasException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void actualizar(String nombre, boolean done) {
-
-		TareaDAO.actualizar(nombre, done);
-
-	}
-
-	public void eliminar(String nombre) {
-
-		TareaDAO.eliminar(nombre);
-
-	}
-
-	public JSONObject leer() {
-
-		JSONArray jsa = new JSONArray();
-		JSONObject jso = new JSONObject();
-		ArrayList<Tarea> tareas = TareaDAO.leer();
-
-		if (!tareas.isEmpty()) {
-			for (Tarea t : tareas) {
-				jsa.put(t.toJSON());
+	public void checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
+		if (u.getName().equals(name)) {
+			if (!(u.getPassword().equals(password))) {
+				throw new CredencialesInvalidasException();
+			} else {
+				System.out.println("Sucessful login");
 			}
 		}
-
-		jso.put("tareas", jsa);
-
-		return jso;
-
 	}
-*/
+
+	public void register(String name, String email, String password, String rol) {
+		UserDAO.insertar(new User(name, email, password, rol), null);
+	}
 
 	public Object leer() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void insertar(String string) {
-		// TODO Auto-generated method stub
-		
+		// sustituir este metodo por su equivalente de los de arriba
 	}
 
 	public void actualizar(String string, boolean boolean1) {
-		// TODO Auto-generated method stub
-		
+		// sustituir este metodo por su equivalente de los de arriba
 	}
 
 	public void eliminar(String string) {
-		// TODO Auto-generated method stub
-		
+		// sustituir este metodo por su equivalente de los de arriba
+	}
+
+	public void error() {
+		// sustituir este metodo por su equivalente de los de arriba
 	}
 }
