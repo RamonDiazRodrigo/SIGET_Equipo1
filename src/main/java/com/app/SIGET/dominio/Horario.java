@@ -1,6 +1,5 @@
 package com.app.SIGET.dominio;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Horario {
@@ -8,7 +7,7 @@ public class Horario {
 	private int[][] matrizHorario;
 	
 	//	Así se crea una reunion ahora
-	//	Reunion r = new Reunion("Daily", LocalDate.of(2020, Month.OCTOBER, 10), LocalTime.of(9, 00), LocalTime.of(9, 30));
+	//	Reunion r = new Reunion("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00), LocalTime.of(9, 30));
 
 	public Horario() {
 
@@ -22,10 +21,9 @@ public class Horario {
 	}
 
 	public void aniadirReunion(Reunion reunion) {
-		LocalDate fecha = reunion.getFecha();
 
 		for (int i = Horario.calcularIndice(reunion.getHoraI()); i < Horario.calcularIndice(reunion.getHoraI()); i++) {
-			this.matrizHorario[fecha.getDayOfWeek().getValue()][i] = reunion.getId();
+			this.matrizHorario[reunion.getDia().getValue()][i] = reunion.getId();
 		}
 	}
 
@@ -33,15 +31,12 @@ public class Horario {
 		return (time.getHour() - 1) * 2 + (time.getMinute() / 30);
 	}
 
-	public boolean estaOcupado(int[][] matrizHorario) {
-		boolean ocupado = false;
-		for (int x = 0; x < matrizHorario.length; x++) {
-			for (int y = 0; y < matrizHorario[x].length; y++) {
-				if (matrizHorario[x][y] != 0) {
-					ocupado = true;
-				}
+	public boolean estaOcupado(Reunion reunion) {
+		for (int i = Horario.calcularIndice(reunion.getHoraI()); i < Horario.calcularIndice(reunion.getHoraI()); i++) {
+			if(this.matrizHorario[reunion.getDia().getValue()][i] != 0) {
+				return true;
 			}
 		}
-		return ocupado;
+		return false;
 	}
 }

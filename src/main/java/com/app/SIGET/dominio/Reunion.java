@@ -1,6 +1,6 @@
 package com.app.SIGET.dominio;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -8,15 +8,15 @@ public class Reunion {
 	private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
 	private String name;
-	private LocalDate fecha;
+	private DayOfWeek dia;
 	private LocalTime horaI;
 	private LocalTime horaF;
 	
-	public Reunion(String nombreReunion, LocalDate fecha, LocalTime horaI, LocalTime horaF) {
+	public Reunion(String nombreReunion, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
 		super();
 		this.id = count.incrementAndGet();
 		this.name = nombreReunion;
-		this.fecha = fecha;
+		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
 	}
@@ -29,12 +29,12 @@ public class Reunion {
 		this.name = nombreReunion;
 	}
 	
-	public LocalDate getFecha() {
-		return this.fecha;
+	public DayOfWeek getDia() {
+		return this.dia;
 	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setFecha(DayOfWeek dia) {
+		this.dia = dia;
 	}
 	
 	public LocalTime getHoraI() {

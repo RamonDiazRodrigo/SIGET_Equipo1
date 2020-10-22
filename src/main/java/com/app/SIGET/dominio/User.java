@@ -5,7 +5,7 @@ public class User {
 	private String email;
 	private String password;
 	private String rol;
-	
+
 	public User(String name, String email, String password, String rol) {
 		this.name = name;
 		this.email = email;
@@ -43,5 +43,15 @@ public class User {
 
 	public void setRol(String rol) {
 		this.rol = rol;
-	}	
+	}
+
+	public void aniadirReunion(Reunion reunion) {
+
+		if (!this.horario.estaOcupado(reunion)) {
+			this.horario.aniadirReunion(reunion);
+		} else {
+			System.out.println("mandar error porque ya esta ocupado");
+		}
+
+	}
 }

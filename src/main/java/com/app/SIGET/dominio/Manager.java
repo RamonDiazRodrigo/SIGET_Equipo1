@@ -1,6 +1,9 @@
 package com.app.SIGET.dominio;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.UserDAO;
@@ -49,8 +52,12 @@ public class Manager {
 		return null;
 	}
 
-	public void insertar(String string) {
-		// sustituir este metodo por su equivalente de los de arriba
+	public void aniadirReunion(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
+		
+		for(User u: usuarios) {
+			u.aniadirReunion(new Reunion(nombre, dia, horaI, horaF));
+		}
+		
 	}
 
 	public void actualizar(String string, boolean boolean1) {
