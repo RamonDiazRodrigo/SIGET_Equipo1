@@ -20,17 +20,17 @@
 Feature: Login
 
   @tag1
-  Scenario Outline: Acceder a la aplicacion satisfactoriamente
+  Scenario: Acceder a la aplicacion satisfactoriamente
     Given acceso con "nombre" y "password"
     Then puedo ver mis reuniones
   @tag2
-  Scenario Outline: Acceder a la aplicacion con la contraseña mal puesta
+  Scenario: Acceder a la aplicacion con la contrasena mal puesta
     Given acceso con "nombre" y "password"
     When intento acceder con el "nombre" correcto y "password" mal
     Then da error
 
   @tag3
-  Scenario Outline: Acceder a la aplicacion con el usuario mal puesta
+  Scenario: Acceder a la aplicacion con el usuario mal puesta
     Given acceso con "nombre" y "password"
     When intento acceder con el "nombre" mal y "password" correcto
     Then da error
