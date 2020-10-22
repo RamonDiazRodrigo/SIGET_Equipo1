@@ -3,7 +3,7 @@ let register = function() {
 		type : 'Register',
 		userName : $('#username').val(),
 		email : $('#email').val(),
-		pwd1 : $('#pwd1').val(),
+		pwd : $('#pwd1').val(),
 		pwd2 : $('#pwd2').val(),
 		rol : $('#rol').val()
 	};
@@ -12,13 +12,9 @@ let register = function() {
 			url : 'register',
 			type : 'post',
 			contentType: 'application/json',
-			dataType : 'json',
-			/*
-			 * success : function() { },
-			 */
 			error() {
 				alert('REGISTER INCORRECTO');
 			}
-		};
-		$.ajax(data);
+	};
+	$.ajax(data);
 };

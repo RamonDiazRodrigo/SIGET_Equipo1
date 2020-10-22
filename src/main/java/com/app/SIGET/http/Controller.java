@@ -13,8 +13,8 @@ import com.app.SIGET.excepciones.DiferentesContrasenasException;
 @RestController
 public class Controller {
 	
-	private static final String PASS = "pwd1";
-	private static final String PASS2 = "pwd2";
+	private static final String PASS = "pwd";
+	
 
 	@PostMapping("/login")
 	public void login(@RequestBody Map<String, Object> credenciales) {
@@ -29,7 +29,7 @@ public class Controller {
 	public void register(@RequestBody Map<String, Object> credenciales) throws DiferentesContrasenasException {
 		JSONObject jso = new JSONObject(credenciales);
 		String password = jso.getString(PASS);
-		String passwordConfirmacion = jso.getString(PASS2);
+		String passwordConfirmacion = jso.getString("pwd2");
 
 		if (!password.equals(passwordConfirmacion)) {
 			throw new DiferentesContrasenasException();

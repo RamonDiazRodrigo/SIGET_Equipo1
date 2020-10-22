@@ -11,7 +11,6 @@ import com.app.SIGET.persistencia.UserDAO;
 
 public class Manager {
 	
-	private static final Logger LOG = (Logger) LoggerFactory.getLogger(Manager.class);
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -41,7 +40,7 @@ public class Manager {
 			if (!(u.getPassword().equals(password))) {
 				throw new CredencialesInvalidasException();
 			} else {
-				LOG.setLevel(Level.INFO);
+				System.out.println("Sucessful login");
 			}
 		}
 	}
