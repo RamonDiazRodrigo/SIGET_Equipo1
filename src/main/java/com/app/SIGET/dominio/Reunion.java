@@ -6,10 +6,10 @@ public class Reunion {
 	private String horaI;
 	private String horaF;
 	
-	public Reunion(String nombreReunion, String fechaI, String horaI, String horaF) {
+	public Reunion(String nombreReunion, String fecha, String horaI, String horaF) {
 		super();
 		this.name = nombreReunion;
-		this.fecha = fechaI;
+		this.fecha = fecha;
 		this.horaI = horaI;
 		this.horaF = horaF;
 	}
@@ -22,12 +22,12 @@ public class Reunion {
 		this.name = nombreReunion;
 	}
 
-	public String getFechaI() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFechaI(String fechaI) {
-		this.fecha = fechaI;
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 	public String getHoraI() {
