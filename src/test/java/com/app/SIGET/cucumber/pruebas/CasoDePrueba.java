@@ -2,7 +2,6 @@ package com.app.SIGET.cucumber.pruebas;
 
 import com.app.SIGET.dominio.Manager;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
