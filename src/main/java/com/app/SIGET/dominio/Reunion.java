@@ -1,13 +1,20 @@
 package com.app.SIGET.dominio;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Reunion {
+	private static final AtomicInteger count = new AtomicInteger(1);
+	private int id;
 	private String name;
-	private String fecha;
-	private String horaI;
-	private String horaF;
+	private LocalDate fecha;
+	private LocalTime horaI;
+	private LocalTime horaF;
 	
-	public Reunion(String nombreReunion, String fecha, String horaI, String horaF) {
+	public Reunion(String nombreReunion, LocalDate fecha, LocalTime horaI, LocalTime horaF) {
 		super();
+		this.id = count.incrementAndGet();
 		this.name = nombreReunion;
 		this.fecha = fecha;
 		this.horaI = horaI;
@@ -15,35 +22,39 @@ public class Reunion {
 	}
 
 	public String getNombreReunion() {
-		return name;
+		return this.name;
 	}
 
 	public void setNombreReunion(String nombreReunion) {
 		this.name = nombreReunion;
 	}
-
-	public String getFecha() {
-		return fecha;
+	
+	public LocalDate getFecha() {
+		return this.fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
-	public String getHoraI() {
-		return horaI;
+	
+	public LocalTime getHoraI() {
+		return this.horaI;
 	}
 
-	public void setHoraI(String horaI) {
+	public void setHoraI(LocalTime horaI) {
 		this.horaI = horaI;
 	}
-
-	public String getHoraF() {
-		return horaF;
+	
+	public LocalTime getHoraF() {
+		return this.horaF;
 	}
 
-	public void setHoraF(String horaF) {
+	public void setHoraF(LocalTime horaF) {
 		this.horaF = horaF;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 }
