@@ -1,17 +1,10 @@
 package com.app.SIGET.dominio;
 
-public class User {
-	private String name;
-	private String email;
-	private String password;
-	private String rol;
-
-	public User(String name, String email, String password, String rol) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.rol = rol;
-	}
+public abstract class User {
+	protected String name;
+	protected String email;
+	protected String password;
+	protected Rol rol;
 
 	public String getName() {
 		return name;
@@ -37,21 +30,8 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
-	public void aniadirReunion(Reunion reunion) {
-
-		if (!this.horario.estaOcupado(reunion)) {
-			this.horario.aniadirReunion(reunion);
-		} else {
-			System.out.println("mandar error porque ya esta ocupado");
-		}
-
-	}
 }

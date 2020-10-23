@@ -52,10 +52,10 @@ public class Manager {
 		return null;
 	}
 
-	public void aniadirReunion(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
+	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
 		
 		for(User u: usuarios) {
-			u.aniadirReunion(new Reunion(nombre, dia, horaI, horaF));
+			u.insertarActividad(new Actividad(nombre, dia, horaI, horaF));
 		}
 		
 	}

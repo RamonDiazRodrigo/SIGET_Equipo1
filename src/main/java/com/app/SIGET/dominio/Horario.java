@@ -5,13 +5,15 @@ import java.time.LocalTime;
 public class Horario {
 
 	private int[][] matrizHorario;
+	private static final int DIAS = 7;
+	private static final int HUECOS = 48;
 	
-	//	Así se crea una reunion ahora
-	//	Reunion r = new Reunion("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00), LocalTime.of(9, 30));
+	//	Así se crea una actividad ahora
+	//	actividad r = new actividad("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00), LocalTime.of(9, 30));
 
 	public Horario() {
 
-		this.matrizHorario = new int[7][48];
+		this.matrizHorario = new int[DIAS][HUECOS];
 
 		for (int x = 0; x < this.matrizHorario.length; x++) {
 			for (int y = 0; y < this.matrizHorario[x].length; y++) {
@@ -19,11 +21,32 @@ public class Horario {
 			}
 		}
 	}
+	
+	public static Horario String2Horario(String horario) {
+		
+		
+		
+	}
+	
+	public String Horario2String() {
+		
+		String res = "horario : Array\n";
+		
+		for (int x = 0; x < DIAS; x++) {
+			res+=String.valueOf(x)+" : Array\n";
+			for (int y = 0; y < HUECOS; y++) {
+				res+=String.valueOf(y)+" : "+this.matrizHorario[x][y]+"\n";
+			}
+		}
+		
+		return res;
+		
+	}
 
-	public void aniadirReunion(Reunion reunion) {
+	public void insertarActividad(Actividad actividad) {
 
-		for (int i = Horario.calcularIndice(reunion.getHoraI()); i < Horario.calcularIndice(reunion.getHoraI()); i++) {
-			this.matrizHorario[reunion.getDia().getValue()][i] = reunion.getId();
+		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario.calcularIndice(actividad.getHoraI()); i++) {
+			this.matrizHorario[actividad.getDia().getValue()][i] = actividad.getId();
 		}
 	}
 
@@ -31,9 +54,9 @@ public class Horario {
 		return (time.getHour() - 1) * 2 + (time.getMinute() / 30);
 	}
 
-	public boolean estaOcupado(Reunion reunion) {
-		for (int i = Horario.calcularIndice(reunion.getHoraI()); i < Horario.calcularIndice(reunion.getHoraI()); i++) {
-			if(this.matrizHorario[reunion.getDia().getValue()][i] != 0) {
+	public boolean estaOcupado(Actividad actividad) {
+		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario.calcularIndice(actividad.getHoraI()); i++) {
+			if(this.matrizHorario[actividad.getDia().getValue()][i] != 0) {
 				return true;
 			}
 		}

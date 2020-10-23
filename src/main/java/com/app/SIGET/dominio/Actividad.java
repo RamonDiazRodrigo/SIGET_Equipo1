@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Reunion {
+public class Actividad {
 	private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
 	private String name;
@@ -12,21 +12,28 @@ public class Reunion {
 	private LocalTime horaI;
 	private LocalTime horaF;
 	
-	public Reunion(String nombreReunion, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
-		super();
+	public Actividad(String name, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
 		this.id = count.incrementAndGet();
-		this.name = nombreReunion;
+		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
 	}
 
-	public String getNombreReunion() {
+	public Actividad(int id, String name, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
+		this.id = id;
+		this.name = name;
+		this.dia = dia;
+		this.horaI = horaI;
+		this.horaF = horaF;
+	}
+
+	public String getName() {
 		return this.name;
 	}
 
-	public void setNombreReunion(String nombreReunion) {
-		this.name = nombreReunion;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public DayOfWeek getDia() {
