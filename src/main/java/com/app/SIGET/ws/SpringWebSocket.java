@@ -1,5 +1,9 @@
 package com.app.SIGET.ws;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.List;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
@@ -8,6 +12,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.dominio.User;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -23,7 +28,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {
-			Manager.get().insertar((String) jso.get(NOMBRE));
+			Manager.get().insertarActividad((String) jso.get(NOMBRE),DayOfWeek.valueOf(jso.getString("dia")),
+					LocalTime.of(jso.getInt("horaI"),jso.getInt("minutosI")), LocalTime.of(jso.getInt("horaF"),jso.getInt("minutosF")),null);
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 

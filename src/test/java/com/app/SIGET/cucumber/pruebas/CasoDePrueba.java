@@ -1,6 +1,7 @@
 package com.app.SIGET.cucumber.pruebas;
 
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.dominio.Rol;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -33,7 +34,7 @@ public class CasoDePrueba {
 	}
 
 	@Given("Registro con \"nombre\", \"email\", \"password\" y \"rol\"")
-	public void valido_la_operacion_y(String arg1, String arg2,String arg3, String arg4) throws Throwable {
+	public void valido_la_operacion_y(String arg1, String arg2,String arg3, Rol arg4) throws Throwable {
 	    Manager.get().register(arg1,arg2,arg3,arg4);
 	}
 
