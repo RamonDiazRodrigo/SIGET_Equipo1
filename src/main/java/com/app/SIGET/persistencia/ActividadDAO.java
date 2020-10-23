@@ -25,28 +25,6 @@ public final class ActividadDAO {
 		super();
 	}
 
-	public static List<User> leerUsers() {
-		ArrayList<User> usuarios = new ArrayList<>();
-		Document document;
-		User u;
-		MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
-		MongoCursor<Document> iter = coleccion.find().iterator();
-
-		while ((iter.hasNext())) {
-			document = iter.next();
-			if(document.getString("rol").equals("ADMIN")) {
-				u = new Admin(document.getString("name"), document.getString("email"), document.getString("password"));
-			} else {
-				u = new Asistente(document.getString("name"), document.getString("email"), document.getString("password"));
-				((Asistente) u).setHorario(Horario.String2Horario(document.getString("horario")));
-			}
-
-			usuarios.add(u);
-		}
-
-		return usuarios;
-	}
-
 	public static List<Actividad> leerActividades() {
 		ArrayList<Actividad> actividades = new ArrayList<>();
 		Document document;
@@ -65,16 +43,29 @@ public final class ActividadDAO {
 		return actividades;
 	}
 
-	public static void insertar(User user) {
-		Document document;
+	public static void insertarActividad(Asistente user, Actividad actividad) {
+		Document document, document2;
 		MongoCollection<Document> coleccion;
 		if (user != null) {
+			coleccion = AgenteDB.get().getBd(ACTS);
+			document = new Document("name", actividad.getName());
+			document.append("dia", actividad.getDia().toString());
+			document.append("horaI", actividad.getHoraI().getHour());
+			document.append("minutosI", actividad.getHoraI().getMinute());
+			document.append("horaF", actividad.getHoraF().getHour());
+			document.append("minutosF", actividad.getHoraF().getMinute());
+			coleccion.insertOne(document);
 			coleccion = AgenteDB.get().getBd(USUARIO);
 			document = new Document("name", user.getName());
-			document.append("email", user.getEmail());
-			document.append("password", user.getPassword());
-			document.append("rol", user.getRol().toString());
-			coleccion.insertOne(document);
+			document2 = new Document("name", user.getName());
+			document2.append("email", user.getEmail());
+			document2.append("password", user.getPassword());
+			document2.append("rol", user.getRol().toString());
+			user.insertarActividad(actividad);
+			document2.append("horario", user.getHorario());
+			coleccion.findOneAndReplace(document, document2);
+		} else {
+			System.out.println("Mandar un error de que el user es null");
 		}
 		
 	}

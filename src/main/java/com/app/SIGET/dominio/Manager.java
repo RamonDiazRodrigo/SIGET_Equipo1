@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
-import com.app.SIGET.persistencia.UserDAO;
+import com.app.SIGET.persistencia.*;
 
 public class Manager {
 	
@@ -44,8 +44,13 @@ public class Manager {
 		}
 	}
 
-	public void register(String name, String email, String password, String rol) {
-		UserDAO.insertar(new User(name, email, password, rol), null);
+	public void register(String name, String email, String password, Rol rol) {
+		if(rol.equals(Rol.ADMIN)) {
+			UserDAO.insertar(new Admin(name, email, password));
+		} else {
+			UserDAO.insertar(new Asistente(name, email, password));
+		}
+		
 	}
 
 	public Object leer() {
@@ -55,7 +60,7 @@ public class Manager {
 	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
 		
 		for(User u: usuarios) {
-			u.insertarActividad(new Actividad(nombre, dia, horaI, horaF));
+			ActividadDAO.insertarActividad(u,new Actividad(nombre, dia, horaI, horaF));
 		}
 		
 	}

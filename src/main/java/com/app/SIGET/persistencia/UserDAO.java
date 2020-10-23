@@ -7,6 +7,7 @@ import org.bson.Document;
 import org.springframework.stereotype.Repository;
 import com.app.SIGET.dominio.Asistente;
 import com.app.SIGET.dominio.Horario;
+import com.app.SIGET.dominio.Rol;
 import com.app.SIGET.dominio.Admin;
 import com.app.SIGET.dominio.User;
 import com.mongodb.client.MongoCollection;
@@ -14,7 +15,6 @@ import com.mongodb.client.MongoCursor;
 
 @Repository
 public final class UserDAO {
-	public static final String ACTS = "actividades";
 	public static final String USUARIO = "users";
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
@@ -55,10 +55,14 @@ public final class UserDAO {
 			document.append(EMAIL, user.getEmail());
 			document.append(PASSWORD, user.getPassword());
 			document.append("rol", user.getRol().toString());
+			if(user.getRol().equals(Rol.ASISTENTE)) {
+				document.append("horario", ((Asistente)user).getHorario());
+			}
 			coleccion.insertOne(document);
 		}
 		
 	}
+	
 	
 	/*
 	 * public static void eliminar(User user, Actividad actividad) { Document
