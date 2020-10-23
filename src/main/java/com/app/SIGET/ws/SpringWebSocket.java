@@ -13,6 +13,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.SIGET.dominio.Manager;
 import com.app.SIGET.dominio.User;
+import com.app.SIGET.persistencia.UserDAO;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -29,7 +30,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		if ("insertar".equals(jso.getString(TYPE))) {
 			Manager.get().insertarActividad((String) jso.get(NOMBRE),DayOfWeek.valueOf(jso.getString("dia")),
-					LocalTime.of(jso.getInt("horaI"),jso.getInt("minutosI")), LocalTime.of(jso.getInt("horaF"),jso.getInt("minutosF")),null);
+					LocalTime.of(jso.getInt("horaI"),jso.getInt("minutosI")), LocalTime.of(jso.getInt("horaF"),
+							jso.getInt("minutosF")),UserDAO.leerUsers());
 			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
