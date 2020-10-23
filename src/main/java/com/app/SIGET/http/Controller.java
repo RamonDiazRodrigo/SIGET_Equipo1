@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.dominio.Rol;
 import com.app.SIGET.excepciones.DiferentesContrasenasException;
 
 @RestController
@@ -39,7 +40,7 @@ public class Controller {
 		String email = jso.getString("email");
 		String rol = jso.getString("rol");
 
-		Manager.get().register(name, email, password, rol);
+		Manager.get().register(name, email, password, Rol.valueOf(rol));
 	}
 
 }
