@@ -2,7 +2,6 @@ package com.app.SIGET.ws;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.SIGET.dominio.Manager;
-import com.app.SIGET.dominio.User;
 import com.app.SIGET.persistencia.UserDAO;
 
 @Component
