@@ -25,7 +25,7 @@ function ViewModel() {
 		for (var i = 0; i < users.length; i++) {
 			var usuario = users[i];
 			if(self.listaUsuarios().some(u=> u.name === usuario.name ) === false){
-			self.listaUsuario.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
+			self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
 			
 			}
 		}
@@ -38,7 +38,7 @@ let añadirActividad  = function() {
 		actividad: $('#actividad').val(),
 		dateInicio: $('#dateinicio').val(),
 		dateFinal: $('#datefinal').val(),
-		usuario: document.getElementsById("select").text
+		usuarios: document.getElementsById("select").text
 	};
 
 	const data = {
