@@ -5,8 +5,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.*;
+
 
 public class Manager {
 	
@@ -53,9 +57,23 @@ public class Manager {
 		
 	}
 
-	public Object leer() {
-		return null;
+	public JSONObject leer() {
+		JSONArray jsa = new JSONArray();
+		JSONObject jso = new JSONObject();
+		List<Actividad> actividades = ActividadDAO.leerActividades();
+
+		if (!actividades.isEmpty()) {
+			for (Actividad act : actividades) {
+				jsa.put(act.toJSON());
+			}
+		}
+
+		jso.put("actividades", jsa);
+
+		return jso;
+
 	}
+	
 
 	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
 		

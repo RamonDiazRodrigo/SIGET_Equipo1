@@ -9,7 +9,7 @@ public class Asistente extends User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.rol = Rol.ADMIN;
+		this.rol = Rol.ASISTENTE;
 		this.horario = new Horario();
 	}
 	

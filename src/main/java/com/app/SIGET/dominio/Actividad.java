@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.json.JSONObject;
+
 public class Actividad {
 	private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
@@ -63,5 +65,14 @@ public class Actividad {
 	public int getId() {
 		return this.id;
 	}
+	
+	public JSONObject toJSON() {
+        JSONObject jso = new JSONObject();
+        jso.put("nombre", this.getName());
+        jso.put("dia", this.getDia());
+        jso.put("HoraI", this.getName());
+        jso.put("HoraF", this.getName());
+        return jso;
+    }
 
 }
