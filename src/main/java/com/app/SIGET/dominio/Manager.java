@@ -10,8 +10,7 @@ import org.json.JSONObject;
 
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.*;
-import com.app.gestionTareas.dominio.Tarea;
-import com.app.gestionTareas.persistencia.TareaDAO;
+
 
 public class Manager {
 	
