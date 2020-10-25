@@ -1,10 +1,9 @@
 package com.app.SIGET.persistencia;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.app.SIGET.dominio.DiaSemana;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 import com.app.SIGET.dominio.Asistente;
@@ -36,7 +35,7 @@ public final class ActividadDAO {
 			document = iter.next();
 			LocalTime horaI = LocalTime.of(document.getInteger("horaI",0), document.getInteger("minutosI",0));
 			LocalTime horaF = LocalTime.of(document.getInteger("horaF",0), document.getInteger("minutosF",0));
-			act = new Actividad(document.getInteger("id",-1), document.getString("name"), DayOfWeek.valueOf(document.getString("dia")),
+			act = new Actividad(document.getInteger("id",-1), document.getString("name"), DiaSemana.valueOf(document.getString("dia")),
 					horaI,horaF);
 			actividades.add(act);
 		}

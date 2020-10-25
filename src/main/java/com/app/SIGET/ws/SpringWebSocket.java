@@ -1,17 +1,14 @@
 package com.app.SIGET.ws;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
-
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
+import com.app.SIGET.dominio.DiaSemana;
 import com.app.SIGET.dominio.Manager;
-import com.app.SIGET.persistencia.UserDAO;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -27,9 +24,11 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {
-			Manager.get().insertarActividad((String) jso.get(NOMBRE),DayOfWeek.valueOf(jso.getString("dia")),
-					LocalTime.of(jso.getInt("horaInicio"),jso.getInt("minutoInicio")), LocalTime.of(jso.getInt("horaFinal"),jso.getInt("minutoFinal"))
-							,jso.getJSONArray("usuarios"));
+
+			Manager.get().insertarActividad((String) jso.get(NOMBRE),DiaSemana.valueOf(jso.getString("dia")),
+					LocalTime.of(jso.getInt("horaInicio"),jso.getInt("minutoInicio")), LocalTime.of(jso.getInt("horaFinal"),
+							jso.getInt("minutoFinal"))
+							,jso.getString("usuarios"));
 			session.sendMessage(new TextMessage(Manager.get().leerActividades().toString()));
 		}
 		
