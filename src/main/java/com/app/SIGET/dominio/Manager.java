@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.ActividadDAO;
 import com.app.SIGET.persistencia.UserDAO;
+import com.app.SIGET.excepciones.CredencialesInvalidasException;
 
 public class Manager {
 
