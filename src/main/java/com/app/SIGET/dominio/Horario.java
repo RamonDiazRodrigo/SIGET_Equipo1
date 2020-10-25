@@ -11,7 +11,7 @@ public class Horario {
 	private static final int DIAS = 7;
 	private static final int HUECOS = 48;
 
-	// Así se crea una actividad ahora
+	// Asï¿½ se crea una actividad ahora
 	// actividad r = new actividad("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00),
 	// LocalTime.of(9, 30));
 
@@ -28,20 +28,22 @@ public class Horario {
 
 	public static Horario String2Horario(String hor) {
 		
-		JSONArray jsa = new JSONArray(hor);
-		JSONArray aux;
-		JSONObject jso;
-
 		Horario horario = new Horario();
-		
-		for(int x = 0; x < jsa.length(); x++) {
-			aux = (JSONArray) jsa.get(x);
-			for(int y = 0; y < aux.length(); y++) {
-				jso = (JSONObject) aux.get(y);
-				horario.matrizHorario[x][y] = (int) jso.get(String.valueOf(y));
+
+		if (hor != null) {
+
+			JSONArray jsa = new JSONArray(hor);
+			JSONArray aux;
+			JSONObject jso;
+
+			for (int x = 0; x < jsa.length(); x++) {
+				aux = (JSONArray) jsa.get(x);
+				for (int y = 0; y < aux.length(); y++) {
+					jso = (JSONObject) aux.get(y);
+					horario.matrizHorario[x][y] = (int) jso.get(String.valueOf(y));
+				}
 			}
 		}
-
 		return horario;
 	}
 
@@ -61,7 +63,7 @@ public class Horario {
 			jsa.put(x, aux);
 		}
 
-		return null;
+		return jsa;
 	}
 
 	public String toString() {
@@ -71,7 +73,7 @@ public class Horario {
 	public void insertarActividad(Actividad actividad) {
 
 		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario
-				.calcularIndice(actividad.getHoraI()); i++) {
+				.calcularIndice(actividad.getHoraF()); i++) {
 			this.matrizHorario[actividad.getDia().getValue()][i] = actividad.getId();
 		}
 	}
@@ -82,7 +84,7 @@ public class Horario {
 
 	public boolean estaOcupado(Actividad actividad) {
 		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario
-				.calcularIndice(actividad.getHoraI()); i++) {
+				.calcularIndice(actividad.getHoraF()); i++) {
 			if (this.matrizHorario[actividad.getDia().getValue()][i] != 0) {
 				return true;
 			}
