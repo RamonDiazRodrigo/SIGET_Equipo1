@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.dominio.Rol;
 import com.app.SIGET.excepciones.DiferentesContrasenasException;
 
 @RestController

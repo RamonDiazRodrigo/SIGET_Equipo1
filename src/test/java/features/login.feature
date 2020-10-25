@@ -20,18 +20,21 @@
 Feature: Login
 
   @tag1
-  Scenario Outline: Acceder a la aplicacion satisfactoriamente
-    Given acceso con "nombre" y "password"
-    Then puedo ver mis reuniones
+  Scenario: Acceder a la aplicacion satisfactoriamente Asistente
+    Given acceso con "nombre" y "password" correctos asistente
+    When los datos son correctos y de un asistente
+    Then Accedo a la pantalla principal de asistente
+  
   @tag2
-  Scenario Outline: Acceder a la aplicacion con la contraseña mal puesta
+  Scenario: Acceder a la aplicacion satisfactoriamente Admin
+    Given acceso con "nombre" y "password" correctos admin
+    When los datos son correctos y de un administrador
+    Then Accedo a la pantalla principal de admin
+  
+  @tag3
+  Scenario: Acceder a la aplicacion con la contrasena mal puesta
     Given acceso con "nombre" y "password"
     When intento acceder con el "nombre" correcto y "password" mal
-    Then da error
+    Then se lanza la excepcion CredencialesInvalidas
 
-  @tag3
-  Scenario Outline: Acceder a la aplicacion con el usuario mal puesta
-    Given acceso con "nombre" y "password"
-    When intento acceder con el "nombre" mal y "password" correcto
-    Then da error
     

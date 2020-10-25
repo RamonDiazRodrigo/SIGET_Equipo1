@@ -20,18 +20,12 @@
 Feature: Registrarse
 
   @tag1
-  Scenario Outline: Registro correcto
-    Given Registro con "nombre","email","password" y "rol"
-    Then Crea un usuario 
-
-	@tag2
-  Scenario Outline: Registro con nombre incorrecto
-    Given Registro con "nombre" y "password"
-    When el "nombre" esta vacio y "password" bien
-    Then Da un error de registro
+  Scenario: Registro correcto
+    Given "nombre","email","password", "confirmacionPassword" y "rol"
+    Then Crea un usuario "nombre"
     
-  @tag3
-  Scenario Outline: Registro con password incorrecto
-    Given Registro con "nombre" y "password"
-    When el "nombre" esta bien y "password" vacio
-    Then Da un error de registro
+  @tag2
+  Scenario: Registro con password distintas
+    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
+    When "password" y "confirmacionPassword" son distintas
+    Then se lanza la excepcion DiferentesContrasenas

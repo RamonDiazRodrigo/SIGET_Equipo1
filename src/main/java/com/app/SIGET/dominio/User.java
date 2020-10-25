@@ -1,17 +1,12 @@
 package com.app.SIGET.dominio;
 
-public class User {
-	private String name;
-	private String email;
-	private String password;
-	private String rol;
-	
-	public User(String name, String email, String password, String rol) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.rol = rol;
-	}
+import org.json.JSONObject;
+
+public abstract class User {
+	protected String name;
+	protected String email;
+	protected String password;
+	protected Rol rol;
 
 	public String getName() {
 		return name;
@@ -37,11 +32,16 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
+	public JSONObject toJSON() {
+        JSONObject jso = new JSONObject();
+        jso.put("name", this.getName());
+        jso.put("email", this.getEmail());
+        jso.put("password", this.getPassword());
+        jso.put("rol", this.getRol());
+        return jso;
+    }
 
-	public void setRol(String rol) {
-		this.rol = rol;
-	}	
 }
