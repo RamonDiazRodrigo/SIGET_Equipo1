@@ -44,7 +44,8 @@ public class Manager {
 		}
 	}
 
-	public void register(String name, String email, String password, Rol rol) {
+	public void register(String name, String email, String password, String rolS) {
+		Rol rol = Rol.valueOf(rolS);
 		if (rol == Rol.ADMIN) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
@@ -85,12 +86,16 @@ public class Manager {
 
 	}
 
-	public void insertarActividad(String nombre, DiaSemana dia, LocalTime horaI, LocalTime horaF, String usuario) {
+	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF, String usuario) {
 
 		List<User> users = UserDAO.leerUsers();
+		
+		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI),Integer.parseInt(minutosI));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF),Integer.parseInt(minutosF));
+		
 		for (User user : users) {
 			if (usuario.equals(user.getName()) && user.getRol()==Rol.ASISTENTE) {
-				ActividadDAO.insertarActividad((Asistente) user, new Actividad(nombre, dia, horaI, horaF));
+				ActividadDAO.insertarActividad((Asistente) user, new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin));
 			}
 		}
 	}

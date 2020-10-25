@@ -21,13 +21,12 @@ Feature: Introducir actividades no laborables
 
   @tag1
   Scenario: Introduccion valida de actividad no laborable
-    Given "nombre periodo no laborable", "dia de la semana", "hora de inicio", "minutos de inicio", "hora de fin", "minutos de fin" y "usuario" involucrado
-    When los datos son correctos
+    Given "nombre periodo no laborable", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin" y "usuario" involucrado
     Then se añade la actividad no laborable con "nombre periodo no laborable", "dia de la semana", "hora de inicio", "minutos de inicio", "hora de fin" y "minutos de fin" y se vincula al "usuario"
 
   @tag2
   Scenario: Introduccion invalida de actividad no laborable usuario no existe
-    Given "nombre periodo no laborable", "dia de la semana", "hora de inicio", "minutos de inicio", "hora de fin", "minutos de fin" y "usuario" involucrado
+    Given "nombre periodo no laborable", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin" y "usuario" involucrado
     When usuario no esta registrado
     Then se lanza excepcion UsuarioNoExiste
     

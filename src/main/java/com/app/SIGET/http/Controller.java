@@ -40,7 +40,7 @@ public class Controller {
 		String email = jso.getString("email");
 		String rol = jso.getString("rol");
 
-		Manager.get().register(name, email, password, Rol.valueOf(rol));
+		Manager.get().register(name, email, password, rol);
 	}
 
 }

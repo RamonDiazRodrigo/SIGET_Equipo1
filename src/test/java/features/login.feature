@@ -21,13 +21,13 @@ Feature: Login
 
   @tag1
   Scenario: Acceder a la aplicacion satisfactoriamente Asistente
-    Given acceso con "nombre" y "password" correctos
+    Given acceso con "nombre" y "password" correctos asistente
     When los datos son correctos y de un asistente
     Then Accedo a la pantalla principal de asistente
   
   @tag2
   Scenario: Acceder a la aplicacion satisfactoriamente Admin
-    Given acceso con "nombre" y "password" correctos
+    Given acceso con "nombre" y "password" correctos admin
     When los datos son correctos y de un administrador
     Then Accedo a la pantalla principal de admin
   
