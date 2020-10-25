@@ -3,7 +3,6 @@ language: java
 script:
 - mvn clean
 - mvn install
-- mvn test
 - mvn package spring-boot:repackage
 
 deploy: &heroku
