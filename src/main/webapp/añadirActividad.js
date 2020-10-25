@@ -46,7 +46,7 @@ self.añadirActividad  = function() {
 		horaFinal: dateFinal[0],
 		minutoInicio: dateInicio[1],
 		minutoFinal:dateFinal[1],
-		usuarios: self.usuariosSeleccionados()
+		usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text
 	};
 	self.sws.send(JSON.stringify(info));
 };

@@ -1,16 +1,13 @@
 package com.app.SIGET.dominio;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
-import com.app.SIGET.persistencia.*;
+import com.app.SIGET.persistencia.ActividadDAO;
+import com.app.SIGET.persistencia.UserDAO;
 
 public class Manager {
 
@@ -47,22 +44,23 @@ public class Manager {
 		}
 	}
 
-	public void register(String name, String email, String password, Rol rol) {
-		if (rol.equals(Rol.ADMIN)) {
+	public void register(String name, String email, String password, String rolS) {
+		Rol rol = Rol.valueOf(rolS);
+		if (rol == Rol.ADMIN) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
 			UserDAO.insertar(new Asistente(name, email, password));
 		}
 
 	}
+
 	public JSONObject leerUsuarios() {
 		JSONArray jsa = new JSONArray();
 		JSONObject jso = new JSONObject();
 		List<User> usuarios = UserDAO.leerUsers();
 
-
 		for (User user : usuarios) {
-			
+
 			jsa.put(user.toJSON());
 		}
 		jso.put("usuarios", jsa);
@@ -88,17 +86,18 @@ public class Manager {
 
 	}
 
-	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, JSONArray usuarios) {
+	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF, String usuario) {
 
 		List<User> users = UserDAO.leerUsers();
+		
+		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI),Integer.parseInt(minutosI));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF),Integer.parseInt(minutosF));
+		
 		for (User user : users) {
-			for (int i = 0; i < users.size(); i++) {
-				if (usuarios.getString(i).equals(user.getName())) {
-					//ActividadDAO.insertarActividad(user, new Actividad(nombre, dia, horaI, horaF));
-				}
+			if (usuario.equals(user.getName()) && user.getRol()==Rol.ASISTENTE) {
+				ActividadDAO.insertarActividad((Asistente) user, new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin));
 			}
 		}
-
 	}
 
 	public void actualizar(String string, boolean boolean1) {

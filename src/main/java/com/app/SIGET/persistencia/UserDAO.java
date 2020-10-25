@@ -1,6 +1,5 @@
 package com.app.SIGET.persistencia;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -33,7 +32,7 @@ public final class UserDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			if(("ADMIN").equals(document.getString("rol"))) {
+			if (("ADMIN").equals(document.getString("rol"))) {
 				u = new Admin(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 			} else {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
@@ -55,30 +54,21 @@ public final class UserDAO {
 			document.append(EMAIL, user.getEmail());
 			document.append(PASSWORD, user.getPassword());
 			document.append("rol", user.getRol().toString());
-			if(user.getRol().equals(Rol.ASISTENTE)) {
-				document.append("horario", ((Asistente)user).getHorario());
-			}
 			coleccion.insertOne(document);
 		}
-		
+
 	}
-	
-	
-	/*
-	 * public static void eliminar(User user, Actividad actividad) { Document
-	 * document;
-	 * 
-	 * MongoCollection<Document> coleccion;
-	 * 
-	 * if (user != null) { coleccion = AgenteDB.get().getBd(USUARIO); document = new
-	 * Document("name", user.getName()); } else { coleccion =
-	 * AgenteDB.get().getBd(REU); document = new Document("name",
-	 * actividad.getName()); }
-	 * 
-	 * coleccion.findOneAndDelete(document);
-	 * 
-	 * }
-	 * 
-	 */
+
+	public static void eliminar(User user) {
+		
+		Document document;
+		MongoCollection<Document> coleccion;
+
+		if (user != null) {
+			coleccion = AgenteDB.get().getBd(USUARIO);
+			document = new Document("name", user.getName());
+			coleccion.findOneAndDelete(document);
+		}
+	}
 
 }

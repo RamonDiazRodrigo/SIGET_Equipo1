@@ -1,6 +1,5 @@
 package com.app.SIGET.dominio;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,11 +9,11 @@ public class Actividad {
 	private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
 	private String name;
-	private DayOfWeek dia;
+	private DiaSemana dia;
 	private LocalTime horaI;
 	private LocalTime horaF;
 	
-	public Actividad(String name, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
+	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
 		this.id = count.incrementAndGet();
 		this.name = name;
 		this.dia = dia;
@@ -22,7 +21,7 @@ public class Actividad {
 		this.horaF = horaF;
 	}
 
-	public Actividad(int id, String name, DayOfWeek dia, LocalTime horaI, LocalTime horaF) {
+	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
 		this.id = id;
 		this.name = name;
 		this.dia = dia;
@@ -38,11 +37,11 @@ public class Actividad {
 		this.name = name;
 	}
 	
-	public DayOfWeek getDia() {
+	public DiaSemana getDia() {
 		return this.dia;
 	}
 
-	public void setFecha(DayOfWeek dia) {
+	public void setFecha(DiaSemana dia) {
 		this.dia = dia;
 	}
 	
@@ -68,6 +67,7 @@ public class Actividad {
 	
 	public JSONObject toJSON() {
         JSONObject jso = new JSONObject();
+        jso.put("id", this.getId());
         jso.put("nombre", this.getName());
         jso.put("dia", this.getDia());
         jso.put("HoraI", this.getName());
