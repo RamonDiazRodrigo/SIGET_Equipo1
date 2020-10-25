@@ -19,8 +19,8 @@ public class CasoDePruebaIntroducirRestricciones {
 		Manager.get().insertarActividad(nombre, dia, horaI, minutosI, horaF, minutosF, usuario);
 	}
 
-	@Then("^se añade la actividad no laborable con \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" y se vincula al \"([^\"]*)\"$")
-	public void se_añade_la_actividad_no_laborable_con_y_y_se_vincula_al(String nombre, String dia, String horaI, String minutosI, String horaF,
+	@Then("^se aniade la actividad no laborable con \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" y se vincula al \"([^\"]*)\"$")
+	public void se_aniade_la_actividad_no_laborable_con_y_y_se_vincula_al(String nombre, String dia, String horaI, String minutosI, String horaF,
 			String minutosF, String usuario) throws NumberFormatException {
 		horaI="10";
 		minutosI="00";
