@@ -18,7 +18,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
-	
+
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
@@ -28,8 +28,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		if ("insertar".equals(jso.getString(TYPE))) {
 			Manager.get().insertarActividad((String) jso.get(NOMBRE),DayOfWeek.valueOf(jso.getString("dia")),
-					LocalTime.of(jso.getInt("horaI"),jso.getInt("minutosI")), LocalTime.of(jso.getInt("horaF"),
-							jso.getInt("minutosF")),jso.getJSONArray("usuarios"));
+					LocalTime.of(jso.getInt("horaInicio"),jso.getInt("minutoInicio")), LocalTime.of(jso.getInt("horaFinal"),jso.getInt("minutoFinal"))
+							,jso.getJSONArray("usuarios"));
 			session.sendMessage(new TextMessage(Manager.get().leerActividades().toString()));
 		}
 		

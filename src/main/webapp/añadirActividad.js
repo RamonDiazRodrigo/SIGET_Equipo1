@@ -4,6 +4,7 @@ function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
+	self.usuariosSeleccionados = ko.observableArray([]);
 
 
 	var url = "ws://"+window.location.host+"/SIGETEquipo1";
@@ -32,22 +33,22 @@ function ViewModel() {
 	}
 
 
-let añadirActividad  = function() {
+self.añadirActividad  = function() {
+	self.usuariosSeleccionados.push($('#select').val());
+	var dateInicio = $('#horaInicio').val().split(":");
+	var dateFinal =$('#horaFinal').val().split(":");
+	
 	const info = {
-		type: 'insertarActividad',
-		actividad: $('#actividad').val(),
-		dateInicio: $('#dateinicio').val(),
-		dateFinal: $('#datefinal').val(),
-		usuarios: document.getElementsById("select").text
+		type: 'insertar',
+		nombre: $('#actividad').val(),
+		dia : document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
+		horaInicio: dateInicio[0],
+		horaFinal: dateFinal[0],
+		minutoInicio: dateInicio[1],
+		minutoFinal:dateFinal[1],
+		usuarios: self.usuariosSeleccionados()
 	};
-
-	const data = {
-		data: JSON.stringify(info),
-		url: 'administrador',
-		type: 'post',
-		contentType: 'application/json'
-	};
-	$.ajax(data);
+	self.sws.send(JSON.stringify(info));
 };
 
 class Usuario {

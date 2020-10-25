@@ -14,4 +14,3 @@ $('#volver').click(function(e) {
 	 $('#visibilityHidden').css('visibility', 'visible');
 });
 
-
