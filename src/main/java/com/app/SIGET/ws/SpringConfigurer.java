@@ -22,7 +22,7 @@ public class SpringConfigurer implements WebSocketConfigurer {
 
   public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
     SpringWebSocket webSocket = new SpringWebSocket();
-    registry.addHandler(webSocket, "GestionTareas").setAllowedOrigins("*");
+    registry.addHandler(webSocket, "SIGETEquipo1").setAllowedOrigins("*");
   }
 
 }

@@ -1,5 +1,7 @@
 package com.app.SIGET.dominio;
 
+import org.json.JSONObject;
+
 public abstract class User {
 	protected String name;
 	protected String email;
@@ -33,5 +35,13 @@ public abstract class User {
 	public Rol getRol() {
 		return rol;
 	}
+	public JSONObject toJSON() {
+        JSONObject jso = new JSONObject();
+        jso.put("name", this.getName());
+        jso.put("email", this.getEmail());
+        jso.put("password", this.getPassword());
+        jso.put("rol", this.getRol());
+        return jso;
+    }
 
 }

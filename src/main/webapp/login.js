@@ -10,6 +10,9 @@ let login  = function() {
 		url: 'login',
 		type: 'post',
 		contentType: 'application/json',
+		success : function() {
+			window.location.href="admin.html";
+		},
 		error() {
 			alert('LOGIN INCORRECTO');
 		}

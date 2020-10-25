@@ -3,6 +3,7 @@ package com.app.SIGET.dominio;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,9 +12,7 @@ import org.json.JSONObject;
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.*;
 
-
 public class Manager {
-	
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -49,15 +48,30 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, Rol rol) {
-		if(rol.equals(Rol.ADMIN)) {
+		if (rol.equals(Rol.ADMIN)) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
 			UserDAO.insertar(new Asistente(name, email, password));
 		}
-		
+
+	}
+	public JSONObject leerUsuarios() {
+		JSONArray jsa = new JSONArray();
+		JSONObject jso = new JSONObject();
+		List<User> usuarios = UserDAO.leerUsers();
+
+
+		for (User user : usuarios) {
+			
+			jsa.put(user.toJSON());
+		}
+		jso.put("usuarios", jsa);
+
+		return jso;
+
 	}
 
-	public JSONObject leer() {
+	public JSONObject leerActividades() {
 		JSONArray jsa = new JSONArray();
 		JSONObject jso = new JSONObject();
 		List<Actividad> actividades = ActividadDAO.leerActividades();
@@ -73,14 +87,18 @@ public class Manager {
 		return jso;
 
 	}
-	
 
-	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, List<User> usuarios) {
-		
-		for(User u: usuarios) {
-			ActividadDAO.insertarActividad(u,new Actividad(nombre, dia, horaI, horaF));
+	public void insertarActividad(String nombre, DayOfWeek dia, LocalTime horaI, LocalTime horaF, JSONArray usuarios) {
+
+		List<User> users = UserDAO.leerUsers();
+		for (User user : users) {
+			for (int i = 0; i < users.size(); i++) {
+				if (usuarios.getString(i).equals(user.getName())) {
+					//ActividadDAO.insertarActividad(user, new Actividad(nombre, dia, horaI, horaF));
+				}
+			}
 		}
-		
+
 	}
 
 	public void actualizar(String string, boolean boolean1) {
@@ -94,4 +112,5 @@ public class Manager {
 	public void error() {
 		// sustituir este metodo por su equivalente de los de arriba
 	}
+
 }
