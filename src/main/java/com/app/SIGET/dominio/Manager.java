@@ -25,24 +25,34 @@ public class Manager {
 	}
 
 	public void login(String name, String password) {
+		boolean login = false;
 		try {
 			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
 			for (User u : usuarios) {
-				checkCredenciales(u, name, password);
+				login = checkCredenciales(u, name, password);
+			}
+			if(!login) {
+				throw new CredencialesInvalidasException();
 			}
 		} catch (CredencialesInvalidasException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
+	public boolean checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
+		boolean aux = false;
 		if (u.getName().equals(name)) {
 			if (!(u.getPassword().equals(password))) {
+				
 				throw new CredencialesInvalidasException();
+				
 			} else {
 				System.out.println("Sucessful login");
+				aux = true;
 			}
 		}
+		return aux;
+		
 	}
 
 	public void register(String name, String email, String password, String rolS) {

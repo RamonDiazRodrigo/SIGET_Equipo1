@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.SIGET.dominio.Manager;
 import com.app.SIGET.dominio.Rol;
+import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.excepciones.DiferentesContrasenasException;
 
 @RestController
@@ -18,7 +19,7 @@ public class Controller {
 	
 
 	@PostMapping("/login")
-	public void login(@RequestBody Map<String, Object> credenciales) {
+	public void login(@RequestBody Map<String, Object> credenciales)  throws CredencialesInvalidasException {
 		JSONObject jso = new JSONObject(credenciales);
 		String name = jso.getString("userName");
 		String password = jso.getString(PASS);
