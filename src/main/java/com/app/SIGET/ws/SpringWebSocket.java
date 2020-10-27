@@ -21,6 +21,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
 		if ("ready".equals(jso.getString(TYPE))) {
 			session.sendMessage(new TextMessage(Manager.get().leerUsuarios().toString()));
+			session.sendMessage(new TextMessage(Manager.get().leerActividades().toString()));
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {
@@ -30,8 +31,6 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			session.sendMessage(new TextMessage(Manager.get().leerActividades().toString()));
 		}
 		
-		
-
 		if ("actualizar".equals(jso.getString(TYPE))) {
 			Manager.get().actualizar((String) jso.get(NOMBRE), jso.getBoolean("done"));
 			//session.sendMessage(new TextMessage(Manager.get().leer().toString()));
@@ -40,8 +39,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		if ("eliminar".equals(jso.getString(TYPE))) {
 			Manager.get().eliminar((String) jso.get(NOMBRE));
 			//session.sendMessage(new TextMessage(Manager.get().leer().toString()));
-		}
 
+		}
 	}
 
 }
