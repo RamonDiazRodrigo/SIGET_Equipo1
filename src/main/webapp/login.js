@@ -13,7 +13,8 @@ let login  = function() {
 		success : function() {
 			window.location.href="admin.html";
 		},
-		error() {
+		error : function(response) {
+			
 			alert('LOGIN INCORRECTO');
 		}
 	};
