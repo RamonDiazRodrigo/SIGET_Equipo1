@@ -12,7 +12,7 @@ import cucumber.api.java.en.When;
 public class CasoDePrueba {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos asistente$")
-	public void acceso_con_y_correctos_asistente(String nombre, String password) {
+	public void acceso_con_y_correctos_asistente(String nombre, String password) throws Exception {
 		Manager.get().login(nombre, password);
 	}
 
@@ -26,7 +26,7 @@ public class CasoDePrueba {
 	}
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos admin$")
-	public void acceso_con_y_correctos_admin(String nombre, String password) {
+	public void acceso_con_y_correctos_admin(String nombre, String password) throws Exception {
 		Manager.get().login(nombre, password);
 	}
 
@@ -40,7 +40,7 @@ public class CasoDePrueba {
 	}
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\"$")
-	public void acceso_con_y(String nombre, String password) {
+	public void acceso_con_y(String nombre, String password) throws Exception {
 		Manager.get().login(nombre, password);
 	}
 

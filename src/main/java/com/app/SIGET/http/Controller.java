@@ -19,16 +19,15 @@ public class Controller {
 	
 
 	@PostMapping("/login")
-	public void login(@RequestBody Map<String, Object> credenciales)  throws CredencialesInvalidasException {
+	public void login(@RequestBody Map<String, Object> credenciales)  throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
 		String name = jso.getString("userName");
 		String password = jso.getString(PASS);
 		Manager.get().login(name, password);
-
 	}
 
 	@PostMapping("/register")
-	public void register(@RequestBody Map<String, Object> credenciales) throws DiferentesContrasenasException {
+	public void register(@RequestBody Map<String, Object> credenciales) throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
 		String password = jso.getString(PASS);
 		String passwordConfirmacion = jso.getString("pwd2");
