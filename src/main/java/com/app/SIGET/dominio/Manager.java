@@ -80,24 +80,21 @@ public class Manager {
 
 	}
 	
-	public JSONObject leerAsistentes() {
+	public JSONArray leerAsistentes() {
 		JSONArray jsa = new JSONArray();
-		JSONObject jso = new JSONObject();
 		List<User> usuarios = UserDAO.leerUsers("ASISTENTE");
 
 		for (User user : usuarios) {
-
 			jsa.put(user.toJSON());
 		}
-		jso.put("asistentes", jsa);
 
-		return jso;
+
+		return jsa;
 
 	}
 
-	public JSONObject leerActividades() {
+	public JSONArray leerActividades() {
 		JSONArray jsa = new JSONArray();
-		JSONObject jso = new JSONObject();
 		List<Actividad> actividades = ActividadDAO.leerActividades();
 
 		if (!actividades.isEmpty()) {
@@ -106,9 +103,7 @@ public class Manager {
 			}
 		}
 
-		jso.put("actividades", jsa);
-
-		return jso;
+		return jsa;
 
 	}
 
