@@ -36,24 +36,24 @@ function ViewModel() {
 			//Si los minutajes son distintos
 			if (horaIn[1] !== horaFi[1]) {
 				if (horaIn[1] < horaFi[1]) {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + 0.5) * 2 * 50;
+					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + 0.5) * 2 * 51;
 				}
 				else {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - 0.5) * 2 * 50;
+					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - 0.5) * 2 * 51;
 				}
 			}
 			else {
-				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * 2 * 50;
+				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * 2 * 51;
 			}
 
 
 			if ('30' === horaIn[1]) {
 
-				posTop = (parseInt(horaIn[0], 10) - 9 + 0.5) * 2 * 50;
+				posTop = (parseInt(horaIn[0], 10) - 9 + 0.5) * 2 * 51;
 
 			}
 			else {
-				posTop = (parseInt(horaIn[0], 10) - 9) * 2 * 50;
+				posTop = (parseInt(horaIn[0], 10) - 9) * 2 * 51;
 			}
 
 			switch (reunion.dia) {
