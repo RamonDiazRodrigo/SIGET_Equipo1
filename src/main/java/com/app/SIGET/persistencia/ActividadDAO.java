@@ -66,21 +66,5 @@ public final class ActividadDAO {
 
 	}
 
-	/*
-	 * public static void eliminar(Actividad actividad) {
-	 * 
-	 * Document document;
-	 * 
-	 * MongoCollection<Document> coleccion;
-	 * 
-	 * if (user != null) { coleccion = AgenteDB.get().getBd(USUARIO); document = new
-	 * Document("name", user.getName()); } else { coleccion =
-	 * AgenteDB.get().getBd(REU); document = new Document("name",
-	 * actividad.getName()); }
-	 * 
-	 * coleccion.findOneAndDelete(document);
-	 * 
-	 * }
-	 */
 
 }

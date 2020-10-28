@@ -24,22 +24,22 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 
-	public void login(String name, String password) {
+	public void login(String name, String password) throws Exception {
 		boolean login = false;
-		try {
+		
 			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
 			for (User u : usuarios) {
 				login = checkCredenciales(u, name, password);
+				if(login)
+					break;
 			}
 			if(!login) {
 				throw new CredencialesInvalidasException();
 			}
-		} catch (CredencialesInvalidasException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
-	public boolean checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
+	public boolean checkCredenciales(User u, String name, String password) throws Exception {
 		boolean aux = false;
 		if (u.getName().equals(name)) {
 			if (!(u.getPassword().equals(password))) {
@@ -121,6 +121,14 @@ public class Manager {
 
 	public void error() {
 		// sustituir este metodo por su equivalente de los de arriba
+	}
+
+	public JSONObject leer() {
+		JSONObject jso = new JSONObject();
+		jso.put("usuarios", Manager.get().leerUsuarios());
+		jso.put("actividades", Manager.get().leerActividades());
+
+		return jso;
 	}
 
 }
