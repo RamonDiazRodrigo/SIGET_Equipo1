@@ -20,8 +20,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
 		if ("ready".equals(jso.getString(TYPE))) {
-			session.sendMessage(new TextMessage(Manager.get().leerUsuarios().toString()));
-			session.sendMessage(new TextMessage(Manager.get().leerActividades().toString()));
+			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {

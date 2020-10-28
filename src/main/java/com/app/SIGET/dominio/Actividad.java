@@ -68,7 +68,7 @@ public class Actividad {
 	public JSONObject toJSON() {
         JSONObject jso = new JSONObject();
         jso.put("id", this.getId());
-        jso.put("nombre", this.getName());
+        jso.put("name", this.getName());
         jso.put("dia", this.getDia());
         jso.put("HoraI", this.getHoraI());
         jso.put("HoraF", this.getHoraF());

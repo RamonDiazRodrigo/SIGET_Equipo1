@@ -30,6 +30,8 @@ public class Manager {
 			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
 			for (User u : usuarios) {
 				login = checkCredenciales(u, name, password);
+				if(login)
+					break;
 			}
 			if(!login) {
 				throw new CredencialesInvalidasException();
@@ -119,6 +121,14 @@ public class Manager {
 
 	public void error() {
 		// sustituir este metodo por su equivalente de los de arriba
+	}
+
+	public JSONObject leer() {
+		JSONObject jso = new JSONObject();
+		jso.put("usuarios", Manager.get().leerUsuarios());
+		jso.put("actividades", Manager.get().leerActividades());
+
+		return jso;
 	}
 
 }
