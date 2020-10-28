@@ -66,5 +66,16 @@ public final class ActividadDAO {
 
 	}
 
+	public static void eliminar(Actividad a) {
+		Document document;
+		MongoCollection<Document> coleccion;
+
+		if (a != null) {
+			coleccion = AgenteDB.get().getBd(ACTS);
+			document = new Document("name", a.getName());
+			coleccion.findOneAndDelete(document);
+		}
+
+	}
 
 }

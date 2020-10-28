@@ -80,7 +80,7 @@ public class CasoDePrueba {
 	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" distintas$")
 	public void y_distintas(String nombre, String email, String password, String confirmacionPassword, String rol)
 			throws IllegalArgumentException {
-		rol = "ADMIN";
+		rol = "ASISTENTE";
 		Manager.get().register(nombre, email, password, rol);
 	}
 
