@@ -38,7 +38,9 @@ public class Manager {
 			if (login) {
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol().toString());
-				this.session.sendMessage(new TextMessage(jso.toString()));
+				if (this.session != null) {
+					this.session.sendMessage(new TextMessage(jso.toString()));
+				}
 				break;
 			}
 		}
