@@ -1,16 +1,21 @@
 package com.app.SIGET.dominio;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.ActividadDAO;
 import com.app.SIGET.persistencia.UserDAO;
-import com.app.SIGET.excepciones.CredencialesInvalidasException;
 
 public class Manager {
+
+	private WebSocketSession session;
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -30,8 +35,12 @@ public class Manager {
 		ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
 		for (User u : usuarios) {
 			login = checkCredenciales(u, name, password);
-			if (login)
+			if (login) {
+				JSONObject jso = new JSONObject();
+				jso.put("rol", u.getRol().toString());
+				this.session.sendMessage(new TextMessage(jso.toString()));
 				break;
+			}
 		}
 		if (!login) {
 			throw new CredencialesInvalidasException();
@@ -79,7 +88,7 @@ public class Manager {
 		return jso;
 
 	}
-	
+
 	public JSONArray leerAsistentes() {
 		JSONArray jsa = new JSONArray();
 		List<User> usuarios = UserDAO.leerUsers("ASISTENTE");
@@ -87,7 +96,6 @@ public class Manager {
 		for (User user : usuarios) {
 			jsa.put(user.toJSON());
 		}
-
 
 		return jsa;
 
@@ -154,6 +162,10 @@ public class Manager {
 				ActividadDAO.eliminar(a);
 			}
 		}
+	}
+
+	public void setSession(WebSocketSession session) {
+		this.session = session;
 	}
 
 }

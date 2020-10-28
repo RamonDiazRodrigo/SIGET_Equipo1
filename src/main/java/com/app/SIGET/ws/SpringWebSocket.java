@@ -13,6 +13,11 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
+	
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    	Manager.get().setSession(session);
+    }	
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {

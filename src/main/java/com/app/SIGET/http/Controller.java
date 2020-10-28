@@ -4,12 +4,8 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.app.SIGET.dominio.Manager;
-import com.app.SIGET.dominio.Rol;
-import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.excepciones.DiferentesContrasenasException;
 
 @RestController
