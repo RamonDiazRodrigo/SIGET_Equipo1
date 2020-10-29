@@ -4,11 +4,8 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.app.SIGET.dominio.Manager;
-import com.app.SIGET.dominio.Rol;
 import com.app.SIGET.excepciones.DiferentesContrasenasException;
 
 @RestController
@@ -18,16 +15,15 @@ public class Controller {
 	
 
 	@PostMapping("/login")
-	public void login(@RequestBody Map<String, Object> credenciales) {
+	public void login(@RequestBody Map<String, Object> credenciales)  throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
 		String name = jso.getString("userName");
 		String password = jso.getString(PASS);
 		Manager.get().login(name, password);
-
 	}
 
 	@PostMapping("/register")
-	public void register(@RequestBody Map<String, Object> credenciales) throws DiferentesContrasenasException {
+	public void register(@RequestBody Map<String, Object> credenciales) throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
 		String password = jso.getString(PASS);
 		String passwordConfirmacion = jso.getString("pwd2");

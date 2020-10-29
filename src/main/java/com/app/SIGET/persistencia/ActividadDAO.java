@@ -20,7 +20,7 @@ public final class ActividadDAO {
 		super();
 	}
 
-	public static List<Actividad> leerActividades() {
+	public static List<Actividad> leerReuniones() {
 		ArrayList<Actividad> actividades = new ArrayList<>();
 		Document document;
 		Actividad act;
@@ -29,11 +29,13 @@ public final class ActividadDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			LocalTime horaI = LocalTime.of(document.getInteger("horaI", 0), document.getInteger("minutosI", 0));
-			LocalTime horaF = LocalTime.of(document.getInteger("horaF", 0), document.getInteger("minutosF", 0));
-			act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-					DiaSemana.valueOf(document.getString("dia")), horaI, horaF);
-			actividades.add(act);
+			//if (Boolean.parseBoolean(document.getString("reunion"))) {
+				LocalTime horaI = LocalTime.of(document.getInteger("horaI", 0), document.getInteger("minutosI", 0));
+				LocalTime horaF = LocalTime.of(document.getInteger("horaF", 0), document.getInteger("minutosF", 0));
+				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
+						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
+				actividades.add(act);
+			//}
 		}
 		return actividades;
 	}
@@ -50,6 +52,7 @@ public final class ActividadDAO {
 			document.append("minutosI", actividad.getHoraI().getMinute());
 			document.append("horaF", actividad.getHoraF().getHour());
 			document.append("minutosF", actividad.getHoraF().getMinute());
+			document.append("reunion", actividad.isReunion());
 			coleccion.insertOne(document);
 			coleccion = AgenteDB.get().getBd(USUARIO);
 			document = new Document("name", user.getName());
@@ -66,21 +69,16 @@ public final class ActividadDAO {
 
 	}
 
-	/*
-	 * public static void eliminar(Actividad actividad) {
-	 * 
-	 * Document document;
-	 * 
-	 * MongoCollection<Document> coleccion;
-	 * 
-	 * if (user != null) { coleccion = AgenteDB.get().getBd(USUARIO); document = new
-	 * Document("name", user.getName()); } else { coleccion =
-	 * AgenteDB.get().getBd(REU); document = new Document("name",
-	 * actividad.getName()); }
-	 * 
-	 * coleccion.findOneAndDelete(document);
-	 * 
-	 * }
-	 */
+	public static void eliminar(Actividad a) {
+		Document document;
+		MongoCollection<Document> coleccion;
+
+		if (a != null) {
+			coleccion = AgenteDB.get().getBd(ACTS);
+			document = new Document("name", a.getName());
+			coleccion.findOneAndDelete(document);
+		}
+
+	}
 
 }

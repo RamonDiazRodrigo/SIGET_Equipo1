@@ -12,21 +12,24 @@ public class Actividad {
 	private DiaSemana dia;
 	private LocalTime horaI;
 	private LocalTime horaF;
-	
-	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
+	private boolean reunion;
+
+	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
 		this.id = count.incrementAndGet();
 		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
+		this.reunion = reunion;
 	}
 
-	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
+	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
 		this.id = id;
 		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
+		this.reunion = reunion;
 	}
 
 	public String getName() {
@@ -36,7 +39,7 @@ public class Actividad {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public DiaSemana getDia() {
 		return this.dia;
 	}
@@ -44,7 +47,7 @@ public class Actividad {
 	public void setFecha(DiaSemana dia) {
 		this.dia = dia;
 	}
-	
+
 	public LocalTime getHoraI() {
 		return this.horaI;
 	}
@@ -52,7 +55,7 @@ public class Actividad {
 	public void setHoraI(LocalTime horaI) {
 		this.horaI = horaI;
 	}
-	
+
 	public LocalTime getHoraF() {
 		return this.horaF;
 	}
@@ -65,14 +68,23 @@ public class Actividad {
 		return this.id;
 	}
 	
+	public void setReunion(boolean reunion) {
+		this.reunion = reunion;
+	}
+	
+	public boolean isReunion() {
+		return this.reunion;
+	}
+
 	public JSONObject toJSON() {
-        JSONObject jso = new JSONObject();
-        jso.put("id", this.getId());
-        jso.put("nombre", this.getName());
-        jso.put("dia", this.getDia());
-        jso.put("HoraI", this.getName());
-        jso.put("HoraF", this.getName());
-        return jso;
-    }
+		JSONObject jso = new JSONObject();
+		jso.put("id", this.getId());
+		jso.put("name", this.getName());
+		jso.put("dia", this.getDia());
+		jso.put("HoraI", this.getHoraI());
+		jso.put("HoraF", this.getHoraF());
+		jso.put("Reunion",this.isReunion());
+		return jso;
+	}
 
 }

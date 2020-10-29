@@ -8,24 +8,29 @@ import cucumber.api.java.en.When;
 
 public class CasoDePruebaIntroducirRestricciones {	
 
-	
-	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\" y \"([^\"]*)\" involucrado$")
-	public void String_String_String_String_y_involucrado(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario) throws NumberFormatException {
+	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\", \"([^\"]*)\" involucrado y si es \"([^\"]*)\"$")
+	public void involucrado_y_si_es(String nombre, String dia, String horaI, String minutosI, String horaF,
+			String minutosF, String usuario, String reunion) throws NumberFormatException {
+		dia="LUNES";
 		horaI="10";
 		minutosI="00";
 		horaF="11";
 		minutosF="30";
-		Manager.get().insertarActividad(nombre, dia, horaI, minutosI, horaF, minutosF, usuario);
+		usuario="nombre";
+		reunion="true";
+		Manager.get().insertarActividad(nombre, dia, horaI, minutosI, horaF, minutosF, usuario, reunion);
 	}
 
-	@Then("^se añade la actividad no laborable con \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" y se vincula al \"([^\"]*)\"$")
-	public void se_añade_la_actividad_no_laborable_con_y_y_se_vincula_al(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario) throws NumberFormatException {
+	@Then("^se aniade la actividad no laborable con \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y se vincula al \"([^\"]*)\"$")
+	public void se_aniade_la_actividad_no_laborable_con_y_se_vincula_al(String nombre, String dia, String horaI, String minutosI, String horaF,
+			String minutosF, String usuario, String reunion) throws NumberFormatException {
+		dia="LUNES";
 		horaI="10";
 		minutosI="00";
 		horaF="11";
 		minutosF="30";
+		usuario="nombre";
+		reunion="true";
 	}
 
 	@When("^usuario no esta registrado$")

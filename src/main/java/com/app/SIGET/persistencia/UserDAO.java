@@ -6,7 +6,6 @@ import org.bson.Document;
 import org.springframework.stereotype.Repository;
 import com.app.SIGET.dominio.Asistente;
 import com.app.SIGET.dominio.Horario;
-import com.app.SIGET.dominio.Rol;
 import com.app.SIGET.dominio.Admin;
 import com.app.SIGET.dominio.User;
 import com.mongodb.client.MongoCollection;
@@ -18,6 +17,8 @@ public final class UserDAO {
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	public static final String NAME = "name";
+	public static final String ADMIN = "ADMIN";
+	public static final String HORARIO = "horario";
 
 	private UserDAO() {
 		super();
@@ -32,16 +33,40 @@ public final class UserDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			if (("ADMIN").equals(document.getString("rol"))) {
+			if ((ADMIN).equals(document.getString("rol"))) {
 				u = new Admin(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 			} else {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
-				((Asistente) u).setHorario(Horario.String2Horario(document.getString("horario")));
+				((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
 			}
 
 			usuarios.add(u);
 		}
 
+		return usuarios;
+	}
+
+	public static List<User> leerUsers(String rol) {
+		ArrayList<User> usuarios = new ArrayList<>();
+		Document document;
+		User u;
+		MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
+		MongoCursor<Document> iter = coleccion.find().iterator();
+
+		while ((iter.hasNext())) {
+			document = iter.next();
+			if ((rol).equals(document.getString("rol"))) {
+				if (ADMIN.equals(rol)) {
+					u = new Admin(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
+				} else {
+					u = new Asistente(document.getString(NAME), document.getString(EMAIL),
+							document.getString(PASSWORD));
+					((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
+				}
+
+				usuarios.add(u);
+			}
+		}
 		return usuarios;
 	}
 
@@ -60,7 +85,7 @@ public final class UserDAO {
 	}
 
 	public static void eliminar(User user) {
-		
+
 		Document document;
 		MongoCollection<Document> coleccion;
 
