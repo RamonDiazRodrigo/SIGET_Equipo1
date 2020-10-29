@@ -1,6 +1,6 @@
 let self;
 
-function ViewModel() {
+function viewModel() {
 	self = this;
 	self.listaReunionesL = ko.observableArray([]);
 	self.listaReunionesM = ko.observableArray([]);
@@ -9,11 +9,11 @@ function ViewModel() {
 	self.listaReunionesV = ko.observableArray([]);
 
 
-	var url = "ws://" + window.location.host + "/SIGETEquipo1";
+	const url = 'ws://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function() {
-		let msg = {
+		const msg = {
 			type: 'ready'
 		};
 		self.sws.send(JSON.stringify(msg));
@@ -24,140 +24,131 @@ function ViewModel() {
 		data = JSON.parse(data);
 
 		// Listar usuarios
-		let reuniones = data.actividades.actividades;
+		const reuniones = data.actividades;
 
 		for (let i = 0; i < reuniones.length; i++) {
-			let reunion = reuniones[i];
-			let horaIn = reunion.HoraI.split(':');
-			let horaFi = reunion.HoraF.split(':');
+			const reunion = reuniones[i];
+			const horaIn = reunion.HoraI.split(':');
+			const horaFi = reunion.HoraF.split(':');
 			let posTop = 0;
 			let length = 0;
+			const px = 50.3;
+			const nmediaHora = 2;
+			const mediaHora = 0.5;
 
 			//Si los minutajes son distintos
 			if (horaIn[1] !== horaFi[1]) {
 				if (horaIn[1] < horaFi[1]) {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + 0.5) * 2 * 51;
+					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+				} else {
+					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - mediaHora) * nmediaHora * px;
 				}
-				else {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - 0.5) * 2 * 51;
-				}
-			}
-			else {
-				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * 2 * 51;
+			} else {
+				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * nmediaHora * px;
 			}
 
 
 			if ('30' === horaIn[1]) {
 
-				posTop = (parseInt(horaIn[0], 10) - 9 + 0.5) * 2 * 51;
+				posTop = (parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
 
+			} else {
+				posTop = (parseInt(horaIn[0], 10)) * nmediaHora * px;
 			}
-			else {
-				posTop = (parseInt(horaIn[0], 10) - 9) * 2 * 51;
-			}
-
-			switch (reunion.dia) {
-				case 'LUNES':
-					if (self.listaReunionesL().some(r => r.name === reunion.name) === false) {
-						self.listaReunionesL.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1], posTop, length));
-					}
-
-					var ul = document.getElementById("lunes");
-					let itemsL = ul.getElementsByTagName("li");
-					for (let i = 0; i < itemsL.length; i++) {
-						if (itemsL[i].innerText === reunion.name) {
-							itemsL[i].style.top = posTop.toString() + "px";
-							itemsL[i].style.height = length.toString() + "px";
-						}
-					}
-					break;
-
-				case 'MARTES':
-				if (self.listaReunionesM().some(r => r.name === reunion.name) === false) {
-						self.listaReunionesM.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1], posTop, length));
-					}
-
-					var ul = document.getElementById("martes");
-					let itemsM = ul.getElementsByTagName("li");
-					for (let i = 0; i < itemsM.length; i++) {
-						if (itemsM[i].innerText === reunion.name) {
-							itemsM[i].style.top = posTop.toString() + "px";
-							itemsM[i].style.height = length.toString() + "px";
-						}
-					}
-					
-					break;
+			aniadirReunion(posTop, length, reunion, horaIn, horaFi);
 
 
-				case 'MIERCOLES':
-				if (self.listaReunionesX().some(r => r.name === reunion.name) === false) {
-						self.listaReunionesX.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1], posTop, length));
-					}
-
-					var ul = document.getElementById("miercoles");
-					let itemsX = ul.getElementsByTagName("li");
-					for (let i = 0; i < itemsX.length; i++) {
-						if (itemsX[i].innerText === reunion.name) {
-							itemsX[i].style.top = posTop.toString() + "px";
-							itemsX[i].style.height = length.toString() + "px";
-						}
-					}
-					
-					break;
-
-
-				case 'JUEVES':
-				if (self.listaReunionesJ().some(r => r.name === reunion.name) === false) {
-						self.listaReunionesJ.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1], posTop, length));
-					}
-
-					var ul = document.getElementById("jueves");
-					let itemsJ = ul.getElementsByTagName("li");
-					for (let i = 0; i < itemsJ.length; i++) {
-						if (itemsJ[i].innerText === reunion.name) {
-							itemsJ[i].style.top = posTop.toString() + "px";
-							itemsJ[i].style.height = length.toString() + "px";
-						}
-					}
-					
-					break;
-
-				case 'VIERNES':
-				if (self.listaReunionesV().some(r => r.name === reunion.name) === false) {
-						self.listaReunionesV.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1], posTop, length));
-					}
-
-					var ul = document.getElementById("viernes");
-					let itemsV = ul.getElementsByTagName("li");
-					for (let i = 0; i < itemsV.length; i++) {
-						if (itemsV[i].innerText === reunion.name) {
-							itemsV[i].style.top = posTop.toString() + "px";
-							itemsV[i].style.height = length.toString() + "px";
-						}
-					}
-					
-					break;
-
-
-			}
 
 		}
 	};
 
+	function aniadirReunion(posTop, length, reunion, horaIn, horaFi) {
+
+		switch (reunion.dia) {
+			case 'LUNES':
+
+				if (self.listaReunionesL().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesL.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+
+				estilizarLI(posTop, length, reunion);
+
+
+				break;
+
+			case 'MARTES':
+				if (self.listaReunionesM().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesM.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+
+				estilizarLI(posTop, length, reunion);
+
+
+
+				break;
+
+
+			case 'MIERCOLES':
+				if (self.listaReunionesX().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesX.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+
+				estilizarLI(posTop, length, reunion);
+
+				break;
+
+
+			case 'JUEVES':
+				if (self.listaReunionesJ().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesJ.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+
+				estilizarLI(posTop, length, reunion);
+
+				break;
+
+			case 'VIERNES':
+
+				if (self.listaReunionesV().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesV.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+
+				estilizarLI(posTop, length, reunion);
+
+				break;
+
+			default:
+				break;
+
+
+		}
+
+	}
+
+	function estilizarLI(posTop, length, reunion) {
+		const ulL = document.getElementById(reunion.dia.toLowerCase());
+		const itemsL = ulL.getElementsByTagName('li');
+		for (let n = 0; n < itemsL.length; n++) {
+			if (itemsL[n].innerText === reunion.name) {
+				itemsL[n].style.top = posTop.toString() + 'px';
+				itemsL[n].style.height = length.toString() + 'px';
+			}
+		}
+
+	}
+
 
 	class Reunion {
-		constructor(name, dia, horaI, minutosI, horaF, minutosF, posTop, length) {
+		constructor(name, dia, horaI, minutosI, horaF, minutosF) {
 			this.name = name;
 			this.dia = dia;
 			this.horaI = horaI;
 			this.minutosI = minutosI;
 			this.horaF = horaF;
 			this.minutosF = minutosF;
-			this.posTop = posTop;
-			this.length = length;
 		}
 	}
 
 }
-let vm = new ViewModel();
+const vm = new viewModel();
 ko.applyBindings(vm);
