@@ -103,9 +103,9 @@ public class Manager {
 
 	}
 
-	public JSONArray leerActividades() {
+	public JSONArray leerReuniones() {
 		JSONArray jsa = new JSONArray();
-		List<Actividad> actividades = ActividadDAO.leerActividades();
+		List<Actividad> actividades = ActividadDAO.leerReuniones();
 
 		if (!actividades.isEmpty()) {
 			for (Actividad act : actividades) {
@@ -118,17 +118,18 @@ public class Manager {
 	}
 
 	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario) {
+			String minutosF, String usuario, String reunion) {
 
 		List<User> users = UserDAO.leerUsers();
 
 		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
+		boolean reunionB = Boolean.parseBoolean(reunion);
 
 		for (User user : users) {
 			if (usuario.equals(user.getName()) && user.getRol() == Rol.ASISTENTE) {
 				ActividadDAO.insertarActividad((Asistente) user,
-						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin));
+						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB));
 			}
 		}
 	}
@@ -148,7 +149,7 @@ public class Manager {
 	public JSONObject leer() {
 		JSONObject jso = new JSONObject();
 		jso.put("usuarios", Manager.get().leerAsistentes());
-		jso.put("actividades", Manager.get().leerActividades());
+		jso.put("actividades", Manager.get().leerReuniones());
 
 		return jso;
 	}
@@ -159,7 +160,7 @@ public class Manager {
 				UserDAO.eliminar(u);
 			}
 		}
-		for (Actividad a : ActividadDAO.leerActividades()) {
+		for (Actividad a : ActividadDAO.leerReuniones()) {
 			if ("nombre periodo no laborable".equals(a.getName())) {
 				ActividadDAO.eliminar(a);
 			}

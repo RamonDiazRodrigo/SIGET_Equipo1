@@ -107,7 +107,7 @@ public class CasoDePrueba {
 
 	@When("^en la vista admin\\.html se clicka el boton verAgendaGeneral$")
 	public void en_la_vista_admin_html_se_clicka_el_boton_verAgendaGeneral() throws Throwable {
-		Manager.get().leerActividades();
+		Manager.get().leerReuniones();
 	}
 
 	@Then("^veo la agenda general$")

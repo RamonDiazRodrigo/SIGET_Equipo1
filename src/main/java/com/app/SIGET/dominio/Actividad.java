@@ -12,21 +12,24 @@ public class Actividad {
 	private DiaSemana dia;
 	private LocalTime horaI;
 	private LocalTime horaF;
+	private boolean reunion;
 
-	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
+	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
 		this.id = count.incrementAndGet();
 		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
+		this.reunion = reunion;
 	}
 
-	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF) {
+	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
 		this.id = id;
 		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
 		this.horaF = horaF;
+		this.reunion = reunion;
 	}
 
 	public String getName() {
@@ -64,6 +67,14 @@ public class Actividad {
 	public int getId() {
 		return this.id;
 	}
+	
+	public void setReunion(boolean reunion) {
+		this.reunion = reunion;
+	}
+	
+	public boolean isReunion() {
+		return this.reunion;
+	}
 
 	public JSONObject toJSON() {
 		JSONObject jso = new JSONObject();
@@ -72,6 +83,7 @@ public class Actividad {
 		jso.put("dia", this.getDia());
 		jso.put("HoraI", this.getHoraI());
 		jso.put("HoraF", this.getHoraF());
+		jso.put("Reunion",this.isReunion());
 		return jso;
 	}
 
