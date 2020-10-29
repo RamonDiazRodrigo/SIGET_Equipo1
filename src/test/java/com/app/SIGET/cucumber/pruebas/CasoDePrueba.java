@@ -13,6 +13,8 @@ public class CasoDePrueba {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos asistente$")
 	public void acceso_con_y_correctos_asistente(String nombre, String password) throws Exception {
+		nombre="a";
+		password="a";
 		Manager.get().login(nombre, password);
 	}
 
@@ -27,6 +29,8 @@ public class CasoDePrueba {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos admin$")
 	public void acceso_con_y_correctos_admin(String nombre, String password) throws Exception {
+		nombre="a";
+		password="a";
 		Manager.get().login(nombre, password);
 	}
 
@@ -41,6 +45,8 @@ public class CasoDePrueba {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\"$")
 	public void acceso_con_y(String nombre, String password) throws Exception {
+		nombre="a";
+		password="a";
 		Manager.get().login(nombre, password);
 	}
 
@@ -80,7 +86,7 @@ public class CasoDePrueba {
 	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" distintas$")
 	public void y_distintas(String nombre, String email, String password, String confirmacionPassword, String rol)
 			throws IllegalArgumentException {
-		rol = "ADMIN";
+		rol = "ASISTENTE";
 		Manager.get().register(nombre, email, password, rol);
 	}
 
@@ -101,7 +107,7 @@ public class CasoDePrueba {
 
 	@When("^en la vista admin\\.html se clicka el boton verAgendaGeneral$")
 	public void en_la_vista_admin_html_se_clicka_el_boton_verAgendaGeneral() throws Throwable {
-		Manager.get().leerActividades();
+		Manager.get().leerReuniones();
 	}
 
 	@Then("^veo la agenda general$")

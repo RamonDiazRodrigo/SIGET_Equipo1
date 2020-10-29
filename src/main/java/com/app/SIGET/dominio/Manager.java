@@ -1,16 +1,21 @@
 package com.app.SIGET.dominio;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import com.app.SIGET.excepciones.CredencialesInvalidasException;
 import com.app.SIGET.persistencia.ActividadDAO;
 import com.app.SIGET.persistencia.UserDAO;
-import com.app.SIGET.excepciones.CredencialesInvalidasException;
 
 public class Manager {
+
+	private WebSocketSession session;
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -26,33 +31,39 @@ public class Manager {
 
 	public void login(String name, String password) throws Exception {
 		boolean login = false;
-		
-			ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
-			for (User u : usuarios) {
-				login = checkCredenciales(u, name, password);
-				if(login)
-					break;
+
+		ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
+		for (User u : usuarios) {
+			login = checkCredenciales(u, name, password);
+			if (login) {
+				JSONObject jso = new JSONObject();
+				jso.put("rol", u.getRol().toString());
+				if (this.session != null) {
+					this.session.sendMessage(new TextMessage(jso.toString()));
+				}
+				break;
 			}
-			if(!login) {
-				throw new CredencialesInvalidasException();
-			}
-		
+		}
+		if (!login) {
+			throw new CredencialesInvalidasException();
+		}
+
 	}
 
 	public boolean checkCredenciales(User u, String name, String password) throws Exception {
 		boolean aux = false;
 		if (u.getName().equals(name)) {
 			if (!(u.getPassword().equals(password))) {
-				
+
 				throw new CredencialesInvalidasException();
-				
+
 			} else {
 				System.out.println("Sucessful login");
 				aux = true;
 			}
 		}
 		return aux;
-		
+
 	}
 
 	public void register(String name, String email, String password, String rolS) {
@@ -80,10 +91,21 @@ public class Manager {
 
 	}
 
-	public JSONObject leerActividades() {
+	public JSONArray leerAsistentes() {
 		JSONArray jsa = new JSONArray();
-		JSONObject jso = new JSONObject();
-		List<Actividad> actividades = ActividadDAO.leerActividades();
+		List<User> usuarios = UserDAO.leerUsers("ASISTENTE");
+
+		for (User user : usuarios) {
+			jsa.put(user.toJSON());
+		}
+
+		return jsa;
+
+	}
+
+	public JSONArray leerReuniones() {
+		JSONArray jsa = new JSONArray();
+		List<Actividad> actividades = ActividadDAO.leerReuniones();
 
 		if (!actividades.isEmpty()) {
 			for (Actividad act : actividades) {
@@ -91,22 +113,23 @@ public class Manager {
 			}
 		}
 
-		jso.put("actividades", jsa);
-
-		return jso;
+		return jsa;
 
 	}
 
-	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF, String usuario) {
+	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF,
+			String minutosF, String usuario, String reunion) {
 
 		List<User> users = UserDAO.leerUsers();
-		
-		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI),Integer.parseInt(minutosI));
-		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF),Integer.parseInt(minutosF));
-		
+
+		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
+		boolean reunionB = Boolean.parseBoolean(reunion);
+
 		for (User user : users) {
-			if (usuario.equals(user.getName()) && user.getRol()==Rol.ASISTENTE) {
-				ActividadDAO.insertarActividad((Asistente) user, new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin));
+			if (usuario.equals(user.getName()) && user.getRol() == Rol.ASISTENTE) {
+				ActividadDAO.insertarActividad((Asistente) user,
+						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB));
 			}
 		}
 	}
@@ -125,10 +148,27 @@ public class Manager {
 
 	public JSONObject leer() {
 		JSONObject jso = new JSONObject();
-		jso.put("usuarios", Manager.get().leerUsuarios());
-		jso.put("actividades", Manager.get().leerActividades());
+		jso.put("usuarios", Manager.get().leerAsistentes());
+		jso.put("actividades", Manager.get().leerReuniones());
 
 		return jso;
+	}
+
+	public void eliminarTests() {
+		for (User u : UserDAO.leerUsers()) {
+			if ("nombre".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+		}
+		for (Actividad a : ActividadDAO.leerReuniones()) {
+			if ("nombre periodo no laborable".equals(a.getName())) {
+				ActividadDAO.eliminar(a);
+			}
+		}
+	}
+
+	public void setSession(WebSocketSession session) {
+		this.session = session;
 	}
 
 }
