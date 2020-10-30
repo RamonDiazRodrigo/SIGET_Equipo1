@@ -1,6 +1,5 @@
 package com.app.SIGET.dominio;
 
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,6 +168,63 @@ public class Manager {
 
 	public void setSession(WebSocketSession session) {
 		this.session = session;
+	}
+
+	public JSONArray leerActividades(String nombre) {
+		JSONArray jsa = new JSONArray();
+
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				int[][] aux = u.getHorario().getMatrizHorario();
+				jsa = buscarActividades(aux, jsa);
+
+			}
+		}
+
+		return jsa;
+	}
+
+	// Este metodo encuentra las actividades que estan en el horario del usuario
+	private static JSONArray buscarActividades(int[][] aux, JSONArray jsa) {
+
+		for (int i = 0; i < aux.length; i++) {
+			for (int j = 0; j < aux[0].length; j++) {
+				if (aux[i][j] != 0) {
+					jsa = encontrarActividades(jsa, aux, i, j);
+
+				}
+			}
+
+		}
+		return jsa;
+
+	}
+
+//Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
+
+	private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int i, int j) {
+		boolean repetido = false;
+		for (Actividad act : ActividadDAO.leerActividades()) {
+			if (act.getId() == aux[i][j]) {
+				repetido = actividadRepetida(jsa, act);
+
+				if (!repetido) {
+					jsa.put(act.toJSON());
+				}
+
+			}
+		}
+		return jsa;
+
+	}
+
+	private static boolean actividadRepetida(JSONArray jsa, Actividad act) {
+		for (int j2 = 0; j2 < jsa.length(); j2++) {
+			if (jsa.getJSONObject(j2).getInt("id") == (act.getId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
