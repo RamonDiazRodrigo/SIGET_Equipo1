@@ -1,5 +1,7 @@
 package com.app.SIGET.dominio;
 
+import org.json.JSONObject;
+
 public class Admin extends User {
 
 	public Admin(String name, String email, String password) {
@@ -9,6 +11,12 @@ public class Admin extends User {
 		this.password = password;
 		this.rol = Rol.ADMIN;
 		
+	}
+
+	@Override
+	protected JSONObject toJSON() {
+		//Por rellenar
+		return null;
 	}
 
 }
