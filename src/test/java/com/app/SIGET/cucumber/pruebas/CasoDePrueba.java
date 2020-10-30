@@ -113,5 +113,15 @@ public class CasoDePrueba {
 	@Then("^veo la agenda general$")
 	public void veo_la_agenda_general() throws Throwable {
 	}
+	
+	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" asistente$")
+	public void acceso_con_y_asistente(String nombre, String password) throws Throwable {
+		Manager.get().login(nombre, password);
+	}
+	
+	@Then("^veo la agenda del usuario$")
+	public void veo_la_agenda_del_usuario() throws Throwable {
+		Manager.get().leerReuniones();
+	}
 
 }
