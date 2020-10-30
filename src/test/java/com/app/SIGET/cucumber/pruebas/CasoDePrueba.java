@@ -119,10 +119,9 @@ public class CasoDePrueba {
 		Manager.get().login(nombre, password);
 	}
 	
-	
-	@Then("^veo la agenda del usuario$")
-	public void veo_la_agenda_del_usuario() throws Throwable {
-		Manager.get().leerReuniones();
+	@Then("^veo la agenda del \"([^\"]*)\"$")
+	public void veo_la_agenda_del(String usuario) throws Throwable {
+		Manager.get().leerActividades(usuario);
 	}
 
 }
