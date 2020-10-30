@@ -1,0 +1,9 @@
+#hide-me {
+  background: #bf7130;
+  display: block;
+  font-weight: bold;
+  float: left;
+  text-align: center;
+  background: rgba(0, 0, 0, .15);
+  visibility: hidden;
+}

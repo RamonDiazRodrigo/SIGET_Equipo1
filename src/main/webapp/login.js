@@ -16,7 +16,10 @@ sws.onmessage = function(event) {
 		window.location.href="admin.html";
 	}
 	if(data.rol=="ASISTENTE"){
-		window.location.href="asistente.html";
+		window.location.href="usuario.html";
+	}
+	if(data.rol=="ORGANIZADOR") {
+		window.location.href="organizador.html";
 	}
 
 }
