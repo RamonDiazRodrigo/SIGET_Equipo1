@@ -37,6 +37,7 @@ let login  = function() {
 		type: 'post',
 		contentType: 'application/json',
 		success : function() {
+			sessionStorage.userName = $('#username').val();
 		},
 		error : function(response) {
 			
