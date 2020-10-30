@@ -17,6 +17,7 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
+
 Feature: vistaUsuario
 
   @tag1
