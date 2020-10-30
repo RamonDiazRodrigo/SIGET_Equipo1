@@ -10,12 +10,18 @@ public class Admin extends User {
 		this.email = email;
 		this.password = password;
 		this.rol = Rol.ADMIN;
-		
+
 	}
 
 	@Override
 	protected JSONObject toJSON() {
-		//Por rellenar
+		// Por rellenar
+		return null;
+	}
+
+	@Override
+	protected Horario getHorario() {
+		// Por implementar
 		return null;
 	}
 
