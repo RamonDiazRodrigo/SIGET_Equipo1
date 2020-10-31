@@ -18,9 +18,7 @@ sws.onmessage = function(event) {
 	if(data.rol=="ASISTENTE"){
 		window.location.href="usuario.html";
 	}
-	if(data.rol=="ORGANIZADOR") {
-		window.location.href="organizador.html";
-	}
+	
 
 }
 

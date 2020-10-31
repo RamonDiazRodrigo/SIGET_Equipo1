@@ -15,14 +15,13 @@ public class Admin extends User {
 
 	@Override
 	protected JSONObject toJSON() {
-		// Por rellenar
-		return null;
+		JSONObject jso = new JSONObject();
+		jso.put("name", this.getName());
+		jso.put("email", this.getEmail());
+		jso.put("password", this.getPassword());
+		jso.put("rol", this.getRol());
+		return jso;
 	}
 
-	@Override
-	protected Horario getHorario() {
-		// Por implementar
-		return null;
-	}
 
 }

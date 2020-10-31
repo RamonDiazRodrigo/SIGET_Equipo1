@@ -34,7 +34,7 @@ public final class ActividadDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			if (Boolean.parseBoolean(document.getString(REUNION))) {
+			if (document.getBoolean(REUNION)) {
 				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
@@ -111,6 +111,35 @@ public final class ActividadDAO {
 			coleccion.findOneAndDelete(document);
 		}
 
+	}
+
+	public static Actividad leerActividad(int id) {
+		
+		Document document;
+		Actividad act=null;
+		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
+		MongoCursor<Document> iter = coleccion.find().iterator();
+
+		while ((iter.hasNext())) {
+			document = iter.next();
+			if (id == (document.getInteger("id"))) {
+
+				if (document.getBoolean(REUNION)) {
+					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
+					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
+					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
+					
+				} else {
+					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
+					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
+					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
+					
+				}
+			}
+		}
+		return act;
 	}
 
 }
