@@ -88,7 +88,8 @@ function viewModel() {
 	}
 
 	function estilizarLI(posTop, length, reunion) {
-		const ulL = document.getElementById(reunion.dia.toLowerCase());
+		var calendar = document.getElementById("calendar").contentDocument;
+		const ulL = calendar.getElementById(reunion.dia.toLowerCase());
 		const itemsL = ulL.getElementsByTagName('li');
 		for (let n = 0; n < itemsL.length; n++) {
 			if (itemsL[n].innerText === reunion.name) {
