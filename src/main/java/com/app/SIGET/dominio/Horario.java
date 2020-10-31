@@ -26,6 +26,14 @@ public class Horario {
 		}
 	}
 
+	public int[][] getMatrizHorario() {
+		return matrizHorario;
+	}
+
+	public void setMatrizHorario(int[][] matrizHorario) {
+		this.matrizHorario = matrizHorario;
+	}
+
 	public static Horario String2Horario(String hor) {
 		
 		Horario horario = new Horario();

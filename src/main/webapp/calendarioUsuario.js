@@ -8,13 +8,16 @@ function viewModel() {
 	self.listaReunionesJ = ko.observableArray([]);
 	self.listaReunionesV = ko.observableArray([]);
 
+
 	const url = 'ws://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function() {
 		const msg = {
-			type: 'ready'
+			type: 'leerActividades',
+			nombre: sessionStorage.userName
 		};
+		
 		self.sws.send(JSON.stringify(msg));
 	};
 
@@ -23,7 +26,7 @@ function viewModel() {
 		data = JSON.parse(data);
 
 		// Listar usuarios
-		const reuniones = data.actividades;
+		const reuniones = data;
 
 		for (let i = 0; i < reuniones.length; i++) {
 			const reunion = reuniones[i];

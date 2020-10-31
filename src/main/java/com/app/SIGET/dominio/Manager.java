@@ -1,6 +1,5 @@
 package com.app.SIGET.dominio;
 
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,7 @@ public class Manager {
 		for (User u : usuarios) {
 			login = checkCredenciales(u, name, password);
 			if (login) {
+				
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol().toString());
 				if (this.session != null) {
@@ -106,7 +106,6 @@ public class Manager {
 	public JSONArray leerReuniones() {
 		JSONArray jsa = new JSONArray();
 		List<Actividad> actividades = ActividadDAO.leerReuniones();
-
 		if (!actividades.isEmpty()) {
 			for (Actividad act : actividades) {
 				jsa.put(act.toJSON());
@@ -170,5 +169,72 @@ public class Manager {
 	public void setSession(WebSocketSession session) {
 		this.session = session;
 	}
+
+	public JSONArray leerActividades(String nombre) {
+		JSONArray jsa = new JSONArray();
+		int[][] horario;
+		
+
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				horario = ((Asistente)u).getHorario().getMatrizHorario();
+				jsa = buscarActividades(horario, jsa);
+
+			}
+		}
+		
+		
+		return jsa;
+	}
+
+	// Este metodo encuentra las actividades que estan en el horario del usuario
+	private static JSONArray buscarActividades(int[][] horario, JSONArray jsa) {
+		Actividad a;
+		List<Actividad> actividades = new ArrayList<>();
+		for (int i = 0; i < horario.length; i++) {
+			for (int j = 0; j < horario[0].length; j++) {
+				if (horario[i][j] != 0) {
+					a= ActividadDAO.leerActividad(horario[i][j]);
+					if (!actividades.contains(a)) {
+						jsa.put(a.toJSON());
+						actividades.add(a);
+					}
+					
+				}
+			}
+
+		}
+		return jsa;
+
+	}
+
+//Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
+/*
+	private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int i, int j) {
+		boolean repetido = false;
+		for (Actividad act : ActividadDAO.leerActividades()) {
+			if (act.getId() == aux[i][j]) {
+				repetido = actividadRepetida(jsa, act);
+
+				if (!repetido) {
+					jsa.put(act.toJSON());
+				}
+
+			}
+		}
+		return jsa;
+
+	}
+	
+
+	private static boolean actividadRepetida(JSONArray jsa, Actividad act) {
+		for (int j2 = 0; j2 < jsa.length(); j2++) {
+			if (jsa.getJSONObject(j2).getInt("id") == (act.getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	*/
 
 }

@@ -38,6 +38,7 @@ public final class UserDAO {
 			} else {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 				((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
+			
 			}
 
 			usuarios.add(u);

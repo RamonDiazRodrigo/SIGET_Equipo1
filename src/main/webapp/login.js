@@ -16,8 +16,9 @@ sws.onmessage = function(event) {
 		window.location.href="admin.html";
 	}
 	if(data.rol=="ASISTENTE"){
-		window.location.href="asistente.html";
+		window.location.href="usuario.html";
 	}
+	
 
 }
 
@@ -34,6 +35,7 @@ let login  = function() {
 		type: 'post',
 		contentType: 'application/json',
 		success : function() {
+			sessionStorage.userName = $('#username').val();
 		},
 		error : function(response) {
 			

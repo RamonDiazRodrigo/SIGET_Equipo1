@@ -13,11 +13,11 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
-	
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    	Manager.get().setSession(session);
-    }	
+
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		Manager.get().setSession(session);
+	}
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
@@ -29,19 +29,18 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		if ("insertar".equals(jso.getString(TYPE))) {
 
-			Manager.get().insertarActividad((String)jso.get(NOMBRE),jso.getString("dia"),jso.getString("horaInicio")
-					,jso.getString("minutoInicio"), jso.getString("horaFinal"),jso.getString("minutoFinal"),jso.getString("usuarios"),"false");
-			session.sendMessage(new TextMessage(Manager.get().leerReuniones().toString()));
+			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString("dia"), jso.getString("horaInicio"),
+					jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"),
+					jso.getString("usuarios"), "false");
 		}
-		
-		if ("actualizar".equals(jso.getString(TYPE))) {
-			Manager.get().actualizar((String) jso.get(NOMBRE), jso.getBoolean("done"));
-			//session.sendMessage(new TextMessage(Manager.get().leer().toString()));
+
+		if ("leerActividades".equals(jso.getString(TYPE))) {
+			session.sendMessage(new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
 		}
 
 		if ("eliminar".equals(jso.getString(TYPE))) {
 			Manager.get().eliminar((String) jso.get(NOMBRE));
-			//session.sendMessage(new TextMessage(Manager.get().leer().toString()));
+			// session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 
 		}
 	}
