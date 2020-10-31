@@ -32,7 +32,6 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString("dia"), jso.getString("horaInicio"),
 					jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"),
 					jso.getString("usuarios"), "false");
-			session.sendMessage(new TextMessage(Manager.get().leerReuniones().toString()));
 		}
 
 		if ("leerActividades".equals(jso.getString(TYPE))) {

@@ -1,5 +1,6 @@
 package com.app.SIGET.dominio;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class User {
@@ -39,6 +40,8 @@ public abstract class User {
 	
 	protected abstract JSONObject toJSON();
 	
-	protected abstract Horario getHorario();
+	
+	
+	
 
 }

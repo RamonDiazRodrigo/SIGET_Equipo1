@@ -30,9 +30,32 @@
 <link rel="stylesheet" href="usuario.css">
 </head>
 <body>
+	
 	<div class="container">
-		<button id="visibilityHidden">Aceptar/Rechazar Reuniones</button>
+	<!-- Optional JavaScript 
+		<button id="visibilityHidden">Aceptar/Rechazar Reuniones</button>-->
 		<button onclick="window.location.href='/agenda.html'">Ver agenda</button>
+		
+		<div id="hide-me">
+			<form>
+				<label for="input">REUNIONES PENDIENTES: </label> 
+				
+				<div class="md-form md-outline">
+				
+					<label for="default-picker">Daily</label> 
+						<button id="visibilityHidden">Aceptar</button>
+						<button id="visibilityHidden">Rechazar</button>
+						
+				</div>
+
+					<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+					<option class="option" value="" data-bind="html : name"></option>
+					<!-- /ko -->
+
+				<button id="volver">Volver</button>
+
+			</form>
+		</div>
 		
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

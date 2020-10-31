@@ -14,8 +14,10 @@ function viewModel() {
 
 	self.sws.onopen = function() {
 		const msg = {
-			type: 'ready'
+			type: 'leerActividades',
+			nombre: sessionStorage.userName
 		};
+		
 		self.sws.send(JSON.stringify(msg));
 	};
 
@@ -24,7 +26,7 @@ function viewModel() {
 		data = JSON.parse(data);
 
 		// Listar usuarios
-		const reuniones = data.actividades;
+		const reuniones = data;
 
 		for (let i = 0; i < reuniones.length; i++) {
 			const reunion = reuniones[i];

@@ -46,7 +46,15 @@ self.añadirActividad  = function() {
 		horaFinal: dateFinal[0],
 		minutoInicio: dateInicio[1],
 		minutoFinal:dateFinal[1],
-		usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text
+		usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
+		success : function() {
+			sessionStorage.userName = $('#username').val();
+			alert('Se ha creado correctamente');
+		},
+		error : function(response) {
+			
+			alert('Se ha creado incorrectamente');
+		}
 	};
 	self.sws.send(JSON.stringify(info));
 };
