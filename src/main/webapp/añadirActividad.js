@@ -1,12 +1,9 @@
 var self;
-
 function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
-
-
 	var url = "ws://"+window.location.host+"/SIGETEquipo1";
 	self.sws = new WebSocket(url); 
 	
@@ -20,20 +17,16 @@ function ViewModel() {
 	self.sws.onmessage = function(event) {
 		var data= event.data;
 		data = JSON.parse(data);
-		
-		// Listar usuarios
 		var users = data.usuarios;
 		for (var i = 0; i < users.length; i++) {
 			var usuario = users[i];
 			if(self.listaUsuarios().some(u=> u.name === usuario.name ) === false){
 			self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
-			
 			}
 		}
 	}
 
-
-self.añadirActividad  = function() {
+self.aniadirActividad  = function() {
 	self.usuariosSeleccionados.push($('#select').val());
 	var dateInicio = $('#horaInicio').val().split(":");
 	var dateFinal =$('#horaFinal').val().split(":");
@@ -66,9 +59,7 @@ class Usuario {
     	this.password = password;
     	this.rol = rol;
     }
-    
-    }
-
+}
 }
 var vm = new ViewModel();
 ko.applyBindings(vm);

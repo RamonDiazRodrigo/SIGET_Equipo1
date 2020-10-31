@@ -7,19 +7,15 @@ sws.onopen = function(event) {
 	};
 	sws.send(JSON.stringify(msg));
 }
-
 sws.onmessage = function(event) {
 	var data= event.data;
 	data = JSON.parse(data);
-	
 	if(data.rol=="ADMIN"){
 		window.location.href="admin.html";
 	}
 	if(data.rol=="ASISTENTE"){
 		window.location.href="usuario.html";
 	}
-	
-
 }
 
 let login  = function() {
@@ -28,7 +24,6 @@ let login  = function() {
 		userName: $('#username').val(),
 		pwd: $('#password').val()
 	};
-
 	const data = {
 		data: JSON.stringify(info),
 		url: 'login',
@@ -38,7 +33,6 @@ let login  = function() {
 			sessionStorage.userName = $('#username').val();
 		},
 		error : function(response) {
-			
 			alert('LOGIN INCORRECTO');
 		}
 	};
