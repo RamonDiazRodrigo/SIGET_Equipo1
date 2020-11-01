@@ -1,4 +1,4 @@
-let self;
+var self;
 function viewModel() {
 	self = this;
 	self.listaReunionesL = ko.observableArray([]);
@@ -12,7 +12,7 @@ function viewModel() {
 
 	self.sws.onopen = function() {
 		const msg = {
-			type: 'leerActividades',
+			type: 'ready',
 			nombre: sessionStorage.userName
 		};
 		self.sws.send(JSON.stringify(msg));
@@ -88,8 +88,8 @@ function viewModel() {
 	}
 
 	function estilizarLI(posTop, length, reunion) {
-		var calendar = document.getElementById("calendar").contentDocument;
-		const ulL = calendar.getElementById(reunion.dia.toLowerCase());
+		
+		const ulL = document.getElementById(reunion.dia.toLowerCase());
 		const itemsL = ulL.getElementsByTagName('li');
 		for (let n = 0; n < itemsL.length; n++) {
 			if (itemsL[n].innerText === reunion.name) {
