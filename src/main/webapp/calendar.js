@@ -1,4 +1,4 @@
-let self;
+var self;
 function viewModel() {
 	self = this;
 	self.listaReunionesL = ko.observableArray([]);
@@ -12,7 +12,7 @@ function viewModel() {
 
 	self.sws.onopen = function() {
 		const msg = {
-			type: 'leerActividades',
+			type: 'leer',
 			nombre: sessionStorage.userName
 		};
 		self.sws.send(JSON.stringify(msg));
@@ -21,7 +21,7 @@ function viewModel() {
 	self.sws.onmessage = function(event) {
 		let data = event.data;
 		data = JSON.parse(data);
-		const reuniones = data;
+		const reuniones = data.actividades;
 		for (let i = 0; i < reuniones.length; i++) {
 			const reunion = reuniones[i];
 			const horaIn = reunion.HoraI.split(':');
@@ -88,6 +88,7 @@ function viewModel() {
 	}
 
 	function estilizarLI(posTop, length, reunion) {
+		
 		const ulL = document.getElementById(reunion.dia.toLowerCase());
 		const itemsL = ulL.getElementsByTagName('li');
 		for (let n = 0; n < itemsL.length; n++) {

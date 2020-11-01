@@ -22,9 +22,17 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
+		
 		if ("ready".equals(jso.getString(TYPE))) {
 			Manager.get().eliminarTests();
-			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
+		}
+		
+		if ("leer".equals(jso.getString(TYPE))) {
+			if (Manager.get().isAdmin(jso.getString(NOMBRE))) {
+				session.sendMessage(new TextMessage(Manager.get().leer().toString()));
+			} else {
+				session.sendMessage(new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
+			}
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {
@@ -33,11 +41,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 					jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"),
 					jso.getString("usuarios"), "false");
 		}
-
-		if ("leerActividades".equals(jso.getString(TYPE))) {
-			session.sendMessage(new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
-		}
-
+		
 		if ("eliminar".equals(jso.getString(TYPE))) {
 			Manager.get().eliminar((String) jso.get(NOMBRE));
 			// session.sendMessage(new TextMessage(Manager.get().leer().toString()));

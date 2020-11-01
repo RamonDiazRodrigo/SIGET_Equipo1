@@ -170,7 +170,8 @@ public class Manager {
 		this.session = session;
 	}
 
-	public JSONArray leerActividades(String nombre) {
+	public JSONObject leerActividades(String nombre) {
+		JSONObject jso = new JSONObject();
 		JSONArray jsa = new JSONArray();
 		int[][] horario;
 		
@@ -182,9 +183,8 @@ public class Manager {
 
 			}
 		}
-		
-		
-		return jsa;
+		jso.put("actividades", jsa);
+		return jso;
 	}
 
 	// Este metodo encuentra las actividades que estan en el horario del usuario
@@ -195,17 +195,33 @@ public class Manager {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
 					a= ActividadDAO.leerActividad(horario[i][j]);
-					if (!actividades.contains(a)) {
+					if (!contiene(actividades,a)) {
 						jsa.put(a.toJSON());
 						actividades.add(a);
-					}
-					
+					}			
 				}
 			}
-
 		}
 		return jsa;
+	}
+	
+	private static boolean contiene(List<Actividad> actividades, Actividad a) {
+		for(Actividad b: actividades) {
+			if(b.getId()==a.getId()) {
+				return true;
+			}
+		}
+				
+		return false;
+	}
 
+	public boolean isAdmin(String nombre) {
+		for(User u : UserDAO.leerUsers()) {
+			if(nombre.equals(u.getName()) && Rol.ADMIN.equals(u.getRol())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 //Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
