@@ -9,7 +9,8 @@ function ViewModel() {
 	
 	self.sws.onopen = function(event) {
 		var msg = {
-			type : "ready"
+			type : "leer",
+			nombre: sessionStorage.userName
 		};
 		self.sws.send(JSON.stringify(msg));
 	}

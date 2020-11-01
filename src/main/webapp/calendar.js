@@ -12,7 +12,7 @@ function viewModel() {
 
 	self.sws.onopen = function() {
 		const msg = {
-			type: 'ready',
+			type: 'leer',
 			nombre: sessionStorage.userName
 		};
 		self.sws.send(JSON.stringify(msg));
@@ -21,7 +21,7 @@ function viewModel() {
 	self.sws.onmessage = function(event) {
 		let data = event.data;
 		data = JSON.parse(data);
-		const reuniones = data;
+		const reuniones = data.actividades;
 		for (let i = 0; i < reuniones.length; i++) {
 			const reunion = reuniones[i];
 			const horaIn = reunion.HoraI.split(':');
