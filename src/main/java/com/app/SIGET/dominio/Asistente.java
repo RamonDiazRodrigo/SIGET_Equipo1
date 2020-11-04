@@ -22,6 +22,14 @@ public class Asistente extends User {
 		this.horario = new Horario();
 	}
 
+	public List<Actividad> getReunionesPendientes() {
+		return reunionesPendientes;
+	}
+
+	public void setReunionesPendientes(List<Actividad> reunionesPendientes) {
+		this.reunionesPendientes = reunionesPendientes;
+	}
+
 	public void insertarActividad(Actividad actividad) {
 
 		if (!this.horario.estaOcupado(actividad)) {
@@ -30,6 +38,11 @@ public class Asistente extends User {
 			System.out.println("mandar error porque ya esta ocupado");
 		}
 
+	}
+	
+	public void insertarReunionPendiente(Actividad a) {
+		this.reunionesPendientes.add(a);
+		
 	}
 
 	public Horario getHorario() {
