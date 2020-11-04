@@ -35,7 +35,7 @@ public class Manager {
 		for (User u : usuarios) {
 			login = checkCredenciales(u, name, password);
 			if (login) {
-
+				
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol().toString());
 				if (this.session != null) {
@@ -137,12 +137,8 @@ public class Manager {
 		// sustituir este metodo por su equivalente de los de arriba
 	}
 
-	public void eliminarUsuario(String usuario) {
-		for (User u : UserDAO.leerUsers()) {
-			if (usuario.equals(u.getName()) && Rol.ASISTENTE==u.getRol()) {
-				UserDAO.eliminar(u);
-			}
-		}
+	public void eliminar(String string) {
+		// sustituir este metodo por su equivalente de los de arriba
 	}
 
 	public void error() {
@@ -178,11 +174,12 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		JSONArray jsa = new JSONArray();
 		int[][] horario;
+		
 
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
-				horario = ((Asistente) u).getHorario().getMatrizHorario();
-				buscarActividades(horario, jsa);
+				horario = ((Asistente)u).getHorario().getMatrizHorario();
+				jsa = buscarActividades(horario, jsa);
 
 			}
 		}
@@ -191,35 +188,36 @@ public class Manager {
 	}
 
 	// Este metodo encuentra las actividades que estan en el horario del usuario
-	private static void buscarActividades(int[][] horario, JSONArray jsa) {
+	private static JSONArray buscarActividades(int[][] horario, JSONArray jsa) {
 		Actividad a;
 		List<Actividad> actividades = new ArrayList<>();
 		for (int i = 0; i < horario.length; i++) {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
-					a = ActividadDAO.leerActividad(horario[i][j]);
-					if (!contiene(actividades, a)) {
+					a= ActividadDAO.leerActividad(horario[i][j]);
+					if (!contiene(actividades,a)) {
 						jsa.put(a.toJSON());
 						actividades.add(a);
-					}
+					}			
 				}
 			}
 		}
+		return jsa;
 	}
-
+	
 	private static boolean contiene(List<Actividad> actividades, Actividad a) {
-		for (Actividad b : actividades) {
-			if (b.getId() == a.getId()) {
+		for(Actividad b: actividades) {
+			if(b.getId()==a.getId()) {
 				return true;
 			}
 		}
-
+				
 		return false;
 	}
 
 	public boolean isAdmin(String nombre) {
-		for (User u : UserDAO.leerUsers()) {
-			if (nombre.equals(u.getName()) && Rol.ADMIN==u.getRol()) {
+		for(User u : UserDAO.leerUsers()) {
+			if(nombre.equals(u.getName()) && Rol.ADMIN.equals(u.getRol())) {
 				return true;
 			}
 		}
@@ -227,23 +225,32 @@ public class Manager {
 	}
 
 //Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
-	/*
-	 * private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int
-	 * i, int j) { boolean repetido = false; for (Actividad act :
-	 * ActividadDAO.leerActividades()) { if (act.getId() == aux[i][j]) { repetido =
-	 * actividadRepetida(jsa, act);
-	 * 
-	 * if (!repetido) { jsa.put(act.toJSON()); }
-	 * 
-	 * } } return jsa;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * private static boolean actividadRepetida(JSONArray jsa, Actividad act) { for
-	 * (int j2 = 0; j2 < jsa.length(); j2++) { if
-	 * (jsa.getJSONObject(j2).getInt("id") == (act.getId())) { return true; } }
-	 * return false; }
-	 */
+/*
+	private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int i, int j) {
+		boolean repetido = false;
+		for (Actividad act : ActividadDAO.leerActividades()) {
+			if (act.getId() == aux[i][j]) {
+				repetido = actividadRepetida(jsa, act);
+
+				if (!repetido) {
+					jsa.put(act.toJSON());
+				}
+
+			}
+		}
+		return jsa;
+
+	}
+	
+
+	private static boolean actividadRepetida(JSONArray jsa, Actividad act) {
+		for (int j2 = 0; j2 < jsa.length(); j2++) {
+			if (jsa.getJSONObject(j2).getInt("id") == (act.getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	*/
 
 }
