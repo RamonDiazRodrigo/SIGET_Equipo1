@@ -27,38 +27,86 @@
 </head>
 <body>
 	<div class="container">
-	<!-- Optional JavaScript 
+		<!-- Optional JavaScript 
 		<button id="visibilityHidden">Aceptar/Rechazar Reuniones</button>-->
-		<button onclick="window.location.href='/calendar.html'">Ver agenda</button>
+		<button onclick="window.location.href='/calendar.html'">Ver
+			agenda</button>
+		<button id="Reunion">Añadir reunión</button>
 		<div id="hide-me">
 			<form>
-				<label for="input">REUNIONES PENDIENTES: </label> 
+				<label for="input">REUNIONES PENDIENTES: </label>
 				<div class="md-form md-outline">
-					<label for="default-picker">Daily</label> 
-						<button id="visibilityHidden">Aceptar</button>
-						<button id="visibilityHidden">Rechazar</button>
+					<label for="default-picker">Daily</label>
+					<button id="visibilityHidden">Aceptar</button>
+					<button id="visibilityHidden">Rechazar</button>
 				</div>
-					<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
-					<option class="option" value="" data-bind="html : name"></option>
-					<!-- /ko -->
+				<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+				<option class="option" value="" data-bind="html : name"></option>
+				<!-- /ko -->
 				<button id="volver">Volver</button>
 			</form>
 		</div>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-		crossorigin="anonymous"></script>
-	<!-- KNOCKOUT -->
-	<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
-	<script src="ocultar.js"></script>
+
+		<div id="hide_reunion">
+			<form>
+				<br /> <label for="input">Reunión: </label> <input type="text"
+					id="actividad" placeholder="Nombre"> <br /> <label
+					for="select">Elige dia</label> <select id="dia">
+					<option class="option" value="">LUNES</option>
+					<option class="option" value="">MARTES</option>
+					<option class="option" value="">MIERCOLES</option>
+					<option class="option" value="">JUEVES</option>
+					<option class="option" value="">VIERNES</option>
+					<option class="option" value="">SABADO</option>
+					<option class="option" value="">DOMINGO</option>
+				</select> </br>
+				<div class="md-form md-outline">
+					<label for="default-picker">Elige hora inicio</label> <input
+						type="time" id="horaInicio" class="form-control"
+						placeholder="Select time">
+				</div>
+				<br />
+				<div class="md-form md-outline">
+					<label for="default-picker">Elige hora final</label> <input
+						type="time" id="horaFinal" class="form-control"
+						placeholder="Select time">
+				</div>
+				<button id="check" data-bind="click:$root.check">Comprobar disponibilidad asistentes</button>
+				<div class="form-check">
+
+					<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+
+					<input class="form-check-input" type="checkbox" value=""
+						id="defaultCheck1"> <label class="form-check-label"
+						for="defaultCheck1" data-bind="html : name"> </label> </br>
+					<!-- /ko -->
+				</div>
+
+				</br>
+			</form>
+			
+			</br>
+			<button id="addReunion" data-bind="click:$root.addReunion">Añadir reunión</button>
+			<button id="volverReunion">Volver</button>
+			
+		</div>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"></script>
+		<!-- KNOCKOUT -->
+		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
+		<script src="ocultar.js"></script>
+		<script src="addreunion.js"></script>
 </body>
 </html>
