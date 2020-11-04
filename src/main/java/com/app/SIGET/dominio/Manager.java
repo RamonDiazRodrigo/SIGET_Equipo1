@@ -2,6 +2,7 @@ package com.app.SIGET.dominio;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ public class Manager {
 		for (User u : usuarios) {
 			login = checkCredenciales(u, name, password);
 			if (login) {
-				
+
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol().toString());
 				if (this.session != null) {
@@ -174,11 +175,10 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		JSONArray jsa = new JSONArray();
 		int[][] horario;
-		
 
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
-				horario = ((Asistente)u).getHorario().getMatrizHorario();
+				horario = ((Asistente) u).getHorario().getMatrizHorario();
 				jsa = buscarActividades(horario, jsa);
 
 			}
@@ -194,63 +194,93 @@ public class Manager {
 		for (int i = 0; i < horario.length; i++) {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
-					a= ActividadDAO.leerActividad(horario[i][j]);
-					if (!contiene(actividades,a)) {
+					a = ActividadDAO.leerActividad(horario[i][j]);
+					if (!contiene(actividades, a)) {
 						jsa.put(a.toJSON());
 						actividades.add(a);
-					}			
+					}
 				}
 			}
 		}
 		return jsa;
 	}
-	
+
 	private static boolean contiene(List<Actividad> actividades, Actividad a) {
-		for(Actividad b: actividades) {
-			if(b.getId()==a.getId()) {
+		for (Actividad b : actividades) {
+			if (b.getId() == a.getId()) {
 				return true;
 			}
 		}
-				
+
 		return false;
 	}
 
 	public boolean isAdmin(String nombre) {
-		for(User u : UserDAO.leerUsers()) {
-			if(nombre.equals(u.getName()) && Rol.ADMIN.equals(u.getRol())) {
+		for (User u : UserDAO.leerUsers()) {
+			if (nombre.equals(u.getName()) && Rol.ADMIN.equals(u.getRol())) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public void convocarReunion(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF,
+			String usuarios, String reunion) {
+
+		JSONArray jsa = new JSONArray(usuarios);
+		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
+
+		for (int i = 0; i < jsa.length(); i++) {
+			for (User u : UserDAO.leerUsers()) {
+				if (u.getName().equals(jsa.get(i))) {
+					((Asistente) u).insertarReunionPendiente(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni,
+							horaFin, Boolean.parseBoolean(reunion)));
+				}
+			}
+
+		}
+
+	}
+
+	// Este metodo comprueba si la reunion que se quiere convocar se solapa con
+	// otras actividades de usuarios. Devuelve el listado de usuarios disponibles
+	public JSONArray usuariosDisponibles(String nombre, String dia, String horaI, String minutosI, String horaF,
+			String minutosF) {
+		JSONArray jsa = new JSONArray();
+		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
+
+		for (User u : UserDAO.leerUsers()) {
+			if (!isAdmin(u.getName()) && !((Asistente) u).getHorario()
+					.estaOcupado(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, true))) {
+
+				jsa.put(u.toJSON());
+			}
+
+		}
+
+		return jsa;
 	}
 
 //Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
-/*
-	private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int i, int j) {
-		boolean repetido = false;
-		for (Actividad act : ActividadDAO.leerActividades()) {
-			if (act.getId() == aux[i][j]) {
-				repetido = actividadRepetida(jsa, act);
-
-				if (!repetido) {
-					jsa.put(act.toJSON());
-				}
-
-			}
-		}
-		return jsa;
-
-	}
-	
-
-	private static boolean actividadRepetida(JSONArray jsa, Actividad act) {
-		for (int j2 = 0; j2 < jsa.length(); j2++) {
-			if (jsa.getJSONObject(j2).getInt("id") == (act.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
-	*/
+	/*
+	 * private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int
+	 * i, int j) { boolean repetido = false; for (Actividad act :
+	 * ActividadDAO.leerActividades()) { if (act.getId() == aux[i][j]) { repetido =
+	 * actividadRepetida(jsa, act);
+	 * 
+	 * if (!repetido) { jsa.put(act.toJSON()); }
+	 * 
+	 * } } return jsa;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * private static boolean actividadRepetida(JSONArray jsa, Actividad act) { for
+	 * (int j2 = 0; j2 < jsa.length(); j2++) { if
+	 * (jsa.getJSONObject(j2).getInt("id") == (act.getId())) { return true; } }
+	 * return false; }
+	 */
 
 }

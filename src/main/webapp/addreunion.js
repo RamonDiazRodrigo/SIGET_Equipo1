@@ -2,16 +2,16 @@ var self;
 function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
-	self.nombreUsuario = ko.observable("");
+	self.nombreUsuario = ko.observable('');
 	self.usuariosSeleccionados = ko.observableArray([]);
 	var url = "ws://"+window.location.host+"/SIGETEquipo1";
-	self.sws = new WebSocket(url); 
-	
+	self.sws = new WebSocket(url);
 
 	self.sws.onmessage = function(event) {
 		var data= event.data;
 		data = JSON.parse(data);
-		var users = data.usuarios;
+		self.listaUsuarios.removeAll();
+		var users = data;
 		for (var i = 0; i < users.length; i++) {
 			var usuario = users[i];
 			if(self.listaUsuarios().some(u=> u.name === usuario.name ) === false){
@@ -50,7 +50,7 @@ self.addReunion  = function() {
 	var dateFinal =$('#horaFinal').val().split(":");
 	
 	const info = {
-		type: 'insertar',
+		type: 'convocarReunion',
 		nombre: $('#actividad').val(),
 		dia : document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
 		horaInicio: dateInicio[0],
