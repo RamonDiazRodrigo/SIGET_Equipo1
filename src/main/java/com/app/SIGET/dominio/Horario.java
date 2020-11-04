@@ -90,7 +90,7 @@ public class Horario {
 		return (time.getHour() - 1) * 2 + (time.getMinute() / 30);
 	}
 
-	public boolean estaOcupado(Actividad actividad) {
+	public  boolean estaOcupado(Actividad actividad) {
 		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario
 				.calcularIndice(actividad.getHoraF()); i++) {
 			if (this.matrizHorario[actividad.getDia().getValue()][i] != 0) {
