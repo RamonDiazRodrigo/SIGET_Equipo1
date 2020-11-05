@@ -7,6 +7,7 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.dominio.Rol;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -57,6 +58,9 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		if ("eliminar".equals(jso.getString(TYPE))) {
 			Manager.get().eliminarUsuario((String) jso.get(NOMBRE));
 		}
+		
+		if ("Register".equals(jso.getString(TYPE))) {
+			Manager.get().register((String) jso.get(NOMBRE), jso.getString("email"), jso.getString("pwd1"),jso.getString("rol"));
+		}
 	}
-
 }
