@@ -55,9 +55,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("eliminar".equals(jso.getString(TYPE))) {
-			Manager.get().eliminar((String) jso.get(NOMBRE));
-			// session.sendMessage(new TextMessage(Manager.get().leer().toString()));
-
+			Manager.get().eliminarUsuario((String) jso.get(NOMBRE));
 		}
 	}
 

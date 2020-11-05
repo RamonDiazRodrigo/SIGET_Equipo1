@@ -138,8 +138,12 @@ public class Manager {
 		// sustituir este metodo por su equivalente de los de arriba
 	}
 
-	public void eliminar(String string) {
-		// sustituir este metodo por su equivalente de los de arriba
+	public void eliminarUsuario(String usuario) {
+		for (User u : UserDAO.leerUsers()) {
+			if (usuario.equals(u.getName()) && Rol.ASISTENTE==u.getRol()) {
+				UserDAO.eliminar(u);
+			}
+		}
 	}
 
 	public void error() {
