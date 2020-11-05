@@ -55,6 +55,7 @@ class Usuario {
             	self.listaUsuarios.splice(i, 1);
             }
     }
+    
 }
 }
 var vm = new ViewModel();
