@@ -19,13 +19,5 @@ public class CasoDePruebaAniadirUsuario {
 	public void se_ha_creado_el_usuario_correctamente() throws Throwable {
 	}
 
-	@When("^\"([^\"]*)\" y \"([^\"]*)\" son distintas$")
-	public void y_son_distintas(String arg1, String arg2) {
 
-	}
-
-	@Then("^se lanza la excepcion DiferentesContrasenas$")
-	public void se_lanza_la_excepcion_DiferentesContrasenas() throws DiferentesContrasenasException {
-
-	}
 }
