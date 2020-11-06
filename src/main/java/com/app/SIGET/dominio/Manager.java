@@ -267,24 +267,8 @@ public class Manager {
 		return jsa;
 	}
 
-//Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
-	/*
-	 * private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int
-	 * i, int j) { boolean repetido = false; for (Actividad act :
-	 * ActividadDAO.leerActividades()) { if (act.getId() == aux[i][j]) { repetido =
-	 * actividadRepetida(jsa, act);
-	 * 
-	 * if (!repetido) { jsa.put(act.toJSON()); }
-	 * 
-	 * } } return jsa;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * private static boolean actividadRepetida(JSONArray jsa, Actividad act) { for
-	 * (int j2 = 0; j2 < jsa.length(); j2++) { if
-	 * (jsa.getJSONObject(j2).getInt("id") == (act.getId())) { return true; } }
-	 * return false; }
-	 */
+	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva, String rol) {	
+		UserDAO.modificar(nombre, emailNuevo,  passwordNueva);
+	}
 
 }
