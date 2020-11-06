@@ -86,7 +86,6 @@ public final class UserDAO {
 	}
 
 	public static void eliminar(User user) {
-
 		Document document;
 		MongoCollection<Document> coleccion;
 
@@ -96,5 +95,21 @@ public final class UserDAO {
 			coleccion.findOneAndDelete(document);
 		}
 	}
-
+	
+	public static void modificar(String nombre, String nuevoEmail, String passwordNueva) {
+		Document document;
+		Document documentAUX1;
+		Document documentAUX2;
+		MongoCollection<Document> coleccion;
+		document = new Document("name", nombre);
+		
+		if (nombre != null) {
+			coleccion = AgenteDB.get().getBd(USUARIO);
+			documentAUX1 = new Document("$set", new Document("email", nuevoEmail));
+			documentAUX2 = new Document("$set", new Document("password", passwordNueva));
+			coleccion.findOneAndUpdate(document, documentAUX1);
+			document = new Document("name", nombre);
+			coleccion.findOneAndUpdate(document, documentAUX2);
+		}
+	}
 }

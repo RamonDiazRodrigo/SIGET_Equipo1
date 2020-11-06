@@ -62,5 +62,13 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		if ("Register".equals(jso.getString(TYPE))) {
 			Manager.get().register((String) jso.get(NOMBRE), jso.getString("email"), jso.getString("pwd1"),jso.getString("rol"));
 		}
+		
+		if ("infoUsuarios".equals(jso.getString(TYPE))) {
+			session.sendMessage(new TextMessage(Manager.get().leerUsuarios().toString()));
+		}
+		
+		if ("modificar".equals(jso.getString(TYPE))) {
+			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd1"),jso.getString("rol"));
+		}
 	}
 }
