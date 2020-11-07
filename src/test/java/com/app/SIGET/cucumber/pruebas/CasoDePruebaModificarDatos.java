@@ -1,6 +1,9 @@
 package com.app.SIGET.cucumber.pruebas;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import com.app.SIGET.dominio.Manager;
+import com.app.SIGET.excepciones.DiferentesContrasenasException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
