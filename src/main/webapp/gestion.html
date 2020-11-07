@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="ISO-8859-1">
 <title>Gestión usuarios</title>
@@ -19,28 +19,77 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-	<!-- CUSTOM CSS -->
+<!-- CUSTOM CSS -->
 <link rel="stylesheet" href="gestionUsuarios.css">
 </head>
 <body>
-	<div class="container">
-	<div class="cards">
-		<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
-		<div class="card" style="width: 18rem;">
-			<div class="card-body">
-				<h4 class="card-title" data-bind="html : name"></h4>
-				email:<p class="card-text" data-bind="html : email"></p>
-				rol:<p class="card-text" data-bind="html : rol"></p>
-				<button type="button" class="btn btn-primary">Modificar</button>
-				<button id="eliminar" type="button" class="btn btn-primary"
-				 data-bind="click:eliminarUsuario">Eliminar</button>
+	<div id="gestionUsuarios" class="container">
+		<div class="cards">
+			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h4 class="card-title" data-bind="html : name"></h4>
+					email:
+					<p class="card-text" data-bind="html : email"></p>
+					rol:
+					<p class="card-text" data-bind="html : rol"></p>
+					<button type="button" class="btn btn-primary"
+						data-bind="click: infoUsuarios">Modificar</button>
+					<button id="eliminar" type="button" class="btn btn-primary"
+						data-bind="click: eliminarUsuario">Eliminar</button>
+				</div>
+
 			</div>
-			
+			<!-- /ko -->
+			<h4 class="card-title"></h4>
+			<button onclick="window.location.href='/register.html'">+</button>
 		</div>
-		<!-- /ko -->
-		<h4 class="card-title"></h4>
-				 <button onclick="window.location.href='/register.html'">+</button>
-		</div>
+	</div>
+
+	<div id="modificarCredenciales" class="jumbotron text-center"
+		style="visibility: hidden">
+		<h1>Modificar credenciales</h1>
+		<p>
+		<form>
+			<div id="container" class="form">
+				<div>
+
+					<input id="username" name="username" required="required"
+						type="text" placeholder="PEPE" readonly="readonly"
+						disabled="disabled" />
+				</div>
+				<div>
+					<input id="email" required="required" type="email"
+						placeholder="email@email.com" />
+				</div>
+				<div>
+					<input id="pwda" required="required" type="password"
+						placeholder="Contraseña antigua" />
+				</div>
+				<div>
+					<input id="pwdn" required="required" type="password"
+						placeholder="Contraseña nueva" />
+				</div>
+				<div>
+					<input id="pwd2" required="required" type="password"
+						placeholder="Confirma tu contraseña" />
+				</div>
+
+			</div>
+			<p>
+			<div class="row" id="divBtn">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3" id="mostrarLogin">
+					<button data-bind="click: $root.modificarUsuario" id="btnregister">Modificar</button>
+					<br>
+				</div>
+				<div class="col-sm-3" id="volver">
+					<button id="btnBackToGestionUsuarios">Volver</button>
+					<br>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+		</form>
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -57,6 +106,9 @@
 		crossorigin="anonymous"></script>
 	<!-- KNOCKOUT -->
 	<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
+	<script src="ocultar.js"></script>
+
 	<script src="gestionUsuarios.js"></script>
+
 </body>
 </html>

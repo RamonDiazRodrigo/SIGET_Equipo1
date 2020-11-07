@@ -2,7 +2,6 @@ package com.app.SIGET.dominio;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -140,7 +139,7 @@ public class Manager {
 
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
-			if (usuario.equals(u.getName()) && Rol.ASISTENTE==u.getRol()) {
+			if (usuario.equals(u.getName()) && Rol.ASISTENTE == u.getRol()) {
 				UserDAO.eliminar(u);
 			}
 		}
@@ -267,8 +266,21 @@ public class Manager {
 		return jsa;
 	}
 
-	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva, String rol) {	
-		UserDAO.modificar(nombre, emailNuevo,  passwordNueva);
+	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva) {
+		UserDAO.modificar(nombre, emailNuevo, passwordNueva);
+	}
+
+	public JSONArray leerInfoUsuario(String nombre) {
+		JSONArray jsa = new JSONArray();
+		JSONObject jso = new JSONObject();
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				jsa.put(u.toJSON());
+			}
+		}
+		jso.put("usuarios", jsa);
+
+		return jsa;
 	}
 
 }
