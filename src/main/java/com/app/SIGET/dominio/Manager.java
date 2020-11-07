@@ -2,7 +2,6 @@ package com.app.SIGET.dominio;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -140,7 +139,7 @@ public class Manager {
 
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
-			if (usuario.equals(u.getName()) && Rol.ASISTENTE==u.getRol()) {
+			if (usuario.equals(u.getName()) && Rol.ASISTENTE == u.getRol()) {
 				UserDAO.eliminar(u);
 			}
 		}
@@ -267,24 +266,21 @@ public class Manager {
 		return jsa;
 	}
 
-//Este metodo encuentra las actividades que estan en el horario del asistente y que estan en la base de datos
-	/*
-	 * private static JSONArray encontrarActividades(JSONArray jsa, int[][] aux, int
-	 * i, int j) { boolean repetido = false; for (Actividad act :
-	 * ActividadDAO.leerActividades()) { if (act.getId() == aux[i][j]) { repetido =
-	 * actividadRepetida(jsa, act);
-	 * 
-	 * if (!repetido) { jsa.put(act.toJSON()); }
-	 * 
-	 * } } return jsa;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * private static boolean actividadRepetida(JSONArray jsa, Actividad act) { for
-	 * (int j2 = 0; j2 < jsa.length(); j2++) { if
-	 * (jsa.getJSONObject(j2).getInt("id") == (act.getId())) { return true; } }
-	 * return false; }
-	 */
+	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva) {
+		UserDAO.modificar(nombre, emailNuevo, passwordNueva);
+	}
+
+	public JSONArray leerInfoUsuario(String nombre) {
+		JSONArray jsa = new JSONArray();
+		JSONObject jso = new JSONObject();
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				jsa.put(u.toJSON());
+			}
+		}
+		jso.put("usuarios", jsa);
+
+		return jsa;
+	}
 
 }

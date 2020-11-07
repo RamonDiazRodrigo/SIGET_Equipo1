@@ -13,7 +13,7 @@ public class Actividad {
 	private LocalTime horaI;
 	private LocalTime horaF;
 	private boolean reunion;
-
+	//a
 	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
 		this.id = count.incrementAndGet();
 		this.name = name;
