@@ -68,7 +68,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			session.sendMessage(new TextMessage(Manager.get().leer().toString())); // MANDAR INFO DE UN USUARIO
 		}
 
-		if ("modificar".equals(jso.getString(TYPE))) {
+		if ("modificar".equals(jso.getString(TYPE))) { 
+			//Misma condicion para modificar usuario tanto para Asistente como para Admin
 			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd"));
 		}
 	}
