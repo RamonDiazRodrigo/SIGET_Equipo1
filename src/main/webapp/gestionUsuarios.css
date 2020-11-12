@@ -1,7 +1,4 @@
-.cards {
-  display: flex;
+.card {
+  display: inline-block;
 }
 
-.cards > p {
-  margin: 0;
-}

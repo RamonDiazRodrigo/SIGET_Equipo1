@@ -11,7 +11,8 @@ function ViewModel() {
 
 		var msg = {
 			type: "leer",
-			nombre: sessionStorage.userName
+			nombre: sessionStorage.userName,
+			vista: "gestionUsuarios"
 		};
 		self.sws.send(JSON.stringify(msg));
 
@@ -20,6 +21,7 @@ function ViewModel() {
 
 
 		self.sws.onmessage = function(event) {
+			document.getElementById('username').placeholder = sessionStorage.userName;
 			var data = event.data;
 			data = JSON.parse(data);
 			var users = data.usuarios;
@@ -45,9 +47,15 @@ function ViewModel() {
 
 
 			self.modificarUsuario = function() {
+				let nombre;
+				if (self.nombreUsuario() === '') {
+					nombre = sessionStorage.userName;
+				} else {
+					nombre = self.nombreUsuario();
+				}
 				var p = {
 					type: "modificar",
-					nombre: self.nombreUsuario(),
+					nombre: nombre,
 					pwd: document.getElementById("pwdn").value,
 					email: document.getElementById("email").value
 				};
@@ -105,4 +113,4 @@ function ViewModel() {
 	}
 }
 var vm = new ViewModel();
-ko.applyBindings(vm);
+ko.applyBindings(vm, document.getElementById("koGestion"));
