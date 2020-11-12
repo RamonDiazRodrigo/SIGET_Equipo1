@@ -301,4 +301,14 @@ public class Manager {
 		return jsa;
 	}
 
+	public void aceptarReunion(String usuario, String nombre_reunion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void rechazarReunion(String usuario, String nombre_reunion) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
