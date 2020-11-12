@@ -26,6 +26,7 @@ public class CasoDePruebaAsistirReuniones {
 	@Then("^el \"([^\"]*)\" rechaza la reunion \"([^\"]*)\" y aparece en su agenda$")
 	public void el_rechaza_la_reunion_y_aparece_en_su_agenda(String usuario, String nombre_reunion) throws Throwable {
 		Manager.get().rechazarReunion(usuario, nombre_reunion);
+		//es necesario el metodo rechazar Reunion?
 	}
 
 }
