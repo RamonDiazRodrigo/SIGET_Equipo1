@@ -15,6 +15,7 @@ import com.app.SIGET.persistencia.UserDAO;
 public class Manager {
 
 	private WebSocketSession session;
+	public static final String USUARIOS = "usuarios";
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -37,7 +38,7 @@ public class Manager {
 			if (login) {
 
 				JSONObject jso = new JSONObject();
-				jso.put("rol", u.getRol().toString());
+				jso.put("rol", u.getRol());
 				if (this.session != null) {
 					this.session.sendMessage(new TextMessage(jso.toString()));
 				}
@@ -66,9 +67,9 @@ public class Manager {
 
 	}
 
-	public void register(String name, String email, String password, String rolS) {
-		Rol rol = Rol.valueOf(rolS);
-		if (rol == Rol.ADMIN) {
+	public void register(String name, String email, String password, String rol) {
+
+		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
 			UserDAO.insertar(new Asistente(name, email, password));
@@ -85,7 +86,7 @@ public class Manager {
 
 			jsa.put(user.toJSON());
 		}
-		jso.put("usuarios", jsa);
+		jso.put(USUARIOS, jsa);
 
 		return jso;
 
@@ -126,7 +127,7 @@ public class Manager {
 		boolean reunionB = Boolean.parseBoolean(reunion);
 
 		for (User user : users) {
-			if (usuario.equals(user.getName()) && user.getRol() == Rol.ASISTENTE) {
+			if (usuario.equals(user.getName()) && "ASISTENTE".equals(user.getRol())) {
 				ActividadDAO.insertarActividad((Asistente) user,
 						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB));
 			}
@@ -139,7 +140,7 @@ public class Manager {
 
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
-			if (usuario.equals(u.getName()) && Rol.ASISTENTE == u.getRol()) {
+			if (usuario.equals(u.getName()) && "ASISTENTE".equals(u.getRol())) {
 				UserDAO.eliminar(u);
 			}
 		}
@@ -151,7 +152,7 @@ public class Manager {
 
 	public JSONObject leer() {
 		JSONObject jso = new JSONObject();
-		jso.put("usuarios", Manager.get().leerAsistentes());
+		jso.put(USUARIOS, Manager.get().leerAsistentes());
 		jso.put("actividades", Manager.get().leerReuniones());
 
 		return jso;
@@ -182,7 +183,7 @@ public class Manager {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				horario = ((Asistente) u).getHorario().getMatrizHorario();
-				jsa = buscarActividades(horario, jsa);
+				buscarActividades(horario, jsa);
 
 			}
 		}
@@ -220,7 +221,7 @@ public class Manager {
 
 	public boolean isAdmin(String nombre) {
 		for (User u : UserDAO.leerUsers()) {
-			if (nombre.equals(u.getName()) && Rol.ADMIN.equals(u.getRol())) {
+			if (nombre.equals(u.getName()) && "ADMIN".equals(u.getRol())) {
 				return true;
 			}
 		}
@@ -267,8 +268,24 @@ public class Manager {
 	}
 
 	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva) {
-		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
-		UserDAO.modificar(nombre, emailNuevo, passwordNueva);
+		// Mismo metodo para modificar usuario tanto para Asistente como para Admin
+
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				u.setEmail(emailNuevo);
+				u.setPassword(passwordNueva);
+				UserDAO.modificar(u);
+			}
+		}		
+	}
+	
+	public static void ascenderUsuario(String nombre) {
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				Admin user = new Admin(u.getName(),u.getEmail(),u.getPassword());
+				UserDAO.modificar(user);
+			}
+		}
 	}
 
 	public JSONArray leerInfoUsuario(String nombre) {
@@ -279,7 +296,7 @@ public class Manager {
 				jsa.put(u.toJSON());
 			}
 		}
-		jso.put("usuarios", jsa);
+		jso.put(USUARIOS, jsa);
 
 		return jsa;
 	}

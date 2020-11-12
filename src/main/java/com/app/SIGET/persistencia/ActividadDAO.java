@@ -34,7 +34,7 @@ public final class ActividadDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			if (document.getBoolean(REUNION)) {
+			if (Boolean.TRUE.equals(document.getBoolean(REUNION))) {
 				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
@@ -90,7 +90,7 @@ public final class ActividadDAO {
 			document = new Document("name", user.getName());
 			document.append("email", user.getEmail());
 			document.append("password", user.getPassword());
-			document.append("rol", user.getRol().toString());
+			document.append("rol", user.getRol());
 			user.insertarActividad(actividad);
 			document.append("horario", user.getHorario().toString());
 			UserDAO.eliminar(user);
@@ -124,7 +124,7 @@ public final class ActividadDAO {
 			document = iter.next();
 			if (id == (document.getInteger("id"))) {
 
-				if (document.getBoolean(REUNION)) {
+				if (Boolean.TRUE.equals(document.getBoolean(REUNION))) {
 					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),

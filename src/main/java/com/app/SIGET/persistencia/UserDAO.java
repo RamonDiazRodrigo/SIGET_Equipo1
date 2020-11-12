@@ -79,7 +79,7 @@ public final class UserDAO {
 			document = new Document(NAME, user.getName());
 			document.append(EMAIL, user.getEmail());
 			document.append(PASSWORD, user.getPassword());
-			document.append("rol", user.getRol().toString());
+			document.append("rol", user.getRol());
 			coleccion.insertOne(document);
 		}
 
@@ -96,21 +96,11 @@ public final class UserDAO {
 		}
 	}
 	
-	public static void modificar(String nombre, String nuevoEmail, String passwordNueva) {
+	public static void modificar(User u) {
 		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
-		Document document;
-		Document documentAUX1;
-		Document documentAUX2;
-		MongoCollection<Document> coleccion;
-		document = new Document("name", nombre);
-		
-		if (nombre != null) {
-			coleccion = AgenteDB.get().getBd(USUARIO);
-			documentAUX1 = new Document("$set", new Document("email", nuevoEmail));
-			documentAUX2 = new Document("$set", new Document("password", passwordNueva));
-			coleccion.findOneAndUpdate(document, documentAUX1);
-			document = new Document("name", nombre);
-			coleccion.findOneAndUpdate(document, documentAUX2);
-		}
+			UserDAO.eliminar(u);
+			UserDAO.insertar(u);
+
 	}
+
 }
