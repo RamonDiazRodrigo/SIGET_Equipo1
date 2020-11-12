@@ -1,6 +1,5 @@
 package com.app.SIGET.dominio;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class Asistente extends User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.rol = Rol.ASISTENTE;
 		this.reunionesPendientes = new ArrayList<>();
 		this.horario = new Horario();
 	}
