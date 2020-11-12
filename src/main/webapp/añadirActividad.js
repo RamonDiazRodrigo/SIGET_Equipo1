@@ -10,7 +10,8 @@ function ViewModel() {
 	self.sws.onopen = function(event) {
 		var msg = {
 			type : "leer",
-			nombre: sessionStorage.userName
+			nombre: sessionStorage.userName,
+			vista: "addactividad"
 		};
 		self.sws.send(JSON.stringify(msg));
 	}

@@ -14,6 +14,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
+	private static final String VISTA= "vista";
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -40,7 +41,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("leer".equals(jso.getString(TYPE))) {
-			if (Manager.get().isAdmin(jso.getString(NOMBRE))) {
+			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
 				session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 			} else {
 				session.sendMessage(
@@ -68,7 +69,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			session.sendMessage(new TextMessage(Manager.get().leer().toString())); // MANDAR INFO DE UN USUARIO
 		}
 
-		if ("modificar".equals(jso.getString(TYPE))) {
+		if ("modificar".equals(jso.getString(TYPE))) { 
+			//Misma condicion para modificar usuario tanto para Asistente como para Admin
 			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd"));
 		}
 	}

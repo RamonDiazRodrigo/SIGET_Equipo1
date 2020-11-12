@@ -267,6 +267,7 @@ public class Manager {
 	}
 
 	public void modificarUsuario(String nombre, String emailNuevo, String passwordNueva) {
+		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
 		UserDAO.modificar(nombre, emailNuevo, passwordNueva);
 	}
 

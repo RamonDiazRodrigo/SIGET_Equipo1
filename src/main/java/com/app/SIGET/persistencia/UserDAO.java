@@ -97,6 +97,7 @@ public final class UserDAO {
 	}
 	
 	public static void modificar(String nombre, String nuevoEmail, String passwordNueva) {
+		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
 		Document document;
 		Document documentAUX1;
 		Document documentAUX2;
