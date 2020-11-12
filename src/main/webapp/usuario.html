@@ -71,7 +71,8 @@
 						type="time" id="horaFinal" class="form-control"
 						placeholder="Select time">
 				</div>
-				<button id="check" data-bind="click:$root.check">Comprobar disponibilidad asistentes</button>
+				<button id="check" data-bind="click:$root.check">Comprobar
+					disponibilidad asistentes</button>
 				<div class="form-check">
 
 					<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
@@ -84,12 +85,65 @@
 
 				</br>
 			</form>
-			
+
 			</br>
-			<button id="addReunion" data-bind="click:$root.addReunion">Añadir reunión</button>
+			<button id="addReunion" data-bind="click:$root.addReunion">Añadir
+				reunión</button>
 			<button id="volverReunion">Volver</button>
-			
+
 		</div>
+		<!-- MODIFICAR DATOS -->
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#exampleModal">Modificar
+			datos</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Modificación
+							de datos</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- aqui meto el codigo -->
+						<div align="center">
+
+							<div>
+								<input id="email" required="required" type="email"
+									placeholder="email@email.com" />
+							</div>
+							<div>
+								<input id="pwda" required="required" type="password"
+									placeholder="Contraseña antigua" />
+							</div>
+							<div>
+								<input id="pwdn" required="required" type="password"
+									placeholder="Contraseña nueva" />
+							</div>
+							<div>
+								<input id="pwd2" required="required" type="password"
+									placeholder="Confirma tu contraseña" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-primary"
+							data-bind="click: $root.modificarUsuario">Guardar
+							cambios</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -108,5 +162,6 @@
 		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 		<script src="ocultar.js"></script>
 		<script src="addreunion.js"></script>
+		<script src="gestionUsuarios.js"></script>
 </body>
 </html>

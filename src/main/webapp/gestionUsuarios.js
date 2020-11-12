@@ -11,7 +11,8 @@ function ViewModel() {
 
 		var msg = {
 			type: "leer",
-			nombre: sessionStorage.userName
+			nombre: sessionStorage.userName,
+			vista: "gestionUsuarios"
 		};
 		self.sws.send(JSON.stringify(msg));
 
@@ -104,5 +105,6 @@ function ViewModel() {
 		}
 	}
 }
+
 var vm = new ViewModel();
 ko.applyBindings(vm);

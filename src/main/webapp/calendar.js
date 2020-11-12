@@ -13,7 +13,8 @@ function viewModel() {
 	self.sws.onopen = function() {
 		const msg = {
 			type: 'leer',
-			nombre: sessionStorage.userName
+			nombre: sessionStorage.userName,
+			vista:"calendar"
 		};
 		self.sws.send(JSON.stringify(msg));
 	};
