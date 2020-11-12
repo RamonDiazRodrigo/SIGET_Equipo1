@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="gestionUsuarios.css">
 </head>
 <body>
-	<div id="gestionUsuarios" class="container">
+	<div id="koGestion" class="container">
 		<div class="cards">
 			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
 			<div class="card" style="width: 18rem;">
@@ -33,19 +33,81 @@
 					<p class="card-text" data-bind="html : email"></p>
 					rol:
 					<p class="card-text" data-bind="html : rol"></p>
-					<button type="button" class="btn btn-primary"
-						data-bind="click: infoUsuarios">Modificar</button>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+						data-target="#exampleModal" data-bind="click: infoUsuarios">Modificar</button>
+
 					<button id="eliminar" type="button" class="btn btn-primary"
 						data-bind="click: eliminarUsuario">Eliminar</button>
 				</div>
 
 			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Modificación
+								usuario</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- AQUI METO EL CODIGO -->
+							<h1>Modificar credenciales</h1>
+							<p>
+							<form>
+								<div id="container" class="form">
+									<div>
+
+										<input id="username" name="username" required="required"
+											type="text" placeholder="PEPE" readonly="readonly"
+											disabled="disabled" />
+									</div>
+									<div>
+										<input id="email" required="required" type="email"
+											placeholder="email@email.com" />
+									</div>
+									<div>
+										<input id="pwda" required="required" type="password"
+											placeholder="Contraseña antigua" />
+									</div>
+									<div>
+										<input id="pwdn" required="required" type="password"
+											placeholder="Contraseña nueva" />
+									</div>
+									<div>
+										<input id="pwd2" required="required" type="password"
+											placeholder="Confirma tu contraseña" />
+									</div>
+									<div>
+										<button type="button" class="btn btn-primary"
+											data-bind="click: $root.ascender" data-dismiss="modal">Ascender</button>
+									</div>
+
+								</div>
+								<p>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal" data-bind="click: $root.modificarUsuario">Guardar
+								cambios</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /ko -->
 			<h4 class="card-title"></h4>
 			<button onclick="window.location.href='/register.html'">+</button>
 		</div>
-	</div>
-
+	
+	<!-- MODIFICAR CREDENCIALES -->
 	<div id="modificarCredenciales" class="jumbotron text-center"
 		style="visibility: hidden">
 		<h1>Modificar credenciales</h1>
@@ -91,6 +153,7 @@
 			</div>
 		</form>
 	</div>
+	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -109,6 +172,7 @@
 	<script src="ocultar.js"></script>
 
 	<script src="gestionUsuarios.js"></script>
+
 
 </body>
 </html>
