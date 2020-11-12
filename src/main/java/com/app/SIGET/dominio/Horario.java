@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Horario {
-
 	private int[][] matrizHorario;
 	private static final int DIAS = 7;
 	private static final int HUECOS = 48;
@@ -35,7 +34,7 @@ public class Horario {
 	}
 
 	public static Horario String2Horario(String hor) {
-		
+
 		Horario horario = new Horario();
 
 		if (hor != null) {
@@ -87,10 +86,10 @@ public class Horario {
 	}
 
 	private static int calcularIndice(LocalTime time) {
-		return (time.getHour() - 1) * 2 + (time.getMinute() / 30);
+		return (time.getHour()) * 2 + (time.getMinute() / 30);
 	}
 
-	public  boolean estaOcupado(Actividad actividad) {
+	public boolean estaOcupado(Actividad actividad) {
 		for (int i = Horario.calcularIndice(actividad.getHoraI()); i < Horario
 				.calcularIndice(actividad.getHoraF()); i++) {
 			if (this.matrizHorario[actividad.getDia().getValue()][i] != 0) {

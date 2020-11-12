@@ -21,6 +21,7 @@ function ViewModel() {
 
 
 		self.sws.onmessage = function(event) {
+			document.getElementById('username').placeholder = sessionStorage.userName;
 			var data = event.data;
 			data = JSON.parse(data);
 			var users = data.usuarios;
@@ -112,4 +113,4 @@ function ViewModel() {
 	}
 }
 var vm = new ViewModel();
-ko.applyBindings(vm);
+ko.applyBindings(vm, document.getElementById("koGestion"));
