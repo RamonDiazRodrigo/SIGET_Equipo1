@@ -7,7 +7,6 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.app.SIGET.dominio.Manager;
-import com.app.SIGET.dominio.Rol;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -72,6 +71,10 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		if ("modificar".equals(jso.getString(TYPE))) { 
 			//Misma condicion para modificar usuario tanto para Asistente como para Admin
 			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd"));
+		}
+		
+		if ("ascender".equals(jso.getString(TYPE))) { 
+			Manager.get().ascenderUsuario(jso.getString("nombre"));
 		}
 	}
 }
