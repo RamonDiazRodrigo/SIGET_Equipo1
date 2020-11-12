@@ -1,14 +1,11 @@
 package com.app.SIGET.dominio;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class User {
 	protected String name;
 	protected String email;
-	protected String password;
-	protected Rol rol;
-	
+	protected String password;	
 
 	public String getName() {
 		return name;
@@ -33,9 +30,15 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Rol getRol() {
-		return rol;
+	
+	public String getRol() {
+		
+		if(this.getClass().toString().contains("Admin")) {
+			return "ADMIN";
+		} else {
+			return "ASISTENTE";
+		}
+		
 	}
 	
 	protected abstract JSONObject toJSON();

@@ -9,7 +9,6 @@ public class Admin extends User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.rol = Rol.ADMIN;
 
 	}
 

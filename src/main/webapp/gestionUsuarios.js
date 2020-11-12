@@ -21,11 +21,13 @@ function ViewModel() {
 
 
 		self.sws.onmessage = function(event) {
+			
 			document.getElementById('username').placeholder = sessionStorage.userName;
 			var data = event.data;
 			data = JSON.parse(data);
 			var users = data.usuarios;
-
+			
+			
 
 			for (var i = 0; i < users.length; i++) {
 				var usuario = users[i];
@@ -40,6 +42,7 @@ function ViewModel() {
 				if (usuario.name === self.nombreUsuario()) {
 
 					document.getElementById('username').placeholder = usuario.name;
+					
 				}
 			}
 
@@ -58,6 +61,16 @@ function ViewModel() {
 					nombre: nombre,
 					pwd: document.getElementById("pwdn").value,
 					email: document.getElementById("email").value
+				};
+				self.sws.send(JSON.stringify(p));
+
+			}
+			
+			self.ascender = function() {
+				var p = {
+					type: "ascender",
+					nombre: self.nombreUsuario()
+					
 				};
 				self.sws.send(JSON.stringify(p));
 
