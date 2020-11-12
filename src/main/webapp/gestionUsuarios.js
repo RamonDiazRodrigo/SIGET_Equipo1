@@ -46,9 +46,15 @@ function ViewModel() {
 
 
 			self.modificarUsuario = function() {
+				let nombre;
+				if (self.nombreUsuario() === '') {
+					nombre = sessionStorage.userName;
+				} else {
+					nombre = self.nombreUsuario();
+				}
 				var p = {
 					type: "modificar",
-					nombre: self.nombreUsuario(),
+					nombre: nombre,
 					pwd: document.getElementById("pwdn").value,
 					email: document.getElementById("email").value
 				};
@@ -105,6 +111,5 @@ function ViewModel() {
 		}
 	}
 }
-
 var vm = new ViewModel();
 ko.applyBindings(vm);
