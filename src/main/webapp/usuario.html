@@ -28,8 +28,7 @@
 <body>
 	<div class="container">
 		<!-- Optional JavaScript 
-				<!-- Optional JavaScript --> 
-		<button id="visibilityHidden">Reuniones pendientes</button>
+		<button id="visibilityHidden">Aceptar/Rechazar Reuniones</button>-->
 		<button onclick="window.location.href='/calendar.html'">Ver
 			agenda</button>
 		<button id="Reunion">Añadir reunión</button>
@@ -37,12 +36,10 @@
 			<form>
 				<label for="input">REUNIONES PENDIENTES: </label>
 				<div class="md-form md-outline">
-			<!-- ko foreach : { data: listaReuniones, as :"reunion" } -->
-					<h4 class="card-title" data-bind="html : name"></h4>
-					<button id="visibilityHidden" type="button" data-bind="click: aceptarReunion">Aceptar</button>
-					<button id="visibilityHidden" type="button" data-bind="click: rechazarReunion">Rechazar</button>
-					</div>
-			<!-- /ko -->
+					<label for="default-picker">Daily</label>
+					<button id="visibilityHidden">Aceptar</button>
+					<button id="visibilityHidden">Rechazar</button>
+				</div>
 				<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
 				<option class="option" value="" data-bind="html : name"></option>
 				<!-- /ko -->
