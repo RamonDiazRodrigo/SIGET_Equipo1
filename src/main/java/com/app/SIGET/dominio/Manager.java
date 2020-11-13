@@ -68,7 +68,6 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) {
-
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
@@ -154,7 +153,6 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		jso.put(USUARIOS, Manager.get().leerAsistentes());
 		jso.put("actividades", Manager.get().leerReuniones());
-
 		return jso;
 	}
 
@@ -184,7 +182,6 @@ public class Manager {
 			if (u.getName().equals(nombre)) {
 				horario = ((Asistente) u).getHorario().getMatrizHorario();
 				buscarActividades(horario, jsa);
-
 			}
 		}
 		jso.put("actividades", jsa);
@@ -261,9 +258,8 @@ public class Manager {
 
 				jsa.put(u.toJSON());
 			}
-
+			
 		}
-
 		return jsa;
 	}
 
@@ -302,13 +298,11 @@ public class Manager {
 	}
 
 	public void aceptarReunion(String usuario, String nombre_reunion) {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	public void rechazarReunion(String usuario, String nombre_reunion) {
-		// TODO Auto-generated method stub
-		
+		// De momento no pasa nada si rechazamos la reunion
 	}
 
 }

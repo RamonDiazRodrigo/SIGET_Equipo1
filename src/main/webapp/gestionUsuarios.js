@@ -8,16 +8,12 @@ function ViewModel() {
 
 	self.sws.onopen = function(event) {
 
-
 		var msg = {
 			type: "leer",
 			nombre: sessionStorage.userName,
 			vista: "gestionUsuarios"
 		};
 		self.sws.send(JSON.stringify(msg));
-
-
-
 
 
 		self.sws.onmessage = function(event) {
@@ -126,4 +122,4 @@ function ViewModel() {
 	}
 }
 var vm = new ViewModel();
-ko.applyBindings(vm, document.getElementById("koGestion"));
+ko.applyBindings(vm);

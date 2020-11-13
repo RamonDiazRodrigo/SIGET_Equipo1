@@ -21,8 +21,6 @@ function ViewModel() {
 	}
 
 	self.check = function() {
-
-
 		var dateInicio = $('#horaInicio').val().split(":");
 		var dateFinal = $('#horaFinal').val().split(":");
 
@@ -39,7 +37,6 @@ function ViewModel() {
 	};
 
 	self.addReunion = function() {
-
 		for (var i = 0; i < self.listaUsuarios().length; i++) {
 			if (document.getElementsByClassName("form-check-input")[i].checked === true) {
 				self.usuariosSeleccionados.push(document.getElementsByClassName("form-check-label")[i].innerHTML);
@@ -80,4 +77,4 @@ function ViewModel() {
 	}
 }
 var vm = new ViewModel();
-ko.applyBindings(vm, document.getElementById("hide_reunion"));
+ko.applyBindings(vm);

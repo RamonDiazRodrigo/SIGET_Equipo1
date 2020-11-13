@@ -32,7 +32,7 @@
 		<button id="visibilityHidden">Reuniones pendientes</button>
 		<button onclick="window.location.href='/calendar.html'">Ver
 			agenda</button>
-		<button id="Reunion">Añadir reunión</button>
+		<button onclick="window.location.href='/convocarReunion.html'">Convocar reunión</button>
 		<div id="hide-me">
 			<form>
 				<label for="input">REUNIONES PENDIENTES: </label>
@@ -50,51 +50,6 @@
 			</form>
 		</div>
 
-		<div id="hide_reunion">
-			<form>
-				<br /> <label for="input">Reunión: </label> <input type="text"
-					id="actividad" placeholder="Nombre"> <br /> <label
-					for="select">Elige dia</label> <select id="dia">
-					<option class="option" value="">LUNES</option>
-					<option class="option" value="">MARTES</option>
-					<option class="option" value="">MIERCOLES</option>
-					<option class="option" value="">JUEVES</option>
-					<option class="option" value="">VIERNES</option>
-					<option class="option" value="">SABADO</option>
-					<option class="option" value="">DOMINGO</option>
-				</select> </br>
-				<div class="md-form md-outline">
-					<label for="default-picker">Elige hora inicio</label> <input
-						type="time" id="horaInicio" class="form-control"
-						placeholder="Select time">
-				</div>
-				<br />
-				<div class="md-form md-outline">
-					<label for="default-picker">Elige hora final</label> <input
-						type="time" id="horaFinal" class="form-control"
-						placeholder="Select time">
-				</div>
-				<button id="check" data-bind="click:$root.check">Comprobar
-					disponibilidad asistentes</button>
-				<div class="form-check">
-
-					<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
-
-					<input class="form-check-input" type="checkbox" value=""
-						id="defaultCheck1"> <label class="form-check-label"
-						for="defaultCheck1" data-bind="html : name"> </label> </br>
-					<!-- /ko -->
-				</div>
-
-				</br>
-			</form>
-
-			</br>
-			<button id="addReunion" data-bind="click:$root.addReunion">Añadir
-				reunión</button>
-			<button id="volverReunion">Volver</button>
-
-		</div>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
 		<div id="koGestion" style="display: inline-block">
@@ -171,7 +126,6 @@
 		<!-- KNOCKOUT -->
 		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 		<script src="ocultar.js"></script>
-		<script src="addreunion.js"></script>
 		<script src="gestionUsuarios.js"></script>
 </body>
 </html>
