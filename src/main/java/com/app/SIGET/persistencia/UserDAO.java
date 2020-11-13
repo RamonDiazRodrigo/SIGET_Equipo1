@@ -80,9 +80,11 @@ public final class UserDAO {
 			document.append(EMAIL, user.getEmail());
 			document.append(PASSWORD, user.getPassword());
 			document.append("rol", user.getRol());
+			if (user.getRol().equals("ASISTENTE")) {
+				document.append(HORARIO, ((Asistente) user).getHorario().toString());
+			}
 			coleccion.insertOne(document);
 		}
-
 	}
 
 	public static void eliminar(User user) {
@@ -100,7 +102,6 @@ public final class UserDAO {
 		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
 			UserDAO.eliminar(u);
 			UserDAO.insertar(u);
-
 	}
 
 }
