@@ -1,38 +1,39 @@
-var url = "ws://"+window.location.host+"/SIGETEquipo1";
-var sws = new WebSocket(url); 
-	
+var url = "ws://" + window.location.host + "/SIGETEquipo1";
+var sws = new WebSocket(url);
+
 sws.onopen = function(event) {
 	var msg = {
-		type : "ready"
+		type: "ready"
 	};
 	sws.send(JSON.stringify(msg));
 }
 sws.onmessage = function(event) {
-	var data= event.data;
+	var data = event.data;
 	data = JSON.parse(data);
-	if(data.rol=="ADMIN"){
-		window.location.href="admin.html";
+	if (data.rol == "ADMIN") {
+		window.location.href = "admin.html";
 	}
-	if(data.rol=="ASISTENTE"){
-		window.location.href="usuario.html";
+	if (data.rol == "ASISTENTE") {
+		window.location.href = "usuario.html";
 	}
 }
 
-let login  = function() {
+let login = function() {
 	const info = {
 		type: 'Login',
 		userName: $('#username').val(),
 		pwd: $('#password').val()
 	};
+	sessionStorage.userName = $('#username').val();
 	const data = {
 		data: JSON.stringify(info),
 		url: 'login',
 		type: 'post',
 		contentType: 'application/json',
-		success : function() {
+		success: function() {
 			sessionStorage.userName = $('#username').val();
 		},
-		error : function(response) {
+		error: function(response) {
 			alert('LOGIN INCORRECTO');
 		}
 	};

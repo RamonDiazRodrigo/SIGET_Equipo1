@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="ISO-8859-1">
-<title>Gestión usuarios</title>
+<title>Gestiï¿½n usuarios</title>
 <div class="container">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="/">VISTA ADMINISTRADOR </a>
@@ -24,8 +24,7 @@
 </head>
 <body>
 	<div id="koGestion" class="container">
-	<button onclick="window.location.href='/register.html'"
-			class="btn btn-primary" align="center">Añadir usuario</button>
+		<input type="button" value="Volver" onClick="history.go(-1);">
 		<div class="cards">
 			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
 			<div class="card" style="width: 18rem;">
@@ -50,7 +49,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Modificación
+							<h5 class="modal-title" id="exampleModalLabel">Modificaciï¿½n
 								usuario</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
@@ -75,15 +74,15 @@
 									</div>
 									<div>
 										<input id="pwda" required="required" type="password"
-											placeholder="Contraseña antigua" />
+											placeholder="Contraseï¿½a antigua" />
 									</div>
 									<div>
 										<input id="pwdn" required="required" type="password"
-											placeholder="Contraseña nueva" />
+											placeholder="Contraseï¿½a nueva" />
 									</div>
 									<div>
 										<input id="pwd2" required="required" type="password"
-											placeholder="Confirma tu contraseña" />
+											placeholder="Confirma tu contraseï¿½a" />
 									</div>
 									<div>
 										<button type="button" class="btn btn-primary"
@@ -106,10 +105,55 @@
 			</div>
 			<!-- /ko -->
 			<h4 class="card-title"></h4>
+			<button onclick="window.location.href='/register.html'">+</button>
 		</div>
 	
 	<!-- MODIFICAR CREDENCIALES -->
-	
+	<div id="modificarCredenciales" class="jumbotron text-center"
+		style="visibility: hidden">
+		<h1>Modificar credenciales</h1>
+		<p>
+		<form>
+			<div id="container" class="form">
+				<div>
+
+					<input id="username" name="username" required="required"
+						type="text" placeholder="PEPE" readonly="readonly"
+						disabled="disabled" />
+				</div>
+				<div>
+					<input id="email" required="required" type="email"
+						placeholder="email@email.com" />
+				</div>
+				<div>
+					<input id="pwda" required="required" type="password"
+						placeholder="Contraseï¿½a antigua" />
+				</div>
+				<div>
+					<input id="pwdn" required="required" type="password"
+						placeholder="Contraseï¿½a nueva" />
+				</div>
+				<div>
+					<input id="pwd2" required="required" type="password"
+						placeholder="Confirma tu contraseï¿½a" />
+				</div>
+
+			</div>
+			<p>
+			<div class="row" id="divBtn">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3" id="mostrarLogin">
+					<button data-bind="click: $root.modificarUsuario" id="btnregister">Modificar</button>
+					<br>
+				</div>
+				<div class="col-sm-3" id="volver">
+					<button id="btnBackToGestionUsuarios">Volver</button>
+					<br>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+		</form>
+	</div>
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

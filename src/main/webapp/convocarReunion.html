@@ -64,23 +64,18 @@
 						for="defaultCheck1" data-bind="html : name"> </label> </br>
 					<!-- /ko -->
 				</div>
-
 				</br>
 			</form>
 
 			</br>
 			<button id="addReunion" data-bind="click:$root.addReunion">Añadir
 				reunión</button>
-			<button id="volverReunion">Volver</button>
-
+			<input type="button" value="Volver" onClick="history.go(-1);">
 		</div>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
 		
 		</div>
-
-
-
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

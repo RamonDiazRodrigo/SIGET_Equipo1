@@ -115,9 +115,9 @@ public final class ActividadDAO {
 	}
 
 	public static Actividad leerActividad(int id) {
-		
+
 		Document document;
-		Actividad act=null;
+		Actividad act = null;
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
 		MongoCursor<Document> iter = coleccion.find().iterator();
 
@@ -130,13 +130,13 @@ public final class ActividadDAO {
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
 							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
-					
+
 				} else {
 					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
 							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
-					
+
 				}
 			}
 		}
@@ -147,16 +147,19 @@ public final class ActividadDAO {
 		Document document;
 		MongoCollection<Document> coleccion;
 		if (user != null) {
-			coleccion = AgenteDB.get().getBd(ACTS);
-			document = new Document("name", actividad.getName());
-			document.append("id", actividad.getId());
-			document.append("dia", actividad.getDia().toString());
-			document.append(HORAI, actividad.getHoraI().getHour());
-			document.append(MINUTOSI, actividad.getHoraI().getMinute());
-			document.append(HORAF, actividad.getHoraF().getHour());
-			document.append(MINUTOSF, actividad.getHoraF().getMinute());
-			document.append(REUNION, actividad.isReunion());
-			coleccion.insertOne(document);
+			// SI LA REUNION YA EXISTE NO SE METE
+			if (leerActividad(actividad.getId()) == null) {
+				coleccion = AgenteDB.get().getBd(ACTS);
+				document = new Document("name", actividad.getName());
+				document.append("id", actividad.getId());
+				document.append("dia", actividad.getDia().toString());
+				document.append(HORAI, actividad.getHoraI().getHour());
+				document.append(MINUTOSI, actividad.getHoraI().getMinute());
+				document.append(HORAF, actividad.getHoraF().getHour());
+				document.append(MINUTOSF, actividad.getHoraF().getMinute());
+				document.append(REUNION, actividad.isReunion());
+				coleccion.insertOne(document);
+			}
 			coleccion = AgenteDB.get().getBd(USUARIO);
 			document = new Document("name", user.getName());
 			document.append("email", user.getEmail());
@@ -170,7 +173,7 @@ public final class ActividadDAO {
 		} else {
 			System.out.println("Mandar un error de que el user es null");
 		}
-		
+
 	}
 
 }

@@ -40,7 +40,6 @@ function ViewModel() {
 		for (var i = 0; i < self.listaUsuarios().length; i++) {
 			if (document.getElementsByClassName("form-check-input")[i].checked === true) {
 				self.usuariosSeleccionados.push(document.getElementsByClassName("form-check-label")[i].innerHTML);
-				// self.usuariosSeleccionados.push(document.getElementById("select").options[document.getElementById("select").selectedIndex].text);
 			}
 		}
 		var dateInicio = $('#horaInicio').val().split(":");
@@ -56,10 +55,9 @@ function ViewModel() {
 			minutoFinal: dateFinal[1],
 			usuarios: self.usuariosSeleccionados(),
 			success: function() {
-				sessionStorage.userName = $('#username').val();
 				alert('Se ha creado correctamente');
 			},
-			error: function(response) {
+			error: function() {
 
 				alert('Se ha creado incorrectamente');
 			}

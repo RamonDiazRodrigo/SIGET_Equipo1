@@ -11,6 +11,7 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<button onclick="window.location.href='index.html'">Cerrar Sesion</button>
 	</nav>
 </div>
 <!-- Required meta tags -->
@@ -29,10 +30,26 @@
 	<div class="container">
 		<!-- Optional JavaScript 
 				<!-- Optional JavaScript --> 
-		<button onclick="window.location.href='/reunionesPendientes.html'">Reuniones pendientes</button>
-		<button onclick="window.location.href='/calendar.html'">Ver agenda</button>
+		<button id="visibilityHidden">Reuniones pendientes</button>
+		<button onclick="window.location.href='/calendar.html'">Ver
+			agenda</button>
 		<button onclick="window.location.href='/convocarReunion.html'">Convocar reunión</button>
-		
+		<div id="hide-me">
+			<form>
+				<label for="input">REUNIONES PENDIENTES: </label>
+				<div class="md-form md-outline">
+			<!-- ko foreach : { data: listaReuniones, as :"reunion" } -->
+					<h4 class="card-title" data-bind="html : name"></h4>
+					<button id="visibilityHidden" type="button" data-bind="click: aceptarReunion">Aceptar</button>
+					<button id="visibilityHidden" type="button" data-bind="click: rechazarReunion">Rechazar</button>
+					</div>
+			<!-- /ko -->
+				<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+				<option class="option" value="" data-bind="html : name"></option>
+				<!-- /ko -->
+				<button onclick="window.location.href='usuario.html'">Volver</button>
+			</form>
+		</div>
 
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->

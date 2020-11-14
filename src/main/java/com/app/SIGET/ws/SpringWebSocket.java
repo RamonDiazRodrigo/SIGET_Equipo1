@@ -13,7 +13,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
-	private static final String VISTA= "vista";
+	private static final String VISTA = "vista";
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -43,7 +43,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
 				session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 			} else {
-				session.sendMessage(new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
+				session.sendMessage(
+						new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
 			}
 		}
 
@@ -64,30 +65,32 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("infoUsuarios".equals(jso.getString(TYPE))) {
-			session.sendMessage(new TextMessage(Manager.get().leer().toString())); // MANDAR INFO DE UN USUARIO
+			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 		}
 
-		if ("modificar".equals(jso.getString(TYPE))) { 
-			//Misma condicion para modificar usuario tanto para Asistente como para Admin
+		if ("modificar".equals(jso.getString(TYPE))) {
+			// Misma condicion para modificar usuario tanto para Asistente como para Admin
 			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd"));
 		}
-		
-		if ("ascender".equals(jso.getString(TYPE))) { 
+
+		if ("ascender".equals(jso.getString(TYPE))) {
 			Manager.get().ascenderUsuario(jso.getString("nombre"));
 		}
-		
+
 		if ("aceptarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().aceptarReunion(jso.getString("nombre"), jso.getInt("id"), jso.getString("horaI"), jso.getString("minutosI"), jso.getString("horaF"), jso.getString("minutosI"));
-			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+			Manager.get().aceptarReunion(jso.getString("nombre"), jso.getInt("id"));
+			session.sendMessage(
+					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 		}
 		if ("rechazarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().rechazarReunion(jso.getString("nombre"), jso.getInt("id"), jso.getString("horaI"), jso.getString("minutosI"), jso.getString("horaF"), jso.getString("minutosI"));
-			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+			Manager.get().rechazarReunion(jso.getString("nombre"), jso.getInt("id"));
+			session.sendMessage(
+					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 		}
 		if ("reunionesPendientes".equals(jso.getString(TYPE))) {
-			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
-			
-			//Manager.get().rechazarReunion(jso.getString("nombre"), jso.getString("reunion"));
+			session.sendMessage(
+					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+
 		}
 	}
 }
