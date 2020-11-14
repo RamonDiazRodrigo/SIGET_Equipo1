@@ -19,6 +19,7 @@ public final class UserDAO {
 	public static final String NAME = "name";
 	public static final String ADMIN = "ADMIN";
 	public static final String HORARIO = "horario";
+	public static final String REUNIONESPENDIENTES = "reunionesPendientes";
 
 	private UserDAO() {
 		super();
@@ -37,6 +38,7 @@ public final class UserDAO {
 				u = new Admin(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 			} else {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
+				((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
 				((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
 			
 			}
@@ -63,6 +65,8 @@ public final class UserDAO {
 					u = new Asistente(document.getString(NAME), document.getString(EMAIL),
 							document.getString(PASSWORD));
 					((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
+					((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
+					
 				}
 
 				usuarios.add(u);
@@ -82,6 +86,7 @@ public final class UserDAO {
 			document.append("rol", user.getRol());
 			if (user.getRol().equals("ASISTENTE")) {
 				document.append(HORARIO, ((Asistente) user).getHorario().toString());
+				document.append(REUNIONESPENDIENTES, ((Asistente) user).getReunionesPendientes().toString());
 			}
 			coleccion.insertOne(document);
 		}

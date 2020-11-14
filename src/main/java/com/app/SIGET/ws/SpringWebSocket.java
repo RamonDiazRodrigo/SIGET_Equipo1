@@ -77,10 +77,17 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 		
 		if ("aceptarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().aceptarReunion(jso.getString("nombre"), jso.getString("reunion"));
+			Manager.get().aceptarReunion(jso.getString("nombre"), jso.getInt("id"), jso.getString("horaI"), jso.getString("minutosI"), jso.getString("horaF"), jso.getString("minutosI"));
+			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 		}
 		if ("rechazarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().rechazarReunion(jso.getString("nombre"), jso.getString("reunion"));
+			Manager.get().rechazarReunion(jso.getString("nombre"), jso.getInt("id"), jso.getString("horaI"), jso.getString("minutosI"), jso.getString("horaF"), jso.getString("minutosI"));
+			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+		}
+		if ("reunionesPendientes".equals(jso.getString(TYPE))) {
+			session.sendMessage(new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+			
+			//Manager.get().rechazarReunion(jso.getString("nombre"), jso.getString("reunion"));
 		}
 	}
 }
