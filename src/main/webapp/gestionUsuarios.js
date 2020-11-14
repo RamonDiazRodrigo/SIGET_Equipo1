@@ -8,25 +8,20 @@ function ViewModel() {
 
 	self.sws.onopen = function(event) {
 
-
 		var msg = {
 			type: "leer",
 			nombre: sessionStorage.userName,
 			vista: "gestionUsuarios"
 		};
 		self.sws.send(JSON.stringify(msg));
+	}
 
-
-
-
-
-		self.sws.onmessage = function(event) {
+self.sws.onmessage = function(event) {
 			
-			document.getElementById('username').placeholder = sessionStorage.userName;
+			
 			var data = event.data;
 			data = JSON.parse(data);
 			var users = data.usuarios;
-			
 			
 
 			for (var i = 0; i < users.length; i++) {
@@ -34,6 +29,12 @@ function ViewModel() {
 				if (self.listaUsuarios().some(u => u.name === usuario.name) === false) {
 					self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
 				}
+				if (sessionStorage.userName === usuario.name) {
+					if(usuario.rol === "ASISTENTE"){
+					   document.getElementById('username').placeholder = sessionStorage.userName;
+					}
+				}
+				
 			}
 
 
@@ -115,7 +116,6 @@ function ViewModel() {
 					nombre: this.name
 				};
 				self.nombreUsuario(this.name);
-				document.getElementById("modificarCredenciales").style.visibility = 'visible';
 				self.sws.send(JSON.stringify(p));
 
 			}
@@ -123,7 +123,7 @@ function ViewModel() {
 
 
 		}
-	}
+	
 }
 var vm = new ViewModel();
-ko.applyBindings(vm, document.getElementById("koGestion"));
+ko.applyBindings(vm);

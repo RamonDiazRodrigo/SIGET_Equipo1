@@ -24,6 +24,8 @@
 </head>
 <body>
 	<div id="koGestion" class="container">
+	<button onclick="window.location.href='/register.html'"
+			class="btn btn-primary" align="center">Añadir usuario</button>
 		<div class="cards">
 			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
 			<div class="card" style="width: 18rem;">
@@ -104,55 +106,10 @@
 			</div>
 			<!-- /ko -->
 			<h4 class="card-title"></h4>
-			<button onclick="window.location.href='/register.html'">+</button>
 		</div>
 	
 	<!-- MODIFICAR CREDENCIALES -->
-	<div id="modificarCredenciales" class="jumbotron text-center"
-		style="visibility: hidden">
-		<h1>Modificar credenciales</h1>
-		<p>
-		<form>
-			<div id="container" class="form">
-				<div>
-
-					<input id="username" name="username" required="required"
-						type="text" placeholder="PEPE" readonly="readonly"
-						disabled="disabled" />
-				</div>
-				<div>
-					<input id="email" required="required" type="email"
-						placeholder="email@email.com" />
-				</div>
-				<div>
-					<input id="pwda" required="required" type="password"
-						placeholder="Contraseña antigua" />
-				</div>
-				<div>
-					<input id="pwdn" required="required" type="password"
-						placeholder="Contraseña nueva" />
-				</div>
-				<div>
-					<input id="pwd2" required="required" type="password"
-						placeholder="Confirma tu contraseña" />
-				</div>
-
-			</div>
-			<p>
-			<div class="row" id="divBtn">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-3" id="mostrarLogin">
-					<button data-bind="click: $root.modificarUsuario" id="btnregister">Modificar</button>
-					<br>
-				</div>
-				<div class="col-sm-3" id="volver">
-					<button id="btnBackToGestionUsuarios">Volver</button>
-					<br>
-				</div>
-				<div class="col-sm-3"></div>
-			</div>
-		</form>
-	</div>
+	
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

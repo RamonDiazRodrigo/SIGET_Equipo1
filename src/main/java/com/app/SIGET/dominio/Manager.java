@@ -68,7 +68,6 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) {
-
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, password));
 		} else {
@@ -154,7 +153,6 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		jso.put(USUARIOS, Manager.get().leerAsistentes());
 		jso.put("actividades", Manager.get().leerReuniones());
-
 		return jso;
 	}
 
@@ -184,7 +182,6 @@ public class Manager {
 			if (u.getName().equals(nombre)) {
 				horario = ((Asistente) u).getHorario().getMatrizHorario();
 				buscarActividades(horario, jsa);
-
 			}
 		}
 		jso.put("actividades", jsa);
@@ -234,16 +231,21 @@ public class Manager {
 		JSONArray jsa = new JSONArray(usuarios);
 		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
-
+		
 		for (int i = 0; i < jsa.length(); i++) {
 			for (User u : UserDAO.leerUsers()) {
 				if (u.getName().equals(jsa.get(i))) {
-					((Asistente) u).insertarReunionPendiente(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni,
+					/*((Asistente) u).insertarReunionPendiente(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni,
+							horaFin, Boolean.parseBoolean(reunion)));*/
+					ActividadDAO.insertarReunionPend((Asistente)u, new Actividad(nombre, DiaSemana.valueOf(dia), horaIni,
 							horaFin, Boolean.parseBoolean(reunion)));
+					//UserDAO.modificar(u); aaaaaa
+					
 				}
 			}
 
 		}
+		
 
 	}
 
@@ -261,9 +263,8 @@ public class Manager {
 
 				jsa.put(u.toJSON());
 			}
-
+			
 		}
-
 		return jsa;
 	}
 
@@ -299,6 +300,52 @@ public class Manager {
 		jso.put(USUARIOS, jsa);
 
 		return jsa;
+	}
+	public JSONArray cargarReunionesPendientes(String usuario) {
+		JSONArray jsa = new JSONArray();
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(usuario)) {
+				for (int id : ((Asistente)u).getReunionesPendientes()) {
+					for (Actividad actv : ActividadDAO.leerReuniones()) {
+						if (id==actv.getId()) {
+							jsa.put(actv.toJSON());
+						}
+						
+					}
+				}
+				
+			}
+		}
+		//jso.put("reunionesPendientes", asistente.getReunionesPendientes());
+		
+		return jsa;
+	}
+
+	public void aceptarReunion(String usuario, int id, String horaI, String minutosI, String horaF, String minutosF) {
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(usuario)) {
+				((Asistente)u).quitarReunionPendiente(id);
+				UserDAO.modificar(u);
+				for (Actividad actv : ActividadDAO.leerReuniones()) {
+					if (actv.getId()==id) {
+						insertarActividad(actv.getName(), actv.getDia().toString(), horaI, minutosI, horaF, minutosF, u.getName(), "true");
+						
+					}
+				}
+				
+			}
+		}
+	}
+
+	public void rechazarReunion(String usuario, int id, String horaI, String minutosI, String horaF, String minutosF) {
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(usuario)) {
+				((Asistente)u).quitarReunionPendiente(id);
+				UserDAO.modificar(u);
+				
+				
+			}
+		}
 	}
 
 }
