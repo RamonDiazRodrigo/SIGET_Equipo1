@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.app.SIGET.dominio.DiaSemana;
 import org.bson.Document;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 import com.app.SIGET.dominio.Asistente;
 import com.app.SIGET.dominio.Actividad;
@@ -140,6 +141,36 @@ public final class ActividadDAO {
 			}
 		}
 		return act;
+	}
+
+	public static void insertarReunionPend(Asistente user, Actividad actividad) {
+		Document document;
+		MongoCollection<Document> coleccion;
+		if (user != null) {
+			coleccion = AgenteDB.get().getBd(ACTS);
+			document = new Document("name", actividad.getName());
+			document.append("id", actividad.getId());
+			document.append("dia", actividad.getDia().toString());
+			document.append(HORAI, actividad.getHoraI().getHour());
+			document.append(MINUTOSI, actividad.getHoraI().getMinute());
+			document.append(HORAF, actividad.getHoraF().getHour());
+			document.append(MINUTOSF, actividad.getHoraF().getMinute());
+			document.append(REUNION, actividad.isReunion());
+			coleccion.insertOne(document);
+			coleccion = AgenteDB.get().getBd(USUARIO);
+			document = new Document("name", user.getName());
+			document.append("email", user.getEmail());
+			document.append("password", user.getPassword());
+			document.append("rol", user.getRol());
+			user.insertarReunionPendiente(actividad);
+			document.append("horario", user.getHorario().toString());
+			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
+			UserDAO.eliminar(user);
+			coleccion.insertOne(document);
+		} else {
+			System.out.println("Mandar un error de que el user es null");
+		}
+		
 	}
 
 }

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Asistente extends User {
 
 	private Horario horario;
-	protected List<Actividad> reunionesPendientes;
+	protected List<Integer> reunionesPendientes;
 
 	public Asistente(String name, String email, String password) {
 
@@ -20,12 +20,18 @@ public class Asistente extends User {
 		this.horario = new Horario();
 	}
 
-	public List<Actividad> getReunionesPendientes() {
+	public List<Integer> getReunionesPendientes() {
 		return reunionesPendientes;
 	}
 
-	public void setReunionesPendientes(List<Actividad> reunionesPendientes) {
-		this.reunionesPendientes = reunionesPendientes;
+	public void setReunionesPendientes(String reunionesPendientes) {
+		if(reunionesPendientes !=null) {
+			JSONArray jsa = new JSONArray(reunionesPendientes);
+			for (int i = 0; i < jsa.length(); i++) {
+				this.reunionesPendientes.add(jsa.getInt(i));
+			}
+		}
+		
 	}
 
 	public void insertarActividad(Actividad actividad) {
@@ -39,7 +45,7 @@ public class Asistente extends User {
 	}
 	
 	public void insertarReunionPendiente(Actividad a) {
-		this.reunionesPendientes.add(a);
+		this.reunionesPendientes.add(a.getId());
 		
 	}
 
@@ -73,6 +79,16 @@ public class Asistente extends User {
 		*/
 
 		return jso;
+	}
+
+	public void quitarReunionPendiente(int id) {
+		for (int i = 0; i < this.reunionesPendientes.size(); i++) {
+			if (this.reunionesPendientes.get(i)== id) {
+				this.reunionesPendientes.remove(i);	
+			}
+		}
+	
+		
 	}
 
 }

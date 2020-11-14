@@ -18,15 +18,15 @@ public class CasoDePruebaAsistirReuniones {
 		usuario= new JSONArray().toString();
 	}
 
-	@Then("^el \"([^\"]*)\" acepta la reunion \"([^\"]*)\" y aparece en su agenda$")
-	public void el_acepta_la_reunion_y_aparece_en_su_agenda(String usuario, String nombre_reunion) throws Throwable {
-		Manager.get().aceptarReunion(usuario, nombre_reunion);
+	@Then("^el \"([^\"]*)\" acepta la reunion \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y aparece en su agenda$")
+	public void el_acepta_la_reunion_y_aparece_en_su_agenda(String usuario, String id, String horaI, String minutosI, String horaF, String minutosF) throws Throwable {
+	    Manager.get().aceptarReunion(usuario, Integer.parseInt(id), horaI, minutosI, horaF, minutosF);
 	}
 
-	@Then("^el \"([^\"]*)\" rechaza la reunion \"([^\"]*)\" y aparece en su agenda$")
-	public void el_rechaza_la_reunion_y_aparece_en_su_agenda(String usuario, String nombre_reunion) throws Throwable {
-		Manager.get().rechazarReunion(usuario, nombre_reunion);
-		//es necesario el metodo rechazar Reunion?
+	@Then("^el \"([^\"]*)\" rechaza la reunion \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y no aparece$")
+	public void el_rechaza_la_reunion_y_no_aparece(String usuario, String id, String horaI, String minutosI, String horaF, String minutosF) throws Throwable {
+		 Manager.get().rechazarReunion(usuario, Integer.parseInt(id), horaI, minutosI, horaF, minutosF);
 	}
+
 
 }
