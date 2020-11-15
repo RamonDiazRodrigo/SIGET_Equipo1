@@ -10,7 +10,7 @@ script:
 - mvn clean
 - mvn install
 - mvn package spring-boot:repackage
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=danigcj31_SIGET_Equipo1 -Dsonar.organization=danigcj31
 
 
 deploy: &heroku
