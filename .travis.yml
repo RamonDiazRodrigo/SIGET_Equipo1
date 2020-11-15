@@ -4,8 +4,7 @@ script:
 - mvn clean
 - mvn install
 - mvn package spring-boot:repackage
-- mvn test
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
+- mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 
 deploy: &heroku
