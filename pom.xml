@@ -37,7 +37,6 @@
 			<artifactId>cucumber-java</artifactId>
 			<version>1.2.5</version>
 
-
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -160,11 +159,20 @@
 					</includes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.9</version>
+				<configuration>
+					<excludes>
+						<exclude>META-INF/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>default-prepare-agent</id>
@@ -205,7 +213,6 @@
 										<limit implementation="org.jacoco.report.check.Limit">
 											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.40</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -215,6 +222,11 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
