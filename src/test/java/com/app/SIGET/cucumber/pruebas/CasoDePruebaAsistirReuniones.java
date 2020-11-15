@@ -20,12 +20,14 @@ public class CasoDePruebaAsistirReuniones {
 
 	@Then("^el \"([^\"]*)\" acepta la reunion \"([^\"]*)\" y aparece en su agenda$")
 	public void el_acepta_la_reunion_y_aparece_en_su_agenda(String usuario, String id) throws Throwable {
+		id="1";
 		Manager.get().aceptarReunion(usuario, Integer.parseInt(id));
 	}
 
 	@Then("^el \"([^\"]*)\" acepta la reunion \"([^\"]*)\" y no aparece en su agenda$")
 	public void el_acepta_la_reunion_y_no_aparece_en_su_agenda(String usuario, String id) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
+		id="1";
 		Manager.get().rechazarReunion(usuario, Integer.parseInt(id));
 	}
 
