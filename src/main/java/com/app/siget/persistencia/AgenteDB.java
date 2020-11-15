@@ -36,11 +36,10 @@ public class AgenteDB {
 	public MongoCollection<Document> getBd(String collection) {
 		if (this.database == null) {
 			AgenteDB.get();
-
+			return getBd(collection);
+		} else {
+			return this.database.getCollection(collection);
 		}
-		// Por mucho que diga el sonar lo del null esta checkeado arriba y es imposible que de.
-		return this.database.getCollection(collection);
-
 	}
 
 }
