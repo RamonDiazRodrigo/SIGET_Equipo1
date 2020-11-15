@@ -10,7 +10,7 @@ public class Horario {
 	private static final int DIAS = 7;
 	private static final int HUECOS = 48;
 
-	// As� se crea una actividad ahora
+	// Asi se crea una actividad ahora
 	// actividad r = new actividad("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00),
 	// LocalTime.of(9, 30));
 
