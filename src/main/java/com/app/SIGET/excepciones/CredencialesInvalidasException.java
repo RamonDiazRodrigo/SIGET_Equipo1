@@ -10,7 +10,7 @@ public class CredencialesInvalidasException extends Exception {
 		// No se necesita hacer nada en el contructor
 	}
 	/**
-	 * @return "Las contrase�as no coinciden"
+	 * @return "Las contrasenas no coinciden"
 	 */
 	@Override
 	public String getMessage() {
