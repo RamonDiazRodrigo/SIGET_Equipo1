@@ -140,22 +140,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.6</version>
-				<configuration>
-					<excludes>
-						<exclude>META-INF/**</exclude>
-					</excludes>
-				</configuration>
 				<executions>
 					<execution>
 						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-prepare-agent-integration</id>
-						<goals>
-							<goal>prepare-agent-integration</goal>
 						</goals>
 					</execution>
 					<execution>
@@ -165,24 +154,16 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>default-report-integration</id>
-						<goals>
-							<goal>report-integration</goal>
-						</goals>
-					</execution>
-					<execution>
 						<id>default-check</id>
 						<goals>
 							<goal>check</goal>
 						</goals>
 						<configuration>
 							<rules>
-								<!-- implementation is needed only for Maven 2 -->
-								<rule implementation="org.jacoco.maven.RuleConfiguration">
+								<rule>
 									<element>BUNDLE</element>
 									<limits>
-										<!-- implementation is needed only for Maven 2 -->
-										<limit implementation="org.jacoco.report.check.Limit">
+										<limit>
 											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
 										</limit>
