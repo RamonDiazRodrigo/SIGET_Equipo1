@@ -31,6 +31,7 @@ public class AgenteDB {
 
 	public static AgenteDB get() {
 		return BrokerHolder.singleton;
+
 	}
 
 	public MongoCollection<Document> getBd(String collection) {
