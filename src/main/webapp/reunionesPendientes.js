@@ -2,7 +2,7 @@ var self;
 function ViewModel() {
 	self = this;
 	self.listaReuniones = ko.observableArray([]);
-	var url = "ws://" + window.location.host + "/SIGETEquipo1";
+	var url = "wss://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 

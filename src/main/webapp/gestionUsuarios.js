@@ -3,7 +3,7 @@ function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
-	var url = "ws://" + window.location.host + "/SIGETEquipo1";
+	var url = "wss://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
