@@ -13,5 +13,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable().authorizeRequests().antMatchers("POST", "/login").permitAll();
 		http.csrf().disable().authorizeRequests().antMatchers("POST", "/register").permitAll();
+		http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
 	}
 }
