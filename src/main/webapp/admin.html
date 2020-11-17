@@ -11,7 +11,7 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-	<button onclick="window.location.href='index.html'" id="goToLogin">Cerrar Sesion</button>
+		<button onclick="cerrarSesion()">Cerrar Sesion</button>
 	</nav>
 </div>
 <!-- Required meta tags -->
@@ -29,8 +29,10 @@
 <body onload="checkAccess()">
 	<div class="container">
 		<button id="visibilityHidden">Añadir actividad</button>
-		<button onclick="window.location.href='/calendar.html'">Ver calendario</button>
-		<button onclick="window.location.href='/gestion.html'">Gestionar usuarios</button>
+		<button onclick="window.location.href='/calendar.html'">Ver
+			calendario</button>
+		<button onclick="window.location.href='/gestion.html'">Gestionar
+			usuarios</button>
 		<div id="hide-me">
 			<form>
 				<br /> <label for="input">Actividad: </label> <input type="text"
@@ -60,7 +62,8 @@
 					<option class="option" value="" data-bind="html : name"></option>
 					<!-- /ko -->
 				</select>
-				<button id="añadirActividad" data-bind="click:$root.aniadirActividad">Añadir</button>
+				<button id="añadirActividad"
+					data-bind="click:$root.aniadirActividad">Añadir</button>
 				<button onclick="window.location.href='admin.html'">Volver</button>
 			</form>
 		</div>
@@ -78,6 +81,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 		crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- KNOCKOUT -->
 	<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 	<script src="ocultar.js"></script>
