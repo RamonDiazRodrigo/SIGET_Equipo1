@@ -25,6 +25,15 @@ public final class UserDAO {
 	private UserDAO() {
 		super();
 	}
+	
+	public static User findUser(String name) {
+		for(User u : UserDAO.leerUsers()) {
+			if(name.equals(u.getName())) {
+				return u;
+			}
+		}
+		return null;
+	}
 
 	public static List<User> leerUsers() {
 		ArrayList<User> usuarios = new ArrayList<>();
