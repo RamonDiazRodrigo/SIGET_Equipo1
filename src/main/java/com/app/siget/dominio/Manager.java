@@ -1,5 +1,8 @@
 package com.app.siget.dominio;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +62,11 @@ public class Manager {
 
 	public boolean checkCredenciales(User u, String name, String password) throws Exception {
 		boolean aux = false;
+		String pwdEncrypted,pwdUser;
 		if (u.getName().equals(name)) {
-			if (!(u.getPassword().equals(password))) {
+			pwdEncrypted=u.getPassword();
+			pwdUser= encriptarMD5(password);
+			if (!(pwdEncrypted.equals(pwdUser))) {
 
 				throw new CredencialesInvalidasException();
 
@@ -75,9 +81,9 @@ public class Manager {
 
 	public void register(String name, String email, String password, String rol) {
 		if ("ADMIN".equals(rol)) {
-			UserDAO.insertar(new Admin(name, email, password));
+			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
-			UserDAO.insertar(new Asistente(name, email, password));
+			UserDAO.insertar(new Asistente(name, email, encriptarMD5(password)));
 		}
 
 	}
@@ -390,5 +396,22 @@ public class Manager {
 		}
 
 	}
+	private static String encriptarMD5(String input){
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+			}
+		catch (NoSuchAlgorithmException e) {
+			 throw new RuntimeException(e);
+		}
+	}
+	
 
 }
