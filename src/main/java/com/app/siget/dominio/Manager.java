@@ -8,8 +8,10 @@ import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.persistencia.ActividadDAO;
+import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
 
 public class Manager {
@@ -37,8 +39,12 @@ public class Manager {
 			login = checkCredenciales(u, name, password);
 			if (login) {
 
+				Token t = new Token(name);
+				TokenDAO.insert(t);
+
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol());
+				jso.put("token", t.getToken());
 				if (this.session != null) {
 					this.session.sendMessage(new TextMessage(jso.toString()));
 				}
@@ -166,6 +172,9 @@ public class Manager {
 			if ("nombre periodo no laborable".equals(a.getName())) {
 				ActividadDAO.eliminar(a);
 			}
+		}
+		for (Token t : TokenDAO.leerTokensEliminar()) {
+			TokenDAO.eliminar(t);
 		}
 	}
 
@@ -344,6 +353,42 @@ public class Manager {
 
 			}
 		}
+	}
+	
+	public void cerrarSesion(String token) {
+		TokenDAO.eliminar(new Token(token));
+	}
+
+	public void checkAccess(String name, String token, String page) throws AccessNotGrantedException {
+		if (token.equals(TokenDAO.getToken(name).getToken())) {
+
+			switch (page) {
+
+			case "admin.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			case "gestion.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			default:
+				if (UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+
+			}
+
+		} else {
+			throw new AccessNotGrantedException();
+		}
+
 	}
 
 }
