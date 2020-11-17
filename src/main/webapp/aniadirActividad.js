@@ -1,3 +1,24 @@
+let cerrarSesion = function() {
+	sessionStorage.removeItem("token");
+	const info = {
+		type: 'CerrarSesion',
+		userName: sessionStorage.userName
+	};
+
+	const data = {
+		data: JSON.stringify(info),
+		url: 'cerrarSesion',
+		type: 'post',
+		contentType: 'application/json',
+		success: function() {
+			window.location.href = 'index.html';
+		},
+		error: function(response) {
+			alert('NO SE PUDO CERRAR SESION');
+		}
+	};
+	$.ajax(data);
+};
 let checkAccess = function() {
 	const info = {
 		type: 'CheckAccess',
