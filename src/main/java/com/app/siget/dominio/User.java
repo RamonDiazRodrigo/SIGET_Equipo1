@@ -41,6 +41,14 @@ public abstract class User {
 		
 	}
 	
+	public boolean isAdmin() {
+		boolean res = false;
+		if ("ADMIN".equals(this.getRol())) {
+			res = true;
+		}
+		return res;
+	}
+	
 	protected abstract JSONObject toJSON();
 	
 	

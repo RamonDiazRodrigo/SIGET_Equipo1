@@ -8,8 +8,10 @@ import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.persistencia.ActividadDAO;
+import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
 
 public class Manager {
@@ -37,8 +39,12 @@ public class Manager {
 			login = checkCredenciales(u, name, password);
 			if (login) {
 
+				Token t = new Token(name);
+				TokenDAO.insert(t);
+
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol());
+				jso.put("token", t.getToken());
 				if (this.session != null) {
 					this.session.sendMessage(new TextMessage(jso.toString()));
 				}
@@ -167,6 +173,9 @@ public class Manager {
 				ActividadDAO.eliminar(a);
 			}
 		}
+		for (Token t : TokenDAO.leerTokensEliminar()) {
+			TokenDAO.eliminar(t);
+		}
 	}
 
 	public void setSession(WebSocketSession session) {
@@ -277,7 +286,7 @@ public class Manager {
 		}
 	}
 
-	public static void ascenderUsuario(String nombre) {
+	public void ascenderUsuario(String nombre) {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				Admin user = new Admin(u.getName(), u.getEmail(), u.getPassword());
@@ -344,6 +353,42 @@ public class Manager {
 
 			}
 		}
+	}
+	
+	public void cerrarSesion(String name) {
+		TokenDAO.eliminar(new Token(name));
+	}
+
+	public void checkAccess(String name, String token, String page) throws AccessNotGrantedException {
+		if (token.equals(TokenDAO.getToken(name).getToken())) {
+
+			switch (page) {
+
+			case "admin.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			case "gestion.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			default:
+				if (UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+
+			}
+
+		} else {
+			throw new AccessNotGrantedException();
+		}
+
 	}
 
 }

@@ -15,6 +15,11 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	private static final String NOMBRE = "nombre";
 	private static final String TYPE = "type";
 	private static final String VISTA = "vista";
+	private static final String HF = "horaFinal";
+	private static final String DIA = "dia";
+	private static final String HI = "horaInicio";
+	private static final String MF = "minutoFinal";
+	private static final String MI = "minutoInicio";
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -29,14 +34,14 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			Manager.get().eliminarTests();
 		}
 		if ("convocarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().convocarReunion(jso.getString(NOMBRE), jso.getString("dia"), jso.getString("horaInicio"),
-					jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"),
+			Manager.get().convocarReunion(jso.getString(NOMBRE), jso.getString(DIA), jso.getString(HI),
+					jso.getString(MI), jso.getString(HF), jso.getString(MF),
 					jso.get("usuarios").toString(), "true");
 		}
 		if ("check".equals(jso.getString(TYPE))) {
 			session.sendMessage(new TextMessage(Manager.get()
-					.usuariosDisponibles(jso.getString(NOMBRE), jso.getString("dia"), jso.getString("horaInicio"),
-							jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"))
+					.usuariosDisponibles(jso.getString(NOMBRE), jso.getString(DIA), jso.getString(HI),
+							jso.getString(MI), jso.getString(HF), jso.getString(MF))
 					.toString()));
 		}
 
@@ -51,8 +56,8 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		if ("insertar".equals(jso.getString(TYPE))) {
 
-			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString("dia"), jso.getString("horaInicio"),
-					jso.getString("minutoInicio"), jso.getString("horaFinal"), jso.getString("minutoFinal"),
+			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString(DIA), jso.getString(HI),
+					jso.getString(MI), jso.getString(HF), jso.getString(MF),
 					jso.getString("usuarios"), "false");
 		}
 
@@ -71,20 +76,20 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		if ("modificar".equals(jso.getString(TYPE))) {
 			// Misma condicion para modificar usuario tanto para Asistente como para Admin
-			Manager.get().modificarUsuario(jso.getString("nombre"), jso.getString("email"), jso.getString("pwd"));
+			Manager.get().modificarUsuario(jso.getString(NOMBRE), jso.getString("email"), jso.getString("pwd"));
 		}
 
 		if ("ascender".equals(jso.getString(TYPE))) {
-			Manager.get().ascenderUsuario(jso.getString("nombre"));
+			Manager.get().ascenderUsuario(jso.getString(NOMBRE));
 		}
 
 		if ("aceptarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().aceptarReunion(jso.getString("nombre"), jso.getInt("id"));
+			Manager.get().aceptarReunion(jso.getString(NOMBRE), jso.getInt("id"));
 			session.sendMessage(
 					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 		}
 		if ("rechazarReunion".equals(jso.getString(TYPE))) {
-			Manager.get().rechazarReunion(jso.getString("nombre"), jso.getInt("id"));
+			Manager.get().rechazarReunion(jso.getString(NOMBRE), jso.getInt("id"));
 			session.sendMessage(
 					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 		}
