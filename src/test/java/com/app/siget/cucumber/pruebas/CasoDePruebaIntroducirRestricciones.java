@@ -1,7 +1,7 @@
 package com.app.siget.cucumber.pruebas;
 
 import com.app.siget.dominio.Manager;
-import com.app.siget.excepciones.UsuarioNoExiste;
+import com.app.siget.excepciones.UsuarioNoExisteException;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -40,7 +40,7 @@ public class CasoDePruebaIntroducirRestricciones {
 	}
 
 	@Then("^se lanza excepcion UsuarioNoExiste$")
-	public void se_lanza_excepcion_UsuarioNoExiste() throws UsuarioNoExiste {
+	public void se_lanza_excepcion_UsuarioNoExiste() throws UsuarioNoExisteException {
 	}
 
 }

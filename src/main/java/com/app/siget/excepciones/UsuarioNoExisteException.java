@@ -1,7 +1,7 @@
 package com.app.siget.excepciones;
 
-public class UsuarioNoExiste extends Exception {
-	public UsuarioNoExiste() {
+public class UsuarioNoExisteException extends Exception {
+	public UsuarioNoExisteException() {
 		// No se necesita hacer nada en el contructor
 	}
 
