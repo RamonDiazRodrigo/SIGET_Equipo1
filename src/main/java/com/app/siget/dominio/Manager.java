@@ -286,7 +286,7 @@ public class Manager {
 		}
 	}
 
-	public static void ascenderUsuario(String nombre) {
+	public void ascenderUsuario(String nombre) {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				Admin user = new Admin(u.getName(), u.getEmail(), u.getPassword());
@@ -355,8 +355,8 @@ public class Manager {
 		}
 	}
 	
-	public void cerrarSesion(String token) {
-		TokenDAO.eliminar(new Token(token));
+	public void cerrarSesion(String name) {
+		TokenDAO.eliminar(new Token(name));
 	}
 
 	public void checkAccess(String name, String token, String page) throws AccessNotGrantedException {

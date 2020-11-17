@@ -40,7 +40,8 @@ function ViewModel() {
 				self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
 			}
 		}
-	}
+	};
+
 
 	self.check = function() {
 		var dateInicio = $('#horaInicio').val().split(":");

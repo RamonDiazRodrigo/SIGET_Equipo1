@@ -36,7 +36,8 @@ function ViewModel() {
 
 		};
 		self.sws.send(JSON.stringify(msg));
-	}
+	};
+	
 	self.sws.onmessage = function(event) {
 		var data = event.data;
 		data = JSON.parse(data);
@@ -51,8 +52,7 @@ function ViewModel() {
 				self.listaReuniones.push(new Reunion(reunion.id, reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
 			}
 		}
-	}
-
+	};
 
 	class Reunion {
 		constructor(id, name, dia, horaI, minutosI, horaF, minutosF) {
