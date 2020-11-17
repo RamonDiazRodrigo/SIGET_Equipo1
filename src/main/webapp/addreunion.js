@@ -1,3 +1,25 @@
+let checkAccess = function() {
+	const info = {
+		type: 'CheckAccess',
+		userName: sessionStorage.userName,
+		token: sessionStorage.token,
+		page: window.location.href
+	};
+
+	const data = {
+		data: JSON.stringify(info),
+		url: 'checkAccess',
+		type: 'post',
+		contentType: 'application/json',
+		success: function() {
+		},
+		error: function(response) {
+			sessionStorage.clear();
+			window.location.href = 'index.html';
+		}
+	};
+	$.ajax(data);
+};
 var self;
 function ViewModel() {
 	self = this;
