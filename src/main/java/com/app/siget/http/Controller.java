@@ -13,12 +13,13 @@ import com.app.siget.excepciones.DiferentesContrasenasException;
 public class Controller {
 	
 	private static final String PASS = "pwd";
+	private static final String USERNAME = "userName";
 	
 
 	@PostMapping("/login")
 	public void login(@RequestBody Map<String, Object> credenciales)  throws Exception {
 		JSONObject jso = new JSONObject(credenciales);
-		String name = jso.getString("userName");
+		String name = jso.getString(USERNAME);
 		String password = jso.getString(PASS);
 		Manager.get().login(name, password);
 	}
@@ -33,11 +34,28 @@ public class Controller {
 			throw new DiferentesContrasenasException();
 		}
 
-		String name = jso.getString("userName");
+		String name = jso.getString(USERNAME);
 		String email = jso.getString("email");
 		String rol = jso.getString("rol");
 
 		Manager.get().register(name, email, password, rol);
+	}
+	
+	@PostMapping("/cerrarSesion")
+	public void cerrarSesion(@RequestBody Map<String, Object> credenciales) throws Exception {
+		JSONObject jso = new JSONObject(credenciales);
+		String name = jso.getString(USERNAME);
+		Manager.get().cerrarSesion(name);
+	}
+
+	@PostMapping("/checkAccess")
+	public void checkAccess(@RequestBody Map<String, Object> credenciales) throws Exception {
+		JSONObject jso = new JSONObject(credenciales);
+		String name = jso.getString(USERNAME);
+		String token = jso.getString("token");
+		String page = jso.getString("page");
+		String[] parts = page.split("/");
+		Manager.get().checkAccess(name, token, parts[parts.length - 1]);
 	}
 
 }

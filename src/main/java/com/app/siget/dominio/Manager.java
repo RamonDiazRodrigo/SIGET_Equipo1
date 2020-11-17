@@ -1,5 +1,8 @@
 package com.app.siget.dominio;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +11,10 @@ import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.persistencia.ActividadDAO;
+import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
 
 public class Manager {
@@ -37,8 +42,12 @@ public class Manager {
 			login = checkCredenciales(u, name, password);
 			if (login) {
 
+				Token t = new Token(name);
+				TokenDAO.insert(t);
+
 				JSONObject jso = new JSONObject();
 				jso.put("rol", u.getRol());
+				jso.put("token", t.getToken());
 				if (this.session != null) {
 					this.session.sendMessage(new TextMessage(jso.toString()));
 				}
@@ -53,8 +62,11 @@ public class Manager {
 
 	public boolean checkCredenciales(User u, String name, String password) throws Exception {
 		boolean aux = false;
+		String pwdEncrypted,pwdUser;
 		if (u.getName().equals(name)) {
-			if (!(u.getPassword().equals(password))) {
+			pwdEncrypted=u.getPassword();
+			pwdUser= encriptarMD5(password);
+			if (!(pwdEncrypted.equals(pwdUser))) {
 
 				throw new CredencialesInvalidasException();
 
@@ -69,9 +81,9 @@ public class Manager {
 
 	public void register(String name, String email, String password, String rol) {
 		if ("ADMIN".equals(rol)) {
-			UserDAO.insertar(new Admin(name, email, password));
+			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
-			UserDAO.insertar(new Asistente(name, email, password));
+			UserDAO.insertar(new Asistente(name, email, encriptarMD5(password)));
 		}
 
 	}
@@ -166,6 +178,9 @@ public class Manager {
 			if ("nombre periodo no laborable".equals(a.getName())) {
 				ActividadDAO.eliminar(a);
 			}
+		}
+		for (Token t : TokenDAO.leerTokensEliminar()) {
+			TokenDAO.eliminar(t);
 		}
 	}
 
@@ -277,7 +292,7 @@ public class Manager {
 		}
 	}
 
-	public static void ascenderUsuario(String nombre) {
+	public void ascenderUsuario(String nombre) {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				Admin user = new Admin(u.getName(), u.getEmail(), u.getPassword());
@@ -345,5 +360,58 @@ public class Manager {
 			}
 		}
 	}
+	
+	public void cerrarSesion(String name) {
+		TokenDAO.eliminar(new Token(name));
+	}
+
+	public void checkAccess(String name, String token, String page) throws AccessNotGrantedException {
+		if (token.equals(TokenDAO.getToken(name).getToken())) {
+
+			switch (page) {
+
+			case "admin.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			case "gestion.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			default:
+				if (UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+
+			}
+
+		} else {
+			throw new AccessNotGrantedException();
+		}
+
+	}
+	private static String encriptarMD5(String input){
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+			}
+		catch (NoSuchAlgorithmException e) {
+			 throw new RuntimeException(e);
+		}
+	}
+	
 
 }

@@ -1,3 +1,25 @@
+let checkAccess = function() {
+	const info = {
+		type: 'CheckAccess',
+		userName: sessionStorage.userName,
+		token: sessionStorage.token,
+		page: window.location.href
+	};
+
+	const data = {
+		data: JSON.stringify(info),
+		url: 'checkAccess',
+		type: 'post',
+		contentType: 'application/json',
+		success: function() {
+		},
+		error: function(response) {
+			sessionStorage.clear();
+			window.location.href = 'index.html';
+		}
+	};
+	$.ajax(data);
+};
 var self;
 function ViewModel() {
 	self = this;
@@ -14,7 +36,8 @@ function ViewModel() {
 
 		};
 		self.sws.send(JSON.stringify(msg));
-	}
+	};
+	
 	self.sws.onmessage = function(event) {
 		var data = event.data;
 		data = JSON.parse(data);
@@ -29,8 +52,7 @@ function ViewModel() {
 				self.listaReuniones.push(new Reunion(reunion.id, reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
 			}
 		}
-	}
-
+	};
 
 	class Reunion {
 		constructor(id, name, dia, horaI, minutosI, horaF, minutosF) {

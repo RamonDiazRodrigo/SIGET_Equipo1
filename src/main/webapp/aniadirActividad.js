@@ -1,3 +1,24 @@
+let cerrarSesion = function() {
+	sessionStorage.removeItem("token");
+	const info = {
+		type: 'CerrarSesion',
+		userName: sessionStorage.userName
+	};
+
+	const data = {
+		data: JSON.stringify(info),
+		url: 'cerrarSesion',
+		type: 'post',
+		contentType: 'application/json',
+		success: function() {
+			window.location.href = 'index.html';
+		},
+		error: function(response) {
+			alert('NO SE PUDO CERRAR SESION');
+		}
+	};
+	$.ajax(data);
+};
 let checkAccess = function() {
 	const info = {
 		type: 'CheckAccess',
@@ -24,16 +45,24 @@ var self;
 function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
-	self.nombreUsuario = ko.observable('');
+	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
 	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
+	self.sws.onopen = function(event) {
+		var msg = {
+			type: "leer",
+			nombre: sessionStorage.userName,
+			vista: "addactividad"
+		};
+		self.sws.send(JSON.stringify(msg));
+	};
+
 	self.sws.onmessage = function(event) {
 		var data = event.data;
 		data = JSON.parse(data);
-		self.listaUsuarios.removeAll();
-		var users = data;
+		var users = data.usuarios;
 		for (var i = 0; i < users.length; i++) {
 			var usuario = users[i];
 			if (self.listaUsuarios().some(u => u.name === usuario.name) === false) {
@@ -42,45 +71,25 @@ function ViewModel() {
 		}
 	};
 
-
-	self.check = function() {
+	self.aniadirActividad = function() {
+		self.usuariosSeleccionados.push($('#select').val());
 		var dateInicio = $('#horaInicio').val().split(":");
 		var dateFinal = $('#horaFinal').val().split(":");
 
 		const info = {
-			type: 'check',
-			nombre: $('#actividad').val(),
-			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
-			horaInicio: dateInicio[0],
-			horaFinal: dateFinal[0],
-			minutoInicio: dateInicio[1],
-			minutoFinal: dateFinal[1]
-		};
-		self.sws.send(JSON.stringify(info));
-	};
-
-	self.addReunion = function() {
-		for (var i = 0; i < self.listaUsuarios().length; i++) {
-			if (document.getElementsByClassName("form-check-input")[i].checked === true) {
-				self.usuariosSeleccionados.push(document.getElementsByClassName("form-check-label")[i].innerHTML);
-			}
-		}
-		var dateInicio = $('#horaInicio').val().split(":");
-		var dateFinal = $('#horaFinal').val().split(":");
-
-		const info = {
-			type: 'convocarReunion',
+			type: 'insertar',
 			nombre: $('#actividad').val(),
 			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
 			horaInicio: dateInicio[0],
 			horaFinal: dateFinal[0],
 			minutoInicio: dateInicio[1],
 			minutoFinal: dateFinal[1],
-			usuarios: self.usuariosSeleccionados(),
+			usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
 			success: function() {
+				sessionStorage.userName = $('#username').val();
 				alert('Se ha creado correctamente');
 			},
-			error: function() {
+			error: function(response) {
 
 				alert('Se ha creado incorrectamente');
 			}

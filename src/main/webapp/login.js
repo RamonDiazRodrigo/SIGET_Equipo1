@@ -10,6 +10,7 @@ sws.onopen = function(event) {
 sws.onmessage = function(event) {
 	var data = event.data;
 	data = JSON.parse(data);
+	sessionStorage.token = data.token;
 	if (data.rol == "ADMIN") {
 		window.location.href = "admin.html";
 	}
