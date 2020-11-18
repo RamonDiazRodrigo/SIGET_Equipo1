@@ -291,7 +291,7 @@ public class Manager {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				u.setEmail(emailNuevo);
-				u.setPassword(passwordNueva);
+				u.setPassword(encriptarMD5(passwordNueva));
 				UserDAO.modificar(u);
 			}
 		}
