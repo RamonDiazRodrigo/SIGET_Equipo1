@@ -79,7 +79,12 @@ public class Manager {
 
 	}
 
-	public void register(String name, String email, String password, String rol) {
+	public void register(String name, String email, String password, String rol) throws Exception{
+		for(User u: UserDAO.leerUsers()) {
+			if(name.equals(u.getName())) {
+				throw new CredencialesInvalidasException();
+			}
+		}
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {

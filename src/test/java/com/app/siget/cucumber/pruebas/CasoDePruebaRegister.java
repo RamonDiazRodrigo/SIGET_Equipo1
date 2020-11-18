@@ -14,8 +14,9 @@ public class CasoDePruebaRegister {
 
 	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\"$")
 	public void y(String nombre, String email, String password, String confirmacionPassword, String rol)
-			throws IllegalArgumentException {
+			throws Exception {
 		rol = "ADMIN";
+		password="Password2";
 		Manager.get().register(nombre, email, password, rol);
 	}
 
@@ -37,8 +38,10 @@ public class CasoDePruebaRegister {
 
 	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" distintas$")
 	public void y_distintas(String nombre, String email, String password, String confirmacionPassword, String rol)
-			throws IllegalArgumentException {
+			throws Exception {
 		rol = "ASISTENTE";
+		nombre="asistente";
+		password="Password1";
 		Manager.get().register(nombre, email, password, rol);
 	}
 
