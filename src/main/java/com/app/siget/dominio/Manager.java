@@ -80,11 +80,6 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) throws Exception{
-		for(User u: UserDAO.leerUsers()) {
-			if(name.equals(u.getName())) {
-				throw new CredencialesInvalidasException();
-			}
-		}
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
@@ -176,6 +171,15 @@ public class Manager {
 	public void eliminarTests() {
 		for (User u : UserDAO.leerUsers()) {
 			if ("nombre".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("asistente".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("admin".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("admin2".equals(u.getName())) {
 				UserDAO.eliminar(u);
 			}
 		}

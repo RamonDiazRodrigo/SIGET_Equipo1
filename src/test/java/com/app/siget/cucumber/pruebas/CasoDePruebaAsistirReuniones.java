@@ -12,6 +12,7 @@ public class CasoDePruebaAsistirReuniones {
 	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\" y un \"([^\"]*)\"$")
 	public void y_un(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF,
 			String usuario) throws Throwable {
+		nombre="asistente";
 		dia = "LUNES";
 		horaI = "15";
 		minutosI = "00";

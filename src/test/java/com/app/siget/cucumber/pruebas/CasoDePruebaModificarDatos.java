@@ -9,7 +9,7 @@ public class CasoDePruebaModificarDatos {
 	@Given("^En la vista user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\" y \"([^\"]*)\"$")
 	public void en_la_vista_user_y(String nombre, String email, String password, String rol) throws Throwable {
 	    password="Password2";
-	    nombre="admin";
+	    nombre="admin2";
 	    rol="ADMIN";
 		Manager.get().modificarUsuario(nombre,email,password);
 	    Manager.get().login(nombre, password);

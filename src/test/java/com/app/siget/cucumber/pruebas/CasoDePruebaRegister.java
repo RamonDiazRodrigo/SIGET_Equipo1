@@ -18,6 +18,9 @@ public class CasoDePruebaRegister {
 		rol = "ADMIN";
 		password="Password2";
 		Manager.get().register(nombre, email, password, rol);
+		nombre="admin";
+		password="Password3";
+		Manager.get().register(nombre, email, password, rol);
 	}
 
 	@Then("^Crea un usuario \"([^\"]*)\"$")

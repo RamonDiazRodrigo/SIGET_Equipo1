@@ -12,6 +12,7 @@ public class CasoDePruebaIntroducirRestricciones {
 	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\", \"([^\"]*)\" involucrado y si es \"([^\"]*)\"$")
 	public void involucrado_y_si_es(String nombre, String dia, String horaI, String minutosI, String horaF,
 			String minutosF, String usuario, String reunion) throws NumberFormatException {
+		nombre="asistente";
 		dia="LUNES";
 		horaI="10";
 		minutosI="00";
@@ -25,6 +26,7 @@ public class CasoDePruebaIntroducirRestricciones {
 	@Then("^se aniade la actividad no laborable con \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" y se vincula al \"([^\"]*)\"$")
 	public void se_aniade_la_actividad_no_laborable_con_y_se_vincula_al(String nombre, String dia, String horaI, String minutosI, String horaF,
 			String minutosF, String usuario, String reunion) throws NumberFormatException {
+		nombre="asistente";
 		dia="LUNES";
 		horaI="10";
 		minutosI="00";

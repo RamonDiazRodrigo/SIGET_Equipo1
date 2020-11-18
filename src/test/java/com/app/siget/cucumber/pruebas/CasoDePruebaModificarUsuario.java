@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 public class CasoDePruebaModificarUsuario {
 	@Given("^En la vista admin \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\" y \"([^\"]*)\"$")
 	public void en_la_vista_admin_y(String nombre, String email, String password, String rol) throws Throwable {
-	    password="Password1";
+	    password="Password2";
 		Manager.get().modificarUsuario(nombre,email,password);
 	   
 	}

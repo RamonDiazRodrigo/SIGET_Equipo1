@@ -12,6 +12,7 @@ public class CasoDePruebaConvocarReunion {
 	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\" y \"([^\"]*)\" involucrados$")
 	public void y_involucrados(String nombre, String dia, String horaI, String minutosI, String horaF,
 			String minutosF, String usuarios) throws NumberFormatException {
+		nombre="asistente";
 		dia="LUNES";
 		horaI="15";
 		minutosI="00";
