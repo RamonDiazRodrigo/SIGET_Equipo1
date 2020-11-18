@@ -47,7 +47,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
@@ -78,7 +78,7 @@ function ViewModel() {
 
 		const info = {
 			type: 'insertar',
-			nombre: $('#actividad').val(),
+			nombre: $('#nombreActividad').val(),
 			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
 			horaInicio: dateInicio[0],
 			horaFinal: dateFinal[0],

@@ -30,5 +30,3 @@ $('#btnModificarUsuario').click(function(e) {
 	$('#gestionUsuarios').css('visibility', 'hidden');
 	$('#modificarCredenciales').css('visibility', 'visible');
 });
-
-

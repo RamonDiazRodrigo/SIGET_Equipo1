@@ -2,18 +2,6 @@
 <html lang="es">
 <head>
 <title>Usuario</title>
-<div class="container">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="/">VISTA USUARIO</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<button onclick="cerrarSesion()">Cerrar Sesion</button>
-	</nav>
-</div>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -27,30 +15,51 @@
 <link rel="stylesheet" href="usuario.css">
 </head>
 <body onload="checkAccess()">
+    <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeader">
+		<button type="logout" value="logout" onclick="cerrarSesion()">Cerrar Sesion</button>
+		<h1>USUARIO</h1>
+		<input id="username" name="username" required="required"
+		type="text" placeholder="PEPE" readonly="readonly" disabled="disabled"/>
+    </form>
+
 	<div class="container">
 		<!-- Optional JavaScript 
 				<!-- Optional JavaScript -->
-		<button onclick="window.location.href='/reunionesPendientes.html'">Reuniones
-			pendientes</button>
-		<button onclick="window.location.href='/calendar.html'">Ver
-			agenda</button>
-		<button onclick="window.location.href='/convocarReunion.html'">Convocar
-			reunión</button>
-
+		<form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxMenu">		
+			<button type="button" id="agenda" onclick="window.location.href='/calendar.html'">Ver Agenda</button>
+			<button type="button" id="convocarReuniones" onclick="window.location.href='/convocarReunion.html'">Convocar Reunion</button>
+			<button type="button" id="modificarDatos" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Modificar datos</button>
+			<br>
+			<button type="button" id="reunionesPendientes">Reuniones Pendientes</button>
+		<div id="hide-me">
+			<form>
+				<label for="input">REUNIONES PENDIENTES: </label>
+				<div class="md-form md-outline">
+			<!-- ko foreach : { data: listaReuniones, as :"reunion" } -->
+					<h4 class="card-title" data-bind="html : name"></h4>
+					<button id="crear" type="button" data-bind="click: aceptarReunion">Aceptar</button>
+					<button id="rechazar" type="button" data-bind="click: rechazarReunion">Rechazar</button>
+					<br><br>
+					</div>
+			<!-- /ko -->
+				<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
+				<option class="option" value="" data-bind="html : name"></option>
+				<!-- /ko -->
+				<button id="volver" type="button" onclick="window.location.href='usuario.html'">Volver</button>
+			</form>
+		</div>
 
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
 		<div id="koGestion" style="display: inline-block">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">Modificar datos</button>
+
 
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Modificación
+							<h5 class="modal-title" id="exampleModalLabel">Modificacion
 								de datos</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
@@ -111,8 +120,6 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 			crossorigin="anonymous"></script>
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- KNOCKOUT -->
 		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 		<script src="ocultar.js"></script>
