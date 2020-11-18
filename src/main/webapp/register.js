@@ -14,6 +14,11 @@ let register = function() {
 			url: 'register',
 			type: 'post',
 			contentType: 'application/json',
+			success : function() {
+				document.getElementById("pwd1").style.backgroundColor = "green";
+				window.location.href="index.html";
+				
+			},
 			error: function(response) {
 				alert('REGISTER INCORRECTO');
 			}
@@ -27,7 +32,6 @@ let register = function() {
 function contrasenaValida(pwd) {
 
 	if (pwd.length > 4 && tiene_numeros(pwd) && tiene_minuscula_y_mayuscula(pwd)) {
-			document.getElementById("pwd1").style.backgroundColor = "green";
 		return true;
 	} else {
 		document.getElementById("pwd1").style.backgroundColor = "red";
