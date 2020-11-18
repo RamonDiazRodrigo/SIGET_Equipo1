@@ -17,11 +17,11 @@
 <link rel="stylesheet" href="admin.css">
 </head>
 <body onload="checkAccess()">
-    <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeaderGestion">
-		<button type="button" id="volverGestion" onclick="window.location.href='admin.html'">Volver</button>
-		<button id="mas" onclick="window.location.href='/register.html'">+</button>
+    <div class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeaderGestion">
+		<button type="button" id="volverGestion" onclick="window.history.back()">Volver</button>
+		<button id="mas" onclick="window.location.href='register.html'">+</button>
 		<h1>ADMINISTRAR USUARIOS</h1>
-    </form>
+    </div>
 	<div id="koGestion">
 		<div class="cards">
 			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->

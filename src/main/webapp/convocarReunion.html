@@ -17,7 +17,7 @@
 <body>
 <body onload="checkAccess()">
     <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeader">
-		<button type="button" id="volverConvocar" onclick="window.location.href='usuario.html'">Volver</button>
+		<button type="button" id="volverConvocar" onclick="window.history.back()">Volver</button>
 		<h1>USUARIO</h1>
     </form>
 	<div class="container">
@@ -64,7 +64,7 @@
 
 			</br>
 			<button id="addReunion" data-bind="click:$root.addReunion">Crear Reunion</button>
-			<button type="button" id="volver" onclick="window.location.href='usuario.html'">Volver</button>
+			<button type="button" id="volver" onclick="window.history.back()">Volver</button>
 		</div>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
