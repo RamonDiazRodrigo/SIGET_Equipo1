@@ -1,9 +1,12 @@
 language: java
 
-node_js:
-- "10"
+jdk:
+  - oraclejdk8
 
 addons:
+  apt:
+    packages:
+      - oracle-java8-installer
   sonarcloud:
     organization: "danigcj31"
     token:
