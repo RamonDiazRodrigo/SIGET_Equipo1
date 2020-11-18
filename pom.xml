@@ -116,7 +116,6 @@
 		<sonar.projectKey>danigcj31_SIGET_Equipo1</sonar.projectKey>
 		<sonar.organization>danigcj31</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
 	</properties>
 
 	<build>
@@ -141,6 +140,7 @@
 				<configuration>
 					<forkCount>3</forkCount>
 					<reuseForks>true</reuseForks>
+					<argLine>${surefireArgLine} -Xmx1024m -XX:MaxPermSize=256m -noverify</argLine>
 					<includes>
 						<exclude>**/*ejecutor.java</exclude>
 					</includes>
@@ -152,49 +152,15 @@
 				<version>0.7.9</version>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
+						<id>prepare-unit-tests</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-					</execution>
-					<execution>
-						<id>default-prepare-agent-integration</id>
-						<goals>
-							<goal>prepare-agent-integration</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report-integration</id>
-						<goals>
-							<goal>report-integration</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
 						<configuration>
-							<rules>
-								<!-- implementation is needed only for Maven 2 -->
-								<rule implementation="org.jacoco.maven.RuleConfiguration">
-									<element>BUNDLE</element>
-									<limits>
-										<!-- implementation is needed only for Maven 2 -->
-										<limit implementation="org.jacoco.report.check.Limit">
-											<counter>COMPLEXITY</counter>
-											<value>COVEREDRATIO</value>
-
-										</limit>
-									</limits>
-								</rule>
-							</rules>
+							<append>true</append>
+							<destFile>${sonar.jacoco.reportPath}</destFile>
+							<!-- Sets the VM argument line used when unit tests are run. -->
+							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
 				</executions>
