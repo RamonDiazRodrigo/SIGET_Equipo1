@@ -9,6 +9,8 @@ public class CasoDePruebaVistaUsuario {
 	
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" asistente$")
 	public void acceso_con_y_asistente(String nombre, String password) throws Throwable {
+		password="Password1";	
+		nombre="asistente";
 		Manager.get().login(nombre, password);
 	}
 	

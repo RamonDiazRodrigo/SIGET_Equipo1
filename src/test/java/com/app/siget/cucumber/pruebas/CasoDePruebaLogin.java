@@ -2,7 +2,6 @@ package com.app.siget.cucumber.pruebas;
 
 import com.app.siget.dominio.Manager;
 import com.app.siget.excepciones.CredencialesInvalidasException;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,8 +10,8 @@ public class CasoDePruebaLogin {
 	
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos asistente$")
 	public void acceso_con_y_correctos_asistente(String nombre, String password) throws Exception {
-		nombre="a";
-		password="a";
+		nombre="asistente";
+		password="Password1";
 		Manager.get().login(nombre, password);
 	}
 
@@ -27,8 +26,8 @@ public class CasoDePruebaLogin {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos admin$")
 	public void acceso_con_y_correctos_admin(String nombre, String password) throws Exception {
-		nombre="a";
-		password="a";
+		nombre="admin";
+		password="Password3";
 		Manager.get().login(nombre, password);
 	}
 
@@ -43,8 +42,7 @@ public class CasoDePruebaLogin {
 
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\"$")
 	public void acceso_con_y(String nombre, String password) throws Exception {
-		nombre="a";
-		password="a";
+		password="Password2";
 		Manager.get().login(nombre, password);
 	}
 

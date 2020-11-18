@@ -18,6 +18,7 @@ git:
 script:
 - mvn clean
 - mvn verify
+- mvn jacoco:report
 - mvn install
 - mvn package spring-boot:repackage
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=danigcj31_SIGET_Equipo1 -Dsonar.organization=danigcj31

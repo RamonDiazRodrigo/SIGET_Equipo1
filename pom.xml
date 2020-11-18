@@ -35,7 +35,13 @@
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>1.2.5</version>
-
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>6.9.0</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -44,10 +50,9 @@
 
 		</dependency>
 		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>1.2.5</version>
-
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -107,7 +112,7 @@
 		<java.version>1.8</java.version>
 		<start-class>com.app.siget.SigetEquipo1Application</start-class>
 		<sonar.sources>src/main/java,src/main/webapp</sonar.sources>
-		<sonar.tests>src/test/java</sonar.tests>
+		<sonar.tests>src/test/java/com/app/siget/cucumber/pruebas</sonar.tests>
 		<sonar.projectKey>danigcj31_SIGET_Equipo1</sonar.projectKey>
 		<sonar.organization>danigcj31</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -135,6 +140,7 @@
 				<configuration>
 					<forkCount>3</forkCount>
 					<reuseForks>true</reuseForks>
+					<argLine>${surefireArgLine} -Xmx1024m -XX:MaxPermSize=256m -noverify</argLine>
 					<includes>
 						<exclude>**/*ejecutor.java</exclude>
 					</includes>
@@ -146,17 +152,16 @@
 				<version>0.7.9</version>
 				<executions>
 					<execution>
-						<id>jacoco-initialize</id>
+						<id>prepare-unit-tests</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-					</execution>
-					<execution>
-						<id>jacoco-site</id>
-						<phase>package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
+						<configuration>
+							<append>true</append>
+							<destFile>${sonar.jacoco.reportPath}</destFile>
+							<!-- Sets the VM argument line used when unit tests are run. -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

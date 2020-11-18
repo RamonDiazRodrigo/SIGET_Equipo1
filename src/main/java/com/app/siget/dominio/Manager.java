@@ -79,7 +79,7 @@ public class Manager {
 
 	}
 
-	public void register(String name, String email, String password, String rol) {
+	public void register(String name, String email, String password, String rol) throws Exception{
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
@@ -171,6 +171,15 @@ public class Manager {
 	public void eliminarTests() {
 		for (User u : UserDAO.leerUsers()) {
 			if ("nombre".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("asistente".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("admin".equals(u.getName())) {
+				UserDAO.eliminar(u);
+			}
+			if ("admin2".equals(u.getName())) {
 				UserDAO.eliminar(u);
 			}
 		}
@@ -286,7 +295,7 @@ public class Manager {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
 				u.setEmail(emailNuevo);
-				u.setPassword(passwordNueva);
+				u.setPassword(encriptarMD5(passwordNueva));
 				UserDAO.modificar(u);
 			}
 		}
