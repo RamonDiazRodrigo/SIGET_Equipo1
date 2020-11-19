@@ -1,3 +1,23 @@
+$('#displayNone').click(function(e) {
+    $('#hide-me').css('visibility', 'visible');
+  
+  if( $('#hide-me').is(":visible") ) {
+    $('#hide-me').css('display', 'none'); 
+  } else {
+    $('#hide-me').css('display', 'block');
+  }
+});
+
+$('#visibilityHidden').click(function(e) {
+  $('#hide-me').css('display', 'block');
+  
+  if( $('#hide-me').css('visibility') != 'hidden' ) {
+    $('#hide-me').css('visibility', 'hidden');
+  } else {
+    $('#hide-me').css('visibility', 'visible');
+  }
+});
+
 let cerrarSesion = function() {
 	sessionStorage.removeItem("token");
 	const info = {
@@ -47,7 +67,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
@@ -60,7 +80,6 @@ function ViewModel() {
 	};
 
 	self.sws.onmessage = function(event) {
-		document.getElementsByTagName('h1')[0].innerText = sessionStorage.userName;
 		var data = event.data;
 		data = JSON.parse(data);
 		var users = data.usuarios;
@@ -69,7 +88,6 @@ function ViewModel() {
 			if (self.listaUsuarios().some(u => u.name === usuario.name) === false) {
 				self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
 			}
-			
 		}
 	};
 
@@ -80,7 +98,7 @@ function ViewModel() {
 
 		const info = {
 			type: 'insertar',
-			nombre: $('#actividad').val(),
+			nombre: $('#nombreActividad').val(),
 			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
 			horaInicio: dateInicio[0],
 			horaFinal: dateFinal[0],
