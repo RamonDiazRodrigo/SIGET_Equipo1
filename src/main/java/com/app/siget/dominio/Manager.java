@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
@@ -14,8 +16,11 @@ import org.springframework.web.socket.WebSocketSession;
 import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.persistencia.ActividadDAO;
+import com.app.siget.persistencia.AgenteDB;
 import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 public class Manager {
 
@@ -117,7 +122,7 @@ public class Manager {
 
 	public JSONArray leerReuniones() {
 		JSONArray jsa = new JSONArray();
-		List<Actividad> actividades = ActividadDAO.leerReuniones();
+		List<Actividad> actividades = ActividadDAO.leerActividades(true);
 		if (!actividades.isEmpty()) {
 			for (Actividad act : actividades) {
 				jsa.put(act.toJSON());
@@ -183,7 +188,7 @@ public class Manager {
 				UserDAO.eliminar(u);
 			}
 		}
-		for (Actividad a : ActividadDAO.leerReuniones()) {
+		for (Actividad a : ActividadDAO.leerActividades(true)) {
 			if ("nombre periodo no laborable".equals(a.getName())) {
 				ActividadDAO.eliminar(a);
 			}
@@ -211,6 +216,8 @@ public class Manager {
 		jso.put("actividades", jsa);
 		return jso;
 	}
+
+
 
 	// Este metodo encuentra las actividades que estan en el horario del usuario
 	private static JSONArray buscarActividades(int[][] horario, JSONArray jsa) {
@@ -328,7 +335,7 @@ public class Manager {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(usuario)) {
 				for (int id : ((Asistente) u).getReunionesPendientes()) {
-					for (Actividad actv : ActividadDAO.leerReuniones()) {
+					for (Actividad actv : ActividadDAO.leerActividades(true)) {
 						if (id == actv.getId()) {
 							jsa.put(actv.toJSON());
 						}
@@ -348,7 +355,7 @@ public class Manager {
 			if (u.getName().equals(usuario)) {
 				((Asistente) u).quitarReunionPendiente(id);
 
-				for (Actividad actv : ActividadDAO.leerReuniones()) {
+				for (Actividad actv : ActividadDAO.leerActividades(true)) {
 					if (actv.getId() == id) {
 						((Asistente) u).insertarActividad(actv);
 						UserDAO.modificar(u);
