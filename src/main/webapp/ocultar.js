@@ -1,21 +1,10 @@
-$('#displayNone').click(function(e) {
-    $('#hide-me').css('visibility', 'visible');
-  
-  if( $('#hide-me').is(":visible") ) {
-    $('#hide-me').css('display', 'none'); 
-  } else {
-    $('#hide-me').css('display', 'block');
-  }
-});
-
 $('#visibilityHidden').click(function(e) {
-  $('#hide-me').css('display', 'block');
-  
-  if( $('#hide-me').css('visibility') != 'hidden' ) {
-    $('#hide-me').css('visibility', 'hidden');
-  } else {
-    $('#hide-me').css('visibility', 'visible');
-  }
+	if ($('#hide-me').css('visibility') != 'hidden') {
+		$('#hide-me').css('visibility', 'hidden');
+	} else {
+		$('#hide-me').css('visibility', 'visible');
+	}
+	$('#visibilityHidden').css('visibility', 'hidden');
 });
 
 $('#volver').click(function(e) {
@@ -41,3 +30,5 @@ $('#btnModificarUsuario').click(function(e) {
 	$('#gestionUsuarios').css('visibility', 'hidden');
 	$('#modificarCredenciales').css('visibility', 'visible');
 });
+
+

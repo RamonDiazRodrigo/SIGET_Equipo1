@@ -2,6 +2,17 @@
 <html lang="es">
 <head>
 <title>Reuniones</title>
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">VISTA USUARIO</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
+</div>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -14,21 +25,15 @@
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="usuario.css">
 </head>
-<body>
 <body onload="checkAccess()">
-    <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeader">
-		<h1>USUARIO</h1>
-    </form>
 	<div class="container">
 		<!-- Optional JavaScript 
-				<!-- Optional JavaScript -->
-		<form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxConvocar">		 
+				<!-- Optional JavaScript --> 
 		<div id="hide_reunion">
 			<form>
-				<br /> <label for="input">Reunion: </label> 
-				<input type="input" id="actividad" placeholder="Nombre de la reunion"> <br>
-				<br>
-				<label for="select">Elige dia</label> <select id="dia">
+				<br /> <label for="input">Reunión: </label> <input type="text"
+					id="actividad" placeholder="Nombre"> <br /> <label
+					for="select">Elige dia</label> <select id="dia">
 					<option class="option" value="">LUNES</option>
 					<option class="option" value="">MARTES</option>
 					<option class="option" value="">MIERCOLES</option>
@@ -36,17 +41,18 @@
 					<option class="option" value="">VIERNES</option>
 					<option class="option" value="">SABADO</option>
 					<option class="option" value="">DOMINGO</option>
-				</select> </br> <br>
+				</select> </br>
 				<div class="md-form md-outline">
-					<label for="default-picker">Elige hora inicio</label> 
-					<input id="horaInicio" type="time"  class="form-control" placeholder="Select time">
+					<label for="default-picker">Elige hora inicio</label> <input
+						type="time" id="horaInicio" class="form-control"
+						placeholder="Select time">
 				</div>
 				<br />
 				<div class="md-form md-outline">
-					<label for="default-picker">Elige hora final</label> 
-					<input id="horaFinal" type="time"  class="form-control" placeholder="Select time">
+					<label for="default-picker">Elige hora final</label> <input
+						type="time" id="horaFinal" class="form-control"
+						placeholder="Select time">
 				</div>
-				<br>
 				<button id="check" data-bind="click:$root.check">Comprobar
 					disponibilidad asistentes</button>
 				<div class="form-check">
@@ -62,8 +68,9 @@
 			</form>
 
 			</br>
-			<button id="addReunion" data-bind="click:$root.addReunion">Crear Reunion</button>
-			<button type="button" id="volver" onclick="window.history.back()">Volver</button>
+			<button id="addReunion" data-bind="click:$root.addReunion">Añadir
+				reunión</button>
+			<input type="button" value="Volver" onClick="history.go(-1);">
 		</div>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
@@ -82,8 +89,6 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 			crossorigin="anonymous"></script>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 		<!-- KNOCKOUT -->
 		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 		<script src="ocultar.js"></script>
