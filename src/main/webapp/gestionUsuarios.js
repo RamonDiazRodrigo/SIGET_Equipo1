@@ -75,6 +75,7 @@ function ViewModel() {
 			if (sessionStorage.userName === usuario.name) {
 				if (usuario.rol === "ASISTENTE") {
 					document.getElementById('username').placeholder = sessionStorage.userName;
+					document.getElementsByTagName('h1')[0].innerText = sessionStorage.userName;
 				}
 			}
 
