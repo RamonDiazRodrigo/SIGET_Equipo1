@@ -1,31 +1,27 @@
 package com.app.siget.dominio;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-
 import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.persistencia.ActividadDAO;
-import com.app.siget.persistencia.AgenteDB;
 import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 
 public class Manager {
 
 	private WebSocketSession session;
 	public static final String USUARIOS = "usuarios";
+	public static final String ASISTENTE = "ASISTENTE";
 
 	public Manager() {
 		// Metodo constructor vacio (no hay atributos)
@@ -39,7 +35,7 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 
-	public void login(String name, String password) throws Exception {
+	public void login(String name, String password) throws CredencialesInvalidasException, IOException {
 		boolean login = false;
 
 		ArrayList<User> usuarios = (ArrayList<User>) UserDAO.leerUsers();
@@ -65,9 +61,10 @@ public class Manager {
 
 	}
 
-	public boolean checkCredenciales(User u, String name, String password) throws Exception {
+	public boolean checkCredenciales(User u, String name, String password) throws CredencialesInvalidasException {
 		boolean aux = false;
-		String pwdEncrypted, pwdUser;
+		String pwdEncrypted;
+		String pwdUser;
 		if (u.getName().equals(name)) {
 			pwdEncrypted = u.getPassword();
 			pwdUser = encriptarMD5(password);
@@ -76,7 +73,6 @@ public class Manager {
 				throw new CredencialesInvalidasException();
 
 			} else {
-				System.out.println("Sucessful login");
 				aux = true;
 			}
 		}
@@ -84,7 +80,7 @@ public class Manager {
 
 	}
 
-	public void register(String name, String email, String password, String rol) throws Exception {
+	public void register(String name, String email, String password, String rol) {
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
@@ -110,7 +106,7 @@ public class Manager {
 
 	public JSONArray leerAsistentes() {
 		JSONArray jsa = new JSONArray();
-		List<User> usuarios = UserDAO.leerUsers("ASISTENTE");
+		List<User> usuarios = UserDAO.leerUsers(ASISTENTE);
 
 		for (User user : usuarios) {
 			jsa.put(user.toJSON());
@@ -143,7 +139,7 @@ public class Manager {
 		boolean reunionB = Boolean.parseBoolean(reunion);
 
 		for (User user : users) {
-			if (usuario.equals(user.getName()) && "ASISTENTE".equals(user.getRol())) {
+			if (usuario.equals(user.getName()) && ASISTENTE.equals(user.getRol())) {
 				ActividadDAO.insertarActividad((Asistente) user,
 						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB));
 			}
@@ -156,7 +152,7 @@ public class Manager {
 
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
-			if (usuario.equals(u.getName()) && "ASISTENTE".equals(u.getRol())) {
+			if (usuario.equals(u.getName()) && ASISTENTE.equals(u.getRol())) {
 				UserDAO.eliminar(u);
 			}
 		}
@@ -345,7 +341,6 @@ public class Manager {
 
 			}
 		}
-		// jso.put("reunionesPendientes", asistente.getReunionesPendientes());
 
 		return jsa;
 	}
@@ -403,13 +398,19 @@ public class Manager {
 			byte[] messageDigest = md.digest(input.getBytes());
 			BigInteger number = new BigInteger(1, messageDigest);
 			String hashtext = number.toString(16);
-
-			while (hashtext.length() < 32) {
-				hashtext = "0" + hashtext;
+			
+			int diff = 32 - hashtext.length();
+			StringBuilder bld = new StringBuilder();
+			
+			while (diff>1) {
+				bld.append("0");
+				diff--;
 			}
-			return hashtext;
+			
+			return bld.toString() + hashtext;
+
 		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
+			return "";
 		}
 	}
 
