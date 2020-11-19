@@ -4,13 +4,23 @@
 <title>Calendario</title>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="jquery-calendar.css">
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="calendario.css">
+<!-- FAVICON -->
+<link rel="icon" href="favicon.ico" type="image/ico" />
 </head>
 <body>
 	<div class="row">
 		<div class="col-xs-12">
+		<div id="b">
+		<label>Leyenda: </label>
+		<label style="color:#9eec8ac5;">Restriccion,</label ><label style="color:#3d5ce7c5;">Reunion</label>
+		</div>
 			<div id="calendar" class="calendar">
+			
 				<div class="calendar-timeline"
 					style="padding-top: 51px; margin-top: 60px;">
+					
 					<ul>
 						<li style="height: 50px;"><span>00:00</span></li>
 						<li style="height: 50px;"><span>00:30</span></li>
@@ -60,14 +70,15 @@
 						<li style="height: 50px;"><span>22:30</span></li>
 						<li style="height: 50px;"><span>23:00</span></li>
 						<li style="height: 50px;"><span>23:30</span></li>
-						<li style="height: 50px;"><span>24:00</span></li>
+						
 					</ul>
 				</div>
 				<div class="calendar-events">
+				<input type="button" id="volver" value="Volver" onClick="window.history.back()">
 					<div class="calendar-month weektomonth"
 						style="height: 30px; text-align: center; padding-top: 5px;">
 						Noviembre 2020</div>
-					<input type="button" value="Volver" onClick="history.go(-1);">
+					
 					<ul>
 						<li class="calendar-events-day" data-time="1603753200"
 							style="width: 14.2457%;"><div class="calendar-day-header"
@@ -78,7 +89,7 @@
 								<!-- ko foreach : { data: listaReunionesL, as :"reunion" } -->
 								<li
 									style="background: rgb(142, 224, 243); left: 0px; width: 25%; opacity: 1; float: left; position: relative">
-									<em data-bind="html : name"></em>
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
 								</li>
 								<!-- /ko -->
 							</ul></li>
@@ -91,7 +102,7 @@
 								<!-- ko foreach : { data: listaReunionesM, as :"reunion" } -->
 								<li
 									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
-									<em data-bind="html : name"></em>
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
 								</li>
 								<!-- /ko -->
 							</ul></li>
@@ -104,7 +115,7 @@
 								<!-- ko foreach : { data: listaReunionesX, as :"reunion" } -->
 								<li
 									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
-									<em data-bind="html : name"></em>
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
 								</li>
 								<!-- /ko -->
 							</ul></li>
@@ -117,7 +128,7 @@
 								<!-- ko foreach : { data: listaReunionesJ, as :"reunion" } -->
 								<li
 									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
-									<em data-bind="html : name"></em>
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
 								</li>
 								<!-- /ko -->
 							</ul></li>
@@ -130,7 +141,7 @@
 								<!-- ko foreach : { data: listaReunionesV, as :"reunion" } -->
 								<li
 									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
-									<em data-bind="html : name"></em>
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
 								</li>
 								<!-- /ko -->
 							</ul></li>
