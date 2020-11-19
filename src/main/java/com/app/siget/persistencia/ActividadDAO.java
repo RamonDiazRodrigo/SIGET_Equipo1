@@ -27,7 +27,7 @@ public final class ActividadDAO {
 		super();
 	}
 
-	public static List<Actividad> leerReuniones() {
+	public static List<Actividad> leerActividades(boolean onlyReuniones) {
 		ArrayList<Actividad> actividades = new ArrayList<>();
 		Document document;
 		Actividad act;
@@ -42,63 +42,83 @@ public final class ActividadDAO {
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
 						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
 				actividades.add(act);
+			} else {
+				if (!onlyReuniones) {
+					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
+					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
+					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
+					actividades.add(act);
+				}
 			}
 		}
+
 		return actividades;
 	}
 
-	public static List<Actividad> leerActividades() {
-		ArrayList<Actividad> actividades = new ArrayList<>();
-		Document document;
-		Actividad act;
-		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
-		MongoCursor<Document> iter = coleccion.find().iterator();
+	public static Actividad leerActividad(int id) {
 
-		while ((iter.hasNext())) {
-			document = iter.next();
-			if (Boolean.parseBoolean(document.getString(REUNION))) {
-				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
-				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
-				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
-				actividades.add(act);
-			} else {
-				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
-				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
-				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
-				actividades.add(act);
+		for (Actividad act : ActividadDAO.leerActividades(false)) {
+			if (id == act.getId()) {
+				return act;
 			}
 		}
+		return null;
 
-		return actividades;
+	}
+
+	public static void insertarActividad(Actividad actividad) {
+
+		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
+		Document document = new Document("name", actividad.getName());
+		document.append("id", actividad.getId());
+		document.append("dia", actividad.getDia().toString());
+		document.append(HORAI, actividad.getHoraI().getHour());
+		document.append(MINUTOSI, actividad.getHoraI().getMinute());
+		document.append(HORAF, actividad.getHoraF().getHour());
+		document.append(MINUTOSF, actividad.getHoraF().getMinute());
+		document.append(REUNION, actividad.isReunion());
+		coleccion.insertOne(document);
+
+	}
+
+	public static Document generarDocument(Asistente user) {
+
+		Document document = new Document("name", user.getName());
+		document.append("email", user.getEmail());
+		document.append("password", user.getPassword());
+		document.append("rol", user.getRol());
+		document.append("horario", user.getHorario().toString());
+		return document;
+
 	}
 
 	public static void insertarActividad(Asistente user, Actividad actividad) {
-		Document document;
-		MongoCollection<Document> coleccion;
+
 		if (user != null) {
-			coleccion = AgenteDB.get().getBd(ACTS);
-			document = new Document("name", actividad.getName());
-			document.append("id", actividad.getId());
-			document.append("dia", actividad.getDia().toString());
-			document.append(HORAI, actividad.getHoraI().getHour());
-			document.append(MINUTOSI, actividad.getHoraI().getMinute());
-			document.append(HORAF, actividad.getHoraF().getHour());
-			document.append(MINUTOSF, actividad.getHoraF().getMinute());
-			document.append(REUNION, actividad.isReunion());
-			coleccion.insertOne(document);
-			coleccion = AgenteDB.get().getBd(USUARIO);
-			document = new Document("name", user.getName());
-			document.append("email", user.getEmail());
-			document.append("password", user.getPassword());
-			document.append("rol", user.getRol());
+			insertarActividad(actividad);
+			Document document = generarDocument(user);
+			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			user.insertarActividad(actividad);
-			document.append("horario", user.getHorario().toString());
 			UserDAO.eliminar(user);
 			coleccion.insertOne(document);
-		} else {
-			System.out.println("Mandar un error de que el user es null");
+		}
+
+	}
+
+	public static void insertarReunionPend(Asistente user, Actividad actividad) {
+
+		if (user != null) {
+			// SI LA REUNION YA EXISTE NO SE METE
+			if (leerActividad(actividad.getId()) == null) {
+				insertarActividad(actividad);
+			}
+			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
+			Document document = generarDocument(user);
+			user.insertarReunionPendiente(actividad);
+			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
+			UserDAO.eliminar(user);
+			coleccion.insertOne(document);
 		}
 
 	}
@@ -111,68 +131,6 @@ public final class ActividadDAO {
 			coleccion = AgenteDB.get().getBd(ACTS);
 			document = new Document("name", a.getName());
 			coleccion.findOneAndDelete(document);
-		}
-
-	}
-
-	public static Actividad leerActividad(int id) {
-
-		Document document;
-		Actividad act = null;
-		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
-		MongoCursor<Document> iter = coleccion.find().iterator();
-
-		while ((iter.hasNext())) {
-			document = iter.next();
-			if (id == (document.getInteger("id"))) {
-
-				if (Boolean.TRUE.equals(document.getBoolean(REUNION))) {
-					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
-					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
-					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
-
-				} else {
-					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
-					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
-					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
-
-				}
-			}
-		}
-		return act;
-	}
-
-	public static void insertarReunionPend(Asistente user, Actividad actividad) {
-		Document document;
-		MongoCollection<Document> coleccion;
-		if (user != null) {
-			// SI LA REUNION YA EXISTE NO SE METE
-			if (leerActividad(actividad.getId()) == null) {
-				coleccion = AgenteDB.get().getBd(ACTS);
-				document = new Document("name", actividad.getName());
-				document.append("id", actividad.getId());
-				document.append("dia", actividad.getDia().toString());
-				document.append(HORAI, actividad.getHoraI().getHour());
-				document.append(MINUTOSI, actividad.getHoraI().getMinute());
-				document.append(HORAF, actividad.getHoraF().getHour());
-				document.append(MINUTOSF, actividad.getHoraF().getMinute());
-				document.append(REUNION, actividad.isReunion());
-				coleccion.insertOne(document);
-			}
-			coleccion = AgenteDB.get().getBd(USUARIO);
-			document = new Document("name", user.getName());
-			document.append("email", user.getEmail());
-			document.append("password", user.getPassword());
-			document.append("rol", user.getRol());
-			user.insertarReunionPendiente(actividad);
-			document.append("horario", user.getHorario().toString());
-			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
-			UserDAO.eliminar(user);
-			coleccion.insertOne(document);
-		} else {
-			System.out.println("Mandar un error de que el user es null");
 		}
 
 	}
