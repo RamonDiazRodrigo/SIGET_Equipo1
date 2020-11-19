@@ -18,8 +18,6 @@
     <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeader">
 		<button type="logout" value="logout" onclick="cerrarSesion()">Cerrar Sesion</button>
 		<h1>USUARIO</h1>
-		<input id="username" name="username" required="required"
-		type="text" placeholder="PEPE" readonly="readonly" disabled="disabled"/>
     </form>
 
 	<div class="container">
@@ -30,31 +28,14 @@
 			<button type="button" id="convocarReuniones" onclick="window.location.href='/convocarReunion.html'">Convocar Reunion</button>
 			<button type="button" id="modificarDatos" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Modificar datos</button>
 			<br>
-			<button type="button" id="reunionesPendientes">Reuniones Pendientes</button>
-		<div id="hide-me">
-			<form>
-				<label for="input">REUNIONES PENDIENTES: </label>
-				<div class="md-form md-outline">
-			<!-- ko foreach : { data: listaReuniones, as :"reunion" } -->
-					<h4 class="card-title" data-bind="html : name"></h4>
-					<button id="crear" type="button" data-bind="click: aceptarReunion">Aceptar</button>
-					<button id="rechazar" type="button" data-bind="click: rechazarReunion">Rechazar</button>
-					<br><br>
-					</div>
-			<!-- /ko -->
-				<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
-				<option class="option" value="" data-bind="html : name"></option>
-				<!-- /ko -->
-				<button id="volver" type="button" onclick="window.history.back()">Volver</button>
-			</form>
-		</div>
-
+			<button type="button" id="reunionesPendientes" onclick="window.location.href='reunionesPendientes.html'">Reuniones Pendientes</button>
+		</form>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
 		<div id="koGestion" style="display: inline-block">
-
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -80,15 +61,15 @@
 								</div>
 								<div>
 									<input id="pwda" required="required" type="password"
-										placeholder="ContraseÃ±a antigua" />
+										placeholder="Contraseña antigua" />
 								</div>
 								<div>
 									<input id="pwdn" required="required" type="password"
-										placeholder="ContraseÃ±a nueva" />
+										placeholder="Contraseña nueva" />
 								</div>
 								<div>
 									<input id="pwd2" required="required" type="password"
-										placeholder="Confirma tu contraseÃ±a" />
+										placeholder="Confirma tu contraseña" />
 								</div>
 							</div>
 						</div>
@@ -103,7 +84,7 @@
 				</div>
 			</div>
 		</div>
-
+	</div>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -117,7 +98,8 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 			crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- KNOCKOUT -->
 		<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 		<script src="ocultar.js"></script>

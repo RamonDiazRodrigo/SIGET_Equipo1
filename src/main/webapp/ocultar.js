@@ -1,10 +1,21 @@
+$('#displayNone').click(function(e) {
+    $('#hide-me').css('visibility', 'visible');
+  
+  if( $('#hide-me').is(":visible") ) {
+    $('#hide-me').css('display', 'none'); 
+  } else {
+    $('#hide-me').css('display', 'block');
+  }
+});
+
 $('#visibilityHidden').click(function(e) {
-	if ($('#hide-me').css('visibility') != 'hidden') {
-		$('#hide-me').css('visibility', 'hidden');
-	} else {
-		$('#hide-me').css('visibility', 'visible');
-	}
-	$('#visibilityHidden').css('visibility', 'hidden');
+  $('#hide-me').css('display', 'block');
+  
+  if( $('#hide-me').css('visibility') != 'hidden' ) {
+    $('#hide-me').css('visibility', 'hidden');
+  } else {
+    $('#hide-me').css('visibility', 'visible');
+  }
 });
 
 $('#volver').click(function(e) {

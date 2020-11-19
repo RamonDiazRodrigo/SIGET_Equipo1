@@ -133,7 +133,7 @@ border:0;
 #crear{
   color: black;
   border-color:#2b7e4d;
-  width:25%;  
+  width:20%;  
   border:0;
   font-size: 15px;
   margin: 0px;
@@ -147,6 +147,7 @@ border:0;
   cursor: pointer;
   display: inline;
 float:right;
+  margin-right:5px;
 }
 
 #crear:hover{
@@ -160,11 +161,10 @@ float:right;
   border: 2px;
   border-color:#ac0606;
   opacity:0.9;
-  width:25%;  
+  width:20%;  
   border:0;
   background: none;
   font-size: 15px;
-  margin: 0px;
   text-align: center;
   padding: 10px;
   outline: none;
@@ -175,6 +175,7 @@ float:right;
   cursor: pointer;
   display: inline;
   float: right;
+margin-right:8px;
 }
 
 #rechazar:hover{
@@ -279,7 +280,7 @@ border:0;
   border: 2px solid black;;
   padding: 10px;
   outline: none;
-  color: #90c7e7;
+  color: black;
   border-radius: 18px;
   transition: 0.25s;
   float: center;
@@ -307,7 +308,7 @@ border:0;
 }
 
 .boxConvocar select[id = "dia"] {
-  background-color: DodgerBlue;
+  background-color: #90c7e7;
   box-sizing: border-box;
   border-radius: 20px;
   padding: 5px;
@@ -387,9 +388,78 @@ float: center;
   float: right;
 }
 
-#volverConvocar:hover{
+
+.boxHeaderReunionesPendientes{
+  max-width: 97%;
+  width: 97%;
+  height: 80px;
+  padding: 20px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translate(0%,0%);
+  background: rgba(0,0,0,-0.1);
+  box-shadow: 0 0 30px rgba(0,0,0,0.568);
+  color:white;
+  text-align: center;
+  border-radius: 25px;
+  flex-wrap: wrap;
+  margin: 22px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.boxHeaderReunionesPendientes h1{
+  color: rgb(248, 248, 248);
+  text-transform: uppercase;
+  font-weight: 100;
+  text-align: center;
+}
+
+#volverReuniones{
+  color: white;
+  border: 2px;
+  border-color:#ac0606;
+  opacity:0.9;
+  width:25%;  
+  border:0;
+  background: none;
+  font-size: 15px;
+  margin: 0px;
+  text-align: center;
+  padding: 10px;
+  outline: none;
+  background: #90c7e7;
+  color: black;
+  border-radius: 18px;
+  transition: 0.25s;
+  cursor: pointer;
+  display: inline;
+  float: right;
+}
+
+#volverReuniones:hover{
   background: #90c7e7;
   color: whitesmoke;
   transform: scale(0.9);
 
+}
+
+.boxMenuReunionesPendientes {
+  max-width: 97%;
+  width: 97%;
+  height: 80%;
+  padding: 0px;
+  position: absolute;
+  top: 90px;
+  left: 0%;
+  transform: translate(0%,0%);
+  background: rgba(0,0,0,-0.1);
+  box-shadow: 0 0 30px rgba(0,0,0,0.568);
+  color:white;
+  text-align: center;
+  border-radius: 25px;
+  flex-wrap: wrap;
+  margin:22px;
+  margin-bottom: 0px;
 }
