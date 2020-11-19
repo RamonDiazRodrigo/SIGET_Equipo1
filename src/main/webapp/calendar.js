@@ -29,10 +29,10 @@ function viewModel() {
 			const horaFi = reunion.HoraF.split(':');
 			let posTop = 0;
 			let length = 0;
-			const px = 50.3;
+			const px = 50.18;
 			const nmediaHora = 2;
 			const mediaHora = 0.5;
-			//Si los minutajes son distintos
+			// Si los minutajes son distintos
 			if (horaIn[1] !== horaFi[1]) {
 				if (horaIn[1] < horaFi[1]) {
 					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
@@ -96,6 +96,11 @@ function viewModel() {
 			if (itemsL[n].innerText === reunion.name) {
 				itemsL[n].style.top = posTop.toString() + 'px';
 				itemsL[n].style.height = length.toString() + 'px';
+				if(reunion.Reunion){
+					itemsL[n].style.background = '#3d5ce7c5';
+				}else{
+					itemsL[n].style.background = '#9eec8ac5';
+				}
 			}
 		}
 	}

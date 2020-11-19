@@ -60,6 +60,7 @@ function ViewModel() {
 	};
 
 	self.sws.onmessage = function(event) {
+		document.getElementsByTagName('h1')[0].innerText = sessionStorage.userName;
 		var data = event.data;
 		data = JSON.parse(data);
 		var users = data.usuarios;
@@ -68,6 +69,7 @@ function ViewModel() {
 			if (self.listaUsuarios().some(u => u.name === usuario.name) === false) {
 				self.listaUsuarios.push(new Usuario(usuario.name, usuario.email, usuario.password, usuario.rol));
 			}
+			
 		}
 	};
 
