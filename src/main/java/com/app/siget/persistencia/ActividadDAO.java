@@ -36,7 +36,7 @@ public final class ActividadDAO {
 
 		while ((iter.hasNext())) {
 			document = iter.next();
-			if (Boolean.parseBoolean(document.getString(REUNION))) {
+			if (Boolean.TRUE.equals(document.getBoolean(REUNION))) {
 				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
