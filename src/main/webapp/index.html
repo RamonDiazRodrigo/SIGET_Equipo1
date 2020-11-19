@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -11,41 +11,28 @@
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
 <!-- CUSTOM CSS -->
+<link rel="stylesheet" href="style.css">
 <title>SIGET</title>
 <link rel="shortcut icon" href="http://example.com/myicon.ico" />
+<!-- ICONOS -->
 <script src="https://kit.fontawesome.com/2fdbb0a0af.js"
 	crossorigin="anonymous"></script>
+<!-- FAVICON -->
+<link rel="icon" href="favicon.ico" type="image/ico" />
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h1>Inicio de sesión</h1>
-		<div class="container" id="divFormularios">
-			<div class="row">
-				<div class="col-sm-12 col-centered">
-					<div id="divLogin">
-						<i class="far fa-user"></i> <input type="text" id="username"
-							placeholder="Nombre de usuario"><br> 
-							<i class="fas fa-key"></i><input type="password"
-							id="password" placeholder="Contraseña"><br>
-					</div>
-				</div>
-			</div>
-		</div>
-		</br>
-		<div class="row" id="divMenu">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-3" id="mostrarLogin">
-				<button onclick="login()" id="btnLogin">Iniciar Sesion</button>
-				<br>
-			</div>
-			<div class="col-sm-3" id="mostrarRegistro">
-				<button onclick="window.location.href='/register.html'"
-					id="goToRegister">Registrarse</button>
-				<br>
-			</div>
-			<div class="col-sm-3"></div>
-		</div>
-	</div>
+
+	<form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 box"
+		action="index.html" method="post">
+		<h1>SIGET</h1></br>
+		 <img src="Equipo 1.jpeg" width="150" height="60"></br><input type="text" name=""
+			placeholder="Username" id="username"> <input type="password"
+			name="" placeholder="Password" id="password" autocomplete="off"> <button type="button"
+			type="button" name="" value="LOGIN" onclick="login()" id="btnLogin">LOGIN</button>
+		<button type="button" name="" value="REGISTRO"
+			onclick="window.location.href='/register.html'" id="goToRegister">REGISTRO</button>
+	</form>
+	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

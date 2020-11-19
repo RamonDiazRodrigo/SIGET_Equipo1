@@ -29,7 +29,6 @@ function ViewModel() {
 
 
 	self.sws.onopen = function(event) {
-
 		var msg = {
 			type: "reunionesPendientes",
 			nombre: sessionStorage.userName,
