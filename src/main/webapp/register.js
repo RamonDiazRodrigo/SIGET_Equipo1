@@ -1,6 +1,5 @@
 let register = function() {
 	if (contrasenaValida($('#pwd1').val())) {
-
 		const info = {
 			type: 'Register',
 			userName: $('#username').val(),
@@ -73,4 +72,3 @@ function esNumero(digito) {
 
 
 }
-
