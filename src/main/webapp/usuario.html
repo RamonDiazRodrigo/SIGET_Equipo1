@@ -2,18 +2,6 @@
 <html lang="es">
 <head>
 <title>Usuario</title>
-<div class="container">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="/">VISTA USUARIO</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<button onclick="cerrarSesion()">Cerrar Sesion</button>
-	</nav>
-</div>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -27,30 +15,31 @@
 <link rel="stylesheet" href="usuario.css">
 </head>
 <body onload="checkAccess()">
+    <form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeader">
+		<button type="logout" value="logout" onclick="cerrarSesion()">Cerrar Sesion</button>
+		<h1>USUARIO</h1>
+    </form>
+
 	<div class="container">
 		<!-- Optional JavaScript 
 				<!-- Optional JavaScript -->
-		<button onclick="window.location.href='/reunionesPendientes.html'">Reuniones
-			pendientes</button>
-		<button onclick="window.location.href='/calendar.html'">Ver
-			agenda</button>
-		<button onclick="window.location.href='/convocarReunion.html'">Convocar
-			reunión</button>
-
-
+		<form class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxMenu">		
+			<button type="button" id="agenda" onclick="window.location.href='/calendar.html'">Ver Agenda</button>
+			<button type="button" id="convocarReuniones" onclick="window.location.href='/convocarReunion.html'">Convocar Reunion</button>
+			<button type="button" id="modificarDatos" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Modificar datos</button>
+			<br>
+			<button type="button" id="reunionesPendientes" onclick="window.location.href='reunionesPendientes.html'">Reuniones Pendientes</button>
+		</form>
 		<!-- MODIFICAR DATOS -->
 		<!-- Button trigger modal -->
 		<div id="koGestion" style="display: inline-block">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#exampleModal">Modificar datos</button>
-
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Modificación
+							<h5 class="modal-title" id="exampleModalLabel">Modificacion
 								de datos</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
@@ -72,15 +61,15 @@
 								</div>
 								<div>
 									<input id="pwda" required="required" type="password"
-										placeholder="Contraseña antigua" />
+										placeholder="Contrase�a antigua" />
 								</div>
 								<div>
 									<input id="pwdn" required="required" type="password"
-										placeholder="Contraseña nueva" />
+										placeholder="Contrase�a nueva" />
 								</div>
 								<div>
 									<input id="pwd2" required="required" type="password"
-										placeholder="Confirma tu contraseña" />
+										placeholder="Confirma tu contrase�a" />
 								</div>
 							</div>
 						</div>
@@ -95,9 +84,7 @@
 				</div>
 			</div>
 		</div>
-
-
-
+	</div>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
