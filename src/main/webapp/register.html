@@ -38,21 +38,18 @@
 		type="text" placeholder="Nombre de usuario" /> <input type="text"
 		id="email" required="required" type="email"
 		placeholder="email@email.com" /> <input type="password" id="pwd1"
-		required="required" type="password" placeholder="Contraseña" /> <input
-		type="password" id="pwd2" required="required" type="password"
-		placeholder="Confirma tu contraseña" /> </br>
+		required="required" type="password" placeholder="Contraseña" autocomplete="off"/> 
+		<input type="password" id="pwd2" required="required" type="password"
+		placeholder="Confirma tu contraseña" autocomplete="off"/> </br>
 	<label for="Rolsignup" id="turol">Tu Rol </label>
-	<div id="rol" class="selectrol">
+	<div id="rolDiv" class="selectrol">
 		<select id="rol">
 			<option value="ADMIN">ADMIN</option>
 			<option value="ASISTENTE">ASISTENTE</option>
 		</select>
 	</div>
-	</br>
 	<button type="button" onclick="register()" id="btnregister">Registrar</button>
-	<button type="button" onclick="window.location.href='index.html'"
-		id="goToLogin">Volver</button>
-
+	<button type="button" onclick="window.history.back()" id="goToLogin">Volver</button>
 
 </form>
 <!-- Optional JavaScript -->
