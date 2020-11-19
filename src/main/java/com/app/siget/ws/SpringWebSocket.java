@@ -55,6 +55,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		}
 
 		if ("insertar".equals(jso.getString(TYPE))) {
+
 			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString(DIA), jso.getString(HI),
 					jso.getString(MI), jso.getString(HF), jso.getString(MF),
 					jso.getString("usuarios"), "false");

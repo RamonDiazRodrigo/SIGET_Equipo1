@@ -62,10 +62,10 @@ public class Manager {
 
 	public boolean checkCredenciales(User u, String name, String password) throws Exception {
 		boolean aux = false;
-		String pwdEncrypted, pwdUser;
+		String pwdEncrypted,pwdUser;
 		if (u.getName().equals(name)) {
-			pwdEncrypted = u.getPassword();
-			pwdUser = encriptarMD5(password);
+			pwdEncrypted=u.getPassword();
+			pwdUser= encriptarMD5(password);
 			if (!(pwdEncrypted.equals(pwdUser))) {
 
 				throw new CredencialesInvalidasException();
@@ -79,7 +79,7 @@ public class Manager {
 
 	}
 
-	public void register(String name, String email, String password, String rol) throws Exception {
+	public void register(String name, String email, String password, String rol) throws Exception{
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
@@ -220,7 +220,7 @@ public class Manager {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
 					a = ActividadDAO.leerActividad(horario[i][j]);
-					if (a != null && !contiene(actividades, a)) {
+					if (a !=null && !contiene(actividades, a)) {
 						jsa.put(a.toJSON());
 						actividades.add(a);
 					}
@@ -369,28 +369,43 @@ public class Manager {
 			}
 		}
 	}
-
+	
 	public void cerrarSesion(String name) {
 		TokenDAO.eliminar(new Token(name));
 	}
 
 	public void checkAccess(String name, String token, String page) throws AccessNotGrantedException {
-
-		boolean adminPages = (page.contains("admin.html") || page.contains("gestion.html"));
-		boolean adminRole = UserDAO.findUser(name).isAdmin();
-
 		if (token.equals(TokenDAO.getToken(name).getToken())) {
-			if (adminPages != adminRole) {
-				cerrarSesion(name);
-				throw new AccessNotGrantedException();
+
+			switch (page) {
+
+			case "admin.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			case "gestion.html":
+				if (!UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+			default:
+				if (UserDAO.findUser(name).isAdmin()) {
+					cerrarSesion(name);
+					throw new AccessNotGrantedException();
+				}
+				break;
+
 			}
+
 		} else {
 			throw new AccessNotGrantedException();
 		}
 
 	}
-
-	private static String encriptarMD5(String input) {
+	private static String encriptarMD5(String input){
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(input.getBytes());
@@ -401,9 +416,11 @@ public class Manager {
 				hashtext = "0" + hashtext;
 			}
 			return hashtext;
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
+			}
+		catch (NoSuchAlgorithmException e) {
+			 throw new RuntimeException(e);
 		}
 	}
+	
 
 }
