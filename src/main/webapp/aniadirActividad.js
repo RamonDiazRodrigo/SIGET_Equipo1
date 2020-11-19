@@ -1,21 +1,21 @@
 $('#displayNone').click(function(e) {
-    $('#hide-me').css('visibility', 'visible');
-  
-  if( $('#hide-me').is(":visible") ) {
-    $('#hide-me').css('display', 'none'); 
-  } else {
-    $('#hide-me').css('display', 'block');
-  }
+	$('#hide-me').css('visibility', 'visible');
+
+	if ($('#hide-me').is(":visible")) {
+		$('#hide-me').css('display', 'none');
+	} else {
+		$('#hide-me').css('display', 'block');
+	}
 });
 
 $('#visibilityHidden').click(function(e) {
-  $('#hide-me').css('display', 'block');
-  
-  if( $('#hide-me').css('visibility') != 'hidden' ) {
-    $('#hide-me').css('visibility', 'hidden');
-  } else {
-    $('#hide-me').css('visibility', 'visible');
-  }
+	$('#hide-me').css('display', 'block');
+
+	if ($('#hide-me').css('visibility') != 'hidden') {
+		$('#hide-me').css('visibility', 'hidden');
+	} else {
+		$('#hide-me').css('visibility', 'visible');
+	}
 });
 
 let cerrarSesion = function() {
@@ -80,6 +80,7 @@ function ViewModel() {
 	};
 
 	self.sws.onmessage = function(event) {
+		document.getElementsByTagName('h1')[0].innerText = sessionStorage.userName;
 		var data = event.data;
 		data = JSON.parse(data);
 		var users = data.usuarios;
