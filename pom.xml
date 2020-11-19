@@ -22,36 +22,21 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>7.3.0</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>1.2.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>6.9.0</version>
+			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>1.2.5</version>
-
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
+			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -84,11 +69,6 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -116,6 +96,7 @@
 		<sonar.projectKey>danigcj31_SIGET_Equipo1</sonar.projectKey>
 		<sonar.organization>danigcj31</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<argLine>${surefireArgLine} -Xmx1024m -XX:MaxPermSize=1024m</argLine>
 	</properties>
 
 	<build>
@@ -137,13 +118,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.0</version>
+				<version>3.0.0-M3</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
-					<forkedProcessExitTimeoutInSeconds>180</forkedProcessExitTimeoutInSeconds>
-					<forkCount>3</forkCount>
+					<forkedProcessExitTimeoutInSeconds>300</forkedProcessExitTimeoutInSeconds>
+					<forkCount>1</forkCount>
 					<reuseForks>true</reuseForks>
-					<argLine>${surefireArgLine} -Xmx1024m -XX:MaxPermSize=256m</argLine>
 					<includes>
 						<exclude>**/*ejecutor.java</exclude>
 					</includes>
