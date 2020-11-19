@@ -1,7 +1,5 @@
 $('#displayNone').click(function(e) {
-  
-  // Resetear, por si acaso has estado jugando con la otra propiedad
-  $('#hide-me').css('visibility', 'visible');
+    $('#hide-me').css('visibility', 'visible');
   
   if( $('#hide-me').is(":visible") ) {
     $('#hide-me').css('display', 'none'); 
@@ -11,8 +9,6 @@ $('#displayNone').click(function(e) {
 });
 
 $('#visibilityHidden').click(function(e) {
-  
-  // Resetear, por si acaso has estado jugando con la otra propiedad
   $('#hide-me').css('display', 'block');
   
   if( $('#hide-me').css('visibility') != 'hidden' ) {
