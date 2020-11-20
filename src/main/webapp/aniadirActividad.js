@@ -61,6 +61,8 @@ let checkAccess = function() {
 	};
 	$.ajax(data);
 };
+
+
 var self;
 function ViewModel() {
 	self = this;
@@ -108,14 +110,55 @@ function ViewModel() {
 			usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
 			success: function() {
 				sessionStorage.userName = $('#username').val();
-				alert('Se ha creado correctamente');
+
 			},
 			error: function(response) {
 
-				alert('Se ha creado incorrectamente');
+				document.getElementById("pwd1").style.backgroundColor = "green";
+
 			}
 		};
+		self.actividadCreada();
 		self.sws.send(JSON.stringify(info));
+	};
+	self.actividadCreada = function() {
+
+		// When site loaded, load the Popupbox First
+		loadPopupBox();
+
+		$('#container').click(function() {
+			unloadPopupBox();
+		});
+
+		function unloadPopupBox() {    // TO Unload the Popupbox
+			$('#popup_box').fadeOut("slow");
+			$("#container").css({ // this is just for style        
+				"opacity": "1"
+			});
+
+		}
+
+		function loadPopupBox() {    // To Load the Popupbox
+
+			var counter = 5;
+			var id;
+			$('#popup_box').fadeIn("slow");
+			$("#container").css({ // this is just for style
+				"opacity": "0.3"
+			});
+
+			id = setInterval(function() {
+				counter--;
+				if (counter < 0) {
+					clearInterval(id);
+
+					unloadPopupBox();
+				} else {
+					$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
+				}
+			}, 500);
+
+		}
 	};
 
 	class Usuario {

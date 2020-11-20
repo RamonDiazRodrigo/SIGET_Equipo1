@@ -46,6 +46,7 @@ function ViewModel() {
 	self = this;
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
+
 	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
@@ -95,25 +96,83 @@ function ViewModel() {
 
 
 		self.modificarUsuario = function() {
-			if (contrasenaValida($('#pwdn').val())) {
-				let nombre;
-				if (self.nombreUsuario() === '') {
-					nombre = sessionStorage.userName;
+
+
+			if (document.getElementById("pwdn").value === document.getElementById("pwd2").value) {
+
+				if (contrasenaValida($('#pwdn').val())) {
+					let nombre;
+					if (self.nombreUsuario() === '') {
+						nombre = sessionStorage.userName;
+					} else {
+						nombre = self.nombreUsuario();
+					}
+					var p = {
+						type: "modificar",
+						nombre: nombre,
+						pwd: document.getElementById("pwdn").value,
+						email: document.getElementById("email").value
+					};
+					document.getElementById("pwda").style.backgroundColor = "green";
+					document.getElementById("pwdn").style.backgroundColor = "green";
+					document.getElementById("pwd2").style.backgroundColor = "green";
+					document.getElementById("email").style.backgroundColor = "green";
+					self.modificacionCorrecta();
+					self.sws.send(JSON.stringify(p));
 				} else {
-					nombre = self.nombreUsuario();
+					document.getElementById("pwdn").style.backgroundColor = "red";
+
 				}
-				var p = {
-					type: "modificar",
-					nombre: nombre,
-					pwd: document.getElementById("pwdn").value,
-					email: document.getElementById("email").value
-				};
-				self.sws.send(JSON.stringify(p));
 			} else {
-				alert('CONTRASENA NO VALIDA');
+
+				document.getElementById("pwd2").style.backgroundColor = "red";
+				document.getElementById("pwdn").style.backgroundColor = "red";
 			}
 
+
+
+
 		};
+		self.modificacionCorrecta = function() {
+
+			// When site loaded, load the Popupbox First
+			loadPopupBox();
+
+			$('#container').click(function() {
+				unloadPopupBox();
+			});
+
+			function unloadPopupBox() {    // TO Unload the Popupbox
+				$('#popup_box').fadeOut("slow");
+				$("#container").css({ // this is just for style        
+					"opacity": "1"
+				});
+
+			}
+
+			function loadPopupBox() {    // To Load the Popupbox
+
+				var counter = 5;
+				var id;
+				$('#popup_box').fadeIn("slow");
+				$("#container").css({ // this is just for style
+					"opacity": "0.3"
+				});
+
+				id = setInterval(function() {
+					counter--;
+					if (counter < 0) {
+						clearInterval(id);
+
+						unloadPopupBox();
+					} else {
+						$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
+					}
+				}, 500);
+
+			}
+		};
+
 		function contrasenaValida(pwd) {
 
 			if (pwd.length > 4 && tiene_numeros(pwd) && tiene_minuscula_y_mayuscula(pwd)) {
@@ -202,7 +261,7 @@ function ViewModel() {
 				nombre: this.name
 			};
 			self.sws.send(JSON.stringify(p));
-			window.location.href=window.location.href;
+			window.location.href = window.location.href;
 		}
 
 		infoUsuarios() {
@@ -211,6 +270,7 @@ function ViewModel() {
 				nombre: this.name
 			};
 			self.nombreUsuario(this.name);
+
 			self.sws.send(JSON.stringify(p));
 
 		}

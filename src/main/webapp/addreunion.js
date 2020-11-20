@@ -47,17 +47,65 @@ function ViewModel() {
 		var dateInicio = $('#horaInicio').val().split(":");
 		var dateFinal = $('#horaFinal').val().split(":");
 
-		const info = {
-			type: 'check',
-			nombre: $('#actividad').val(),
-			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
-			horaInicio: dateInicio[0],
-			horaFinal: dateFinal[0],
-			minutoInicio: dateInicio[1],
-			minutoFinal: dateFinal[1]
-		};
-		self.sws.send(JSON.stringify(info));
+		if ((dateInicio[1] === "30" || dateInicio[1] === "00") && (dateFinal[1] === "30" || dateFinal[1] === "00")) {
+			const info = {
+				type: 'check',
+				nombre: $('#actividad').val(),
+				dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
+				horaInicio: dateInicio[0],
+				horaFinal: dateFinal[0],
+				minutoInicio: dateInicio[1],
+				minutoFinal: dateFinal[1]
+			};
+			self.convocarCorrectamente();
+			self.sws.send(JSON.stringify(info));
+		} else {
+			document.getElementById("horaInicio").style.background = "red";
+			document.getElementById("horaFinal").style.background = "red";
+
+		}
+
+
 	};
+	self.convocarCorrectamente = function() {
+
+			// When site loaded, load the Popupbox First
+			loadPopupBox();
+
+			$('#container').click(function() {
+				unloadPopupBox();
+			});
+
+			function unloadPopupBox() {    // TO Unload the Popupbox
+				$('#popup_box').fadeOut("slow");
+				$("#container").css({ // this is just for style        
+					"opacity": "1"
+				});
+
+			}
+
+			function loadPopupBox() {    // To Load the Popupbox
+
+				var counter = 5;
+				var id;
+				$('#popup_box').fadeIn("slow");
+				$("#container").css({ // this is just for style
+					"opacity": "0.3"
+				});
+
+				id = setInterval(function() {
+					counter--;
+					if (counter < 0) {
+						clearInterval(id);
+
+						unloadPopupBox();
+					} else {
+						$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
+					}
+				}, 500);
+
+			}
+		};
 
 	self.addReunion = function() {
 		for (var i = 0; i < self.listaUsuarios().length; i++) {

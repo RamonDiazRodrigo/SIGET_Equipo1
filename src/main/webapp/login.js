@@ -35,7 +35,10 @@ let login = function() {
 			sessionStorage.userName = $('#username').val();
 		},
 		error: function(response) {
-			alert('LOGIN INCORRECTO');
+			document.getElementById("username").style.backgroundColor = "red";
+			document.getElementById("password").style.backgroundColor = "red";
+
+
 		}
 	};
 	$.ajax(data);
