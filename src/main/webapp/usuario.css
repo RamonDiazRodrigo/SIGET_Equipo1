@@ -40,8 +40,6 @@ body {
 
 .boxHeader button[type="logout"] {
 	width: 25%;
-	border: 0;
-	background: none;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
@@ -86,9 +84,7 @@ body {
 .boxMenu button[id="agenda"], .boxMenu button[id="reunionesPendientes"],
 	.boxMenu button[id="convocarReuniones"], .boxMenu button[id="modificarDatos"]
 	{
-	border: 0;
 	background: #161616c5;
-	display: block;
 	top: 0%;
 	left: 50%;
 	margin: 20px auto;
@@ -115,7 +111,6 @@ body {
 
 #nombreActividad {
 	width: 60%;
-	border: 0;
 	font-size: 10px;
 	margin: 10px;
 	text-align: center;
@@ -140,7 +135,6 @@ body {
 	color: black;
 	border-color: #2b7e4d;
 	width: 20%;
-	border: 0;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
@@ -163,13 +157,10 @@ body {
 }
 
 #rechazar {
-	color: white;
 	border: 2px;
 	border-color: #ac0606;
 	opacity: 0.9;
 	width: 20%;
-	border: 0;
-	background: none;
 	font-size: 15px;
 	text-align: center;
 	padding: 10px;
@@ -191,13 +182,10 @@ body {
 }
 
 #volver {
-	color: white;
 	border: 2px;
 	border-color: #ac0606;
 	opacity: 0.9;
 	width: 25%;
-	border: 0;
-	background: none;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
@@ -224,7 +212,6 @@ body {
 
 .combobox {
 	position: relative;
-	font-family: Arial;
 	background-color: white;
 	border: 2px;
 	padding: 5px;
@@ -255,9 +242,7 @@ body {
 .boxConvocar button[id="agenda"], .boxMenu button[id="reunionesPendientes"],
 	.boxMenu button[id="convocarReuniones"], .boxMenu button[id="modificarDatos"]
 	{
-	border: 0;
 	background: #161616c5;
-	display: block;
 	top: 0%;
 	left: 50%;
 	margin: 20px auto;
@@ -276,7 +261,6 @@ body {
 
 #actividad {
 	width: 60%;
-	border: 0;
 	font-size: 16px;
 	margin: 10px;
 	text-align: center;
@@ -315,14 +299,10 @@ body {
 	border-radius: 20px;
 	padding: 5px;
 	font-family: sans-serif;
-	box-sizing: border-box;
-	z-index: 99;
 }
 
 .boxConvocar button[id="check"] {
-	border: 0;
 	background: #161616c5;
-	display: block;
 	top: 0%;
 	left: 50%;
 	margin: 20px auto;
@@ -349,7 +329,6 @@ body {
 	color: black;
 	border-color: #2b7e4d;
 	width: 25%;
-	border: 0;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
@@ -371,13 +350,10 @@ body {
 }
 
 #volverConvocar {
-	color: white;
 	border: 2px;
 	border-color: #ac0606;
 	opacity: 0.9;
 	width: 25%;
-	border: 0;
-	background: none;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
@@ -420,13 +396,10 @@ body {
 }
 
 #volverReuniones {
-	color: white;
 	border: 2px;
 	border-color: #ac0606;
 	opacity: 0.9;
 	width: 25%;
-	border: 0;
-	background: none;
 	font-size: 15px;
 	margin: 0px;
 	text-align: center;
