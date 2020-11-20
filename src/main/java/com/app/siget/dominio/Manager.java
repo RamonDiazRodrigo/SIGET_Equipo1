@@ -129,6 +129,17 @@ public class Manager {
 
 	}
 
+	public JSONObject leerActividades(String nombre) {
+		JSONObject jso = new JSONObject();
+		JSONArray jsa = new JSONArray();
+
+		for (Actividad a : ActividadDAO.leerActividades(nombre)) {
+			jsa.put(a.toJSON());
+		}
+		jso.put("actividades", jsa);
+		return jso;
+	}
+
 	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF,
 			String minutosF, String usuario, String reunion) {
 
@@ -196,51 +207,6 @@ public class Manager {
 
 	public void setSession(WebSocketSession session) {
 		this.session = session;
-	}
-
-	public JSONObject leerActividades(String nombre) {
-		JSONObject jso = new JSONObject();
-		JSONArray jsa = new JSONArray();
-		int[][] horario;
-
-		for (User u : UserDAO.leerUsers()) {
-			if (u.getName().equals(nombre)) {
-				horario = ((Asistente) u).getHorario().getMatrizHorario();
-				buscarActividades(horario, jsa);
-			}
-		}
-		jso.put("actividades", jsa);
-		return jso;
-	}
-
-
-
-	// Este metodo encuentra las actividades que estan en el horario del usuario
-	private static JSONArray buscarActividades(int[][] horario, JSONArray jsa) {
-		Actividad a;
-		List<Actividad> actividades = new ArrayList<>();
-		for (int i = 0; i < horario.length; i++) {
-			for (int j = 0; j < horario[0].length; j++) {
-				if (horario[i][j] != 0) {
-					a = ActividadDAO.leerActividad(horario[i][j]);
-					if (a != null && !contiene(actividades, a)) {
-						jsa.put(a.toJSON());
-						actividades.add(a);
-					}
-				}
-			}
-		}
-		return jsa;
-	}
-
-	private static boolean contiene(List<Actividad> actividades, Actividad a) {
-		for (Actividad b : actividades) {
-			if (b.getId() == a.getId()) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public boolean isAdmin(String nombre) {

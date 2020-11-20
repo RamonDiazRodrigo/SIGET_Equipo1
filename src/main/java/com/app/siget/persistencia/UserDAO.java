@@ -5,9 +5,11 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
+import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Admin;
 import com.app.siget.dominio.Asistente;
 import com.app.siget.dominio.Horario;
+import com.app.siget.dominio.Manager;
 import com.app.siget.dominio.User;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -25,10 +27,10 @@ public final class UserDAO {
 	private UserDAO() {
 		super();
 	}
-	
+
 	public static User findUser(String name) {
-		for(User u : UserDAO.leerUsers()) {
-			if(name.equals(u.getName())) {
+		for (User u : UserDAO.leerUsers()) {
+			if (name.equals(u.getName())) {
 				return u;
 			}
 		}
@@ -50,7 +52,7 @@ public final class UserDAO {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 				((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
 				((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
-			
+
 			}
 
 			usuarios.add(u);
@@ -76,7 +78,7 @@ public final class UserDAO {
 							document.getString(PASSWORD));
 					((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
 					((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
-					
+
 				}
 
 				usuarios.add(u);
@@ -109,14 +111,19 @@ public final class UserDAO {
 		if (user != null) {
 			coleccion = AgenteDB.get().getBd(USUARIO);
 			document = new Document("name", user.getName());
+			if ("ASISTENTE".equals(user.getRol())) {
+				for (Actividad a : ActividadDAO.leerActividades(user.getName())) {
+					ActividadDAO.eliminar(a);
+				}
+			}
 			coleccion.findOneAndDelete(document);
 		}
 	}
-	
+
 	public static void modificar(User u) {
-		//Mismo metodo para modificar usuario tanto para Asistente como para Admin
-			UserDAO.eliminar(u);
-			UserDAO.insertar(u);
+		// Mismo metodo para modificar usuario tanto para Asistente como para Admin
+		UserDAO.eliminar(u);
+		UserDAO.insertar(u);
 	}
 
 }

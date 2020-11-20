@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Asistente;
 import com.app.siget.dominio.DiaSemana;
+import com.app.siget.dominio.User;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
@@ -67,6 +70,44 @@ public final class ActividadDAO {
 
 	}
 
+	public static List<Actividad> leerActividades(String nombre) {
+
+		for (User u : UserDAO.leerUsers()) {
+			if (u.getName().equals(nombre)) {
+				int[][] horario = ((Asistente) u).getHorario().getMatrizHorario();
+				return buscarActividades(horario);
+			}
+		}
+		return new ArrayList<>();
+	}
+
+	// Este metodo encuentra las actividades que estan en el horario del usuario
+	private static List<Actividad> buscarActividades(int[][] horario) {
+		Actividad a;
+		List<Actividad> actividades = new ArrayList<>();
+		for (int i = 0; i < horario.length; i++) {
+			for (int j = 0; j < horario[0].length; j++) {
+				if (horario[i][j] != 0) {
+					a = ActividadDAO.leerActividad(horario[i][j]);
+					if (a != null && !contiene(actividades, a)) {
+						actividades.add(a);
+					}
+				}
+			}
+		}
+		return actividades;
+	}
+
+	private static boolean contiene(List<Actividad> actividades, Actividad a) {
+		for (Actividad b : actividades) {
+			if (b.getId() == a.getId()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static void insertarActividad(Actividad actividad) {
 
 		MongoCollection<Document> coleccion = AgenteDB.get().getBd(ACTS);
@@ -88,7 +129,6 @@ public final class ActividadDAO {
 		document.append("email", user.getEmail());
 		document.append("password", user.getPassword());
 		document.append("rol", user.getRol());
-		document.append("horario", user.getHorario().toString());
 		return document;
 
 	}
@@ -100,6 +140,8 @@ public final class ActividadDAO {
 			Document document = generarDocument(user);
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			user.insertarActividad(actividad);
+			document.append("horario", user.getHorario().toString());
+			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
 			UserDAO.eliminar(user);
 			coleccion.insertOne(document);
 		}
@@ -116,6 +158,7 @@ public final class ActividadDAO {
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			Document document = generarDocument(user);
 			user.insertarReunionPendiente(actividad);
+			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
 			UserDAO.eliminar(user);
 			coleccion.insertOne(document);
