@@ -1,5 +1,24 @@
+var url = "wss://" + window.location.host + "/SIGETEquipo1";
+var sws = new WebSocket(url);
+
+sws.onopen = function(event) {
+	var msg = {
+		type: "infoUsuarios"
+	};
+	sws.send(JSON.stringify(msg));
+};
+sws.onmessage = function(event) {
+	var data = event.data;
+	data = JSON.parse(data);
+	sessionStorage.users = data.usuarios;
+};
+
+window.onbeforeunload= function(){
+  sessionStorage.removeItem("users");
+};
+
 let register = function() {
-	if (contrasenaValida($('#pwd1').val())) {
+	if (contrasenaValida($('#pwd1').val()) && usernameValido($('#username').val())) {
 		const info = {
 			type: 'Register',
 			userName: $('#username').val(),
@@ -23,10 +42,24 @@ let register = function() {
 	}
 };
 
+function usernameValido(userName) {
+
+
+	var users = sessionStorage.users;
+
+	for (var j = 0; j < users.length; j++) {
+		var usuario = users[j];
+		if (usuario.name === userName) {
+			return false;
+		}
+	}
+	return true;
+}
+
 function contrasenaValida(pwd) {
 
 	if (pwd.length > 4 && tiene_numeros(pwd) && tiene_minuscula_y_mayuscula(pwd)) {
-			document.getElementById("pwd1").style.backgroundColor = "green";
+		document.getElementById("pwd1").style.backgroundColor = "green";
 		return true;
 	} else {
 		document.getElementById("pwd1").style.backgroundColor = "red";
