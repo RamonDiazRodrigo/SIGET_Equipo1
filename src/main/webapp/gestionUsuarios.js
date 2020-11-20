@@ -202,10 +202,7 @@ function ViewModel() {
 				nombre: this.name
 			};
 			self.sws.send(JSON.stringify(p));
-			for (var i = 0; i < self.listaUsuarios().length; i++) {
-				if (self.listaUsuarios()[i].nombre === this.nombre)
-					self.listaUsuarios.splice(i, 1);
-			}
+			window.location.href=window.location.href;
 		}
 
 		infoUsuarios() {
