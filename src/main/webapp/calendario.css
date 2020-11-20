@@ -1,6 +1,5 @@
 * {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	
 }
 
 body {
@@ -10,10 +9,7 @@ body {
 	background-size: auto;
 	background-repeat: repeat;
 	background-color: #300a387a;
-	
 }
-
-
 
 #horas{
 	border-color:black;
@@ -21,21 +17,16 @@ body {
 
 #button{
 	width: 100%;
-	
 }
 
 li{
-	
 	border-radius:10px;
 	border-color:black;
-		
 }
 
 #volver{
-  color: white;
   width: 15%;
   opacity:0.9; 
-  background: none;
   text-align: center;
   outline: none;
   background: grey;

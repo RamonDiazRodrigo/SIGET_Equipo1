@@ -38,7 +38,6 @@ body{
 
 .boxHeader button[type="logout"]{
   width:25%;  
-  background: none;
   font-size: 15px;
   margin: 0px;
   text-align: center;
@@ -80,9 +79,7 @@ body{
 }
 
 .boxMenu button[id="displayNone"],.boxMenu button[id="calendario"],.boxMenu button[id="usuarios"]{ 
-border:0;
   background:#161616c5;
-  display: block;
   top: 0%;
   left: 50%;
   margin: 20px auto;
@@ -106,7 +103,6 @@ border:0;
 
 #nombreActividad{
   width:60%;
-  border:0;
   font-size: 16px;
   margin: 10px;
   text-align: center;
@@ -134,19 +130,10 @@ border:0;
   border-radius: 20px;
   padding: 5px;
   font-family: sans-serif;
-  box-sizing: border-box;
-  z-index: 99;
 
 }
 
-.boxMenu input[id="horaInicio"] {
-	width:200px;
-	float:center;
-	display:inline;
-}
-
-
-.boxMenu input[id="horaFinal"] {
+.boxMenu input[id="horaInicio"], input[id="horaFinal"] {
 	width:200px;
 	float:center;
 	display:inline;
@@ -156,7 +143,6 @@ border:0;
   color: white;
   border-color:#2b7e4d;
   width:25%;  
-  border:0;
   font-size: 15px;
   margin: 0px;
   text-align: center;
@@ -180,7 +166,6 @@ border:0;
   border: 2px;
   opacity:0.9;
   width:25%;  
-  background: none;
   font-size: 15px;
   margin: 0px;
   text-align: center;
@@ -208,8 +193,6 @@ background-color: grey;
   border-radius: 20px;
   padding: 5px;
   font-family: sans-serif;
-  box-sizing: border-box;
-  z-index: 99;
 }
 
 .boxHeaderGestion{
@@ -241,13 +224,10 @@ background-color: grey;
 }
 
 #volverGestion{
-  color: white;
   border: 2px;
   border-color:#ac0606;
   opacity:0.9;
   width:25%;  
-  border:0;
-  background: none;
   font-size: 15px;
   margin: 0px;
   text-align: center;
@@ -269,13 +249,10 @@ background-color: grey;
 }
 
 #mas{
-  color: white;
   border: 2px;
   border-color:#5fca8c;
   opacity:0.9;
   width:10%;  
-  border:0;
-  background: none;
   font-size: 25px;
   margin: 0px;
   margin-right: 10px;

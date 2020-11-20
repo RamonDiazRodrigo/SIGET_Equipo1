@@ -30,14 +30,15 @@
 					<h2 class="card-title" data-bind="html : name"></h2>
 					email:
 					<p class="card-text" data-bind="html : email"></p>
-					rol:
-					<p class="card-text" data-bind="html : rol"></p>
 					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary"
+											data-bind="click: $root.ascender" data-dismiss="modal" style="font-size:13px">Ascender</button>
+								
 					<button type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#exampleModal" data-bind="click: infoUsuarios">Modificar</button>
+						data-target="#exampleModal" data-bind="click: infoUsuarios" style="font-size:13px">Modificar</button>
 
 					<button id="eliminar" type="button" class="btn btn-primary"
-						data-bind="click: eliminarUsuario">Eliminar</button>
+						data-bind="click: eliminarUsuario" style="font-size:13px">Eliminar</button>
 				</div>
 			</div>
 			
@@ -70,26 +71,20 @@
 									</div>
 									<div>
 										<input id="pwda" required="required" type="password"
-											placeholder="Contrase�a antigua" />
+											placeholder="Password antigua" />
 									</div>
 									<div>
 										<input id="pwdn" required="required" type="password"
-											placeholder="Contrase�a nueva" />
+											placeholder="Password nueva" />
 									</div>
 									<div>
 										<input id="pwd2" required="required" type="password"
-											placeholder="Confirma tu contrase�a" />
-									</div>
-									<div>
-										<button type="button" class="btn btn-primary"
-											data-bind="click: $root.ascender" data-dismiss="modal">Ascender</button>
+											placeholder="Confirma tu password" />
 									</div>
 								</div>
 								<p>
 							</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cerrar</button>
 							<button type="button" class="btn btn-primary"
 								data-dismiss="modal" data-bind="click: $root.modificarUsuario">Guardar
 								cambios</button>
