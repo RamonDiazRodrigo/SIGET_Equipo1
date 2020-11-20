@@ -17,11 +17,13 @@
 <link rel="stylesheet" href="admin.css">
 </head>
 <body onload="checkAccess()">
-    <div class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeaderGestion">
-		<button type="button" id="volverGestion" onclick="window.history.back()">Volver</button>
+	<div class="col-md-6 col-sm-8 col-xl-6 col-lg-4 boxHeaderGestion">
+		<button type="button" id="volverGestion"
+			onclick="window.history.back()">Volver</button>
 		<button id="mas" onclick="window.location.href='register.html'">+</button>
 		<h1>ADMINISTRAR USUARIOS</h1>
-    </div>
+	</div>
+
 	<div id="koGestion">
 		<div class="cards">
 			<!-- ko foreach : { data: listaUsuarios, as :"usuario" } -->
@@ -32,23 +34,26 @@
 					<p class="card-text" data-bind="html : email"></p>
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary"
-											data-bind="click: $root.ascender" data-dismiss="modal" style="font-size:13px">Ascender</button>
-								
+						data-bind="click: $root.ascender" data-dismiss="modal"
+						style="font-size: 13px">Ascender</button>
+
 					<button type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#exampleModal" data-bind="click: infoUsuarios" style="font-size:13px">Modificar</button>
+						data-target="#exampleModal" data-bind="click: infoUsuarios"
+						style="font-size: 13px">Modificar</button>
 
 					<button id="eliminar" type="button" class="btn btn-primary"
-						data-bind="click: eliminarUsuario" style="font-size:13px">Eliminar</button>
+						data-bind="click: eliminarUsuario" style="font-size: 13px">Eliminar</button>
 				</div>
 			</div>
-			
+
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Modificacion usuario</h5>
+							<h5 class="modal-title" id="exampleModalLabel">Modificacion
+								usuario</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -57,6 +62,11 @@
 						<div class="modal-body">
 							<!-- AQUI METO EL CODIGO -->
 							<h1>Modificar credenciales</h1>
+							<div id="popup_box">
+								<!-- OUR PopupBox DIV-->
+								<h2 id="restriccion">Modificacion correcta</h2>
+
+							</div>
 							<p>
 							<form>
 								<div id="container" class="form">
@@ -83,10 +93,10 @@
 									</div>
 								</div>
 								<p>
-							</div>
+						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary"
-								data-dismiss="modal" data-bind="click: $root.modificarUsuario">Guardar
+								data-bind="click: $root.modificarUsuario">Guardar
 								cambios</button>
 						</div>
 					</div>
@@ -109,7 +119,7 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 		crossorigin="anonymous"></script>
-		<script
+	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- KNOCKOUT -->
 	<script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>

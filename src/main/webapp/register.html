@@ -27,21 +27,31 @@
 <link rel="stylesheet" href="style.css">
 <title>Registro</title>
 <!-- FAVICON -->
-<link rel="icon" href="favicon.ico" type="image/ico"/>
+<link rel="icon" href="favicon.ico" type="image/ico" />
 </head>
 </body>
 <p>
 <form class="box" action="register.html" method="post">
 	<h1>SIGET</h1>
-	</br> <img src="Equipo 1.jpeg" width="150" height="60" alt="Equipo1"></br> <input
-		type="text" id="username" name="username" required="required"
-		type="text" placeholder="Nombre de usuario" /> <input type="text"
-		id="email" required="required" type="email"
-		placeholder="email@email.com" /> <input type="password" id="pwd1"
-		required="required" type="password" placeholder="Contraseña" autocomplete="off"/> 
-		<input type="password" id="pwd2" required="required" type="password"
-		placeholder="Confirma tu contraseña" autocomplete="off"/> </br>
-	<label for="Rolsignup" id="turol">Tu Rol </label>
+	<div id="popup_box">
+		<!-- OUR PopupBox DIV-->
+		<h2>Registrado correctamente</h2>
+
+	</div>
+	</br> <img src="Equipo 1.jpeg" width="150" height="60" alt="Equipo1"></br>
+	<input type="text" id="username" name="username" autocomplete="off"
+		required="required" type="text" placeholder="Nombre de usuario" /> <input
+		type="text" id="email" required="required" type="email"
+		placeholder="email@email.com" autocomplete="off" />
+		</br>
+		<i>Password: Min 5 caracteres, 1 mayus, 1 numero </i>
+		</br>
+		 <input
+		type="password" id="pwd1" required="required" type="password"
+		placeholder="Contrasena" autocomplete="off" /> <input type="password"
+		id="pwd2" required="required" type="password"
+		placeholder="Confirma tu contrasena" autocomplete="off" /> </br> <label
+		for="Rolsignup" id="turol">Tu Rol </label>
 	<div id="rolDiv" class="selectrol">
 		<select id="rol">
 			<option value="ADMIN">ADMIN</option>
@@ -57,5 +67,6 @@
 <!-- KNOCKOUT -->
 <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
 <script src="register.js"></script>
+
 </body>
 </html>

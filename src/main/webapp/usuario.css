@@ -224,6 +224,8 @@ body {
 .boxConvocar {
 	max-width: 97%;
 	width: 97%;
+	max-height: 83%; 
+	height : 83%;
 	padding: 0px;
 	position: absolute;
 	top: 90px;
@@ -237,6 +239,8 @@ body {
 	flex-wrap: wrap;
 	margin: 22px;
 	margin-bottom: 0px;
+	padding: 0px;
+	height: 100%;
 }
 
 .boxConvocar button[id="agenda"], .boxMenu button[id="reunionesPendientes"],

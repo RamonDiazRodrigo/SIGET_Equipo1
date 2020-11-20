@@ -1,5 +1,8 @@
-var url = "wss://" + window.location.host + "/SIGETEquipo1";
+
+
+var url = "ws://" + window.location.host + "/SIGETEquipo1";
 var sws = new WebSocket(url);
+
 
 sws.onopen = function(event) {
 	var msg = {
@@ -13,11 +16,12 @@ sws.onmessage = function(event) {
 	sessionStorage.users = data.usuarios;
 };
 
-window.onbeforeunload= function(){
-  sessionStorage.removeItem("users");
+window.onbeforeunload = function() {
+	sessionStorage.removeItem("users");
 };
 
 let register = function() {
+
 	if (contrasenaValida($('#pwd1').val()) && usernameValido($('#username').val())) {
 		const info = {
 			type: 'Register',
@@ -32,13 +36,19 @@ let register = function() {
 			url: 'register',
 			type: 'post',
 			contentType: 'application/json',
-			error: function(response) {
-				alert('REGISTER INCORRECTO');
+			success: function() {
+				document.getElementById("pwd1").style.backgroundColor = "green";
+				document.getElementById("pwd2").style.backgroundColor = "green";
+				document.getElementById("username").style.backgroundColor = "green";
+				document.getElementById("email").style.backgroundColor = "green";
+				registroCorrecto();
+			},
+			error: function() {
+				document.getElementById("pwd1").style.backgroundColor = "red";
+				document.getElementById("pwd2").style.backgroundColor = "red";
 			}
 		};
 		$.ajax(data);
-	} else {
-		alert('CONTRASENA NO VALIDA');
 	}
 };
 
@@ -59,7 +69,6 @@ function usernameValido(userName) {
 function contrasenaValida(pwd) {
 
 	if (pwd.length > 4 && tiene_numeros(pwd) && tiene_minuscula_y_mayuscula(pwd)) {
-		document.getElementById("pwd1").style.backgroundColor = "green";
 		return true;
 	} else {
 		document.getElementById("pwd1").style.backgroundColor = "red";
@@ -105,3 +114,49 @@ function esNumero(digito) {
 
 
 }
+
+
+function registroCorrecto() {
+
+	// When site loaded, load the Popupbox First
+	loadPopupBox();
+
+	$('#container').click(function() {
+		unloadPopupBox();
+	});
+
+	function unloadPopupBox() {    // TO Unload the Popupbox
+		$('#popup_box').fadeOut("slow");
+		$("#container").css({ // this is just for style        
+			"opacity": "1"
+		});
+		window.location.href = "index.html";
+	}
+
+	function loadPopupBox() {    // To Load the Popupbox
+
+		var counter = 5;
+		var id;
+		$('#popup_box').fadeIn("slow");
+		$("#container").css({ // this is just for style
+			"opacity": "0.3"
+		});
+
+		id = setInterval(function() {
+			counter--;
+			if (counter < 0) {
+				clearInterval(id);
+
+				unloadPopupBox();
+			} else {
+				$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
+			}
+		}, 500);
+
+	}
+}
+
+
+
+
+
