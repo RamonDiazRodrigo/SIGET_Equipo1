@@ -10,9 +10,7 @@ public class Horario {
 	private static final int DIAS = 7;
 	private static final int HUECOS = 48;
 
-	// Asi se crea una actividad ahora
-	// actividad r = new actividad("Daily", DayOfWeek.MONDAY, LocalTime.of(9, 00),
-	// LocalTime.of(9, 30));
+
 
 	public Horario() {
 
@@ -33,7 +31,7 @@ public class Horario {
 		this.matrizHorario = matrizHorario;
 	}
 
-	public static Horario String2Horario(String hor) {
+	public static Horario string2Horario(String hor) {
 
 		Horario horario = new Horario();
 

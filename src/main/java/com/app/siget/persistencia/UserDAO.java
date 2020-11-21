@@ -9,7 +9,6 @@ import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Admin;
 import com.app.siget.dominio.Asistente;
 import com.app.siget.dominio.Horario;
-import com.app.siget.dominio.Manager;
 import com.app.siget.dominio.User;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -51,7 +50,7 @@ public final class UserDAO {
 			} else {
 				u = new Asistente(document.getString(NAME), document.getString(EMAIL), document.getString(PASSWORD));
 				((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
-				((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
+				((Asistente) u).setHorario(Horario.string2Horario(document.getString(HORARIO)));
 
 			}
 
@@ -76,7 +75,7 @@ public final class UserDAO {
 				} else {
 					u = new Asistente(document.getString(NAME), document.getString(EMAIL),
 							document.getString(PASSWORD));
-					((Asistente) u).setHorario(Horario.String2Horario(document.getString(HORARIO)));
+					((Asistente) u).setHorario(Horario.string2Horario(document.getString(HORARIO)));
 					((Asistente) u).setReunionesPendientes(document.getString(REUNIONESPENDIENTES));
 
 				}

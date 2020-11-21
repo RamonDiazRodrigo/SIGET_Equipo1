@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import com.app.siget.dominio.Actividad;

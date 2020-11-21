@@ -1,5 +1,4 @@
 package com.app.siget.dominio;
-
 public enum DiaSemana {
 	LUNES {
 		@Override
