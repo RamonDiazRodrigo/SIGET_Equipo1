@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import com.app.siget.dominio.Actividad;
@@ -140,7 +142,7 @@ public final class ActividadDAO {
 			user.insertarActividad(actividad);
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
-			UserDAO.eliminar(user);
+			UserDAO.eliminar(user,false);
 			coleccion.insertOne(document);
 		}
 
@@ -158,7 +160,7 @@ public final class ActividadDAO {
 			user.insertarReunionPendiente(actividad);
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
-			UserDAO.eliminar(user);
+			UserDAO.eliminar(user,false);
 			coleccion.insertOne(document);
 		}
 

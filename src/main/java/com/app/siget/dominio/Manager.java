@@ -164,7 +164,7 @@ public class Manager {
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
 			if (usuario.equals(u.getName()) && ASISTENTE.equals(u.getRol())) {
-				UserDAO.eliminar(u);
+				UserDAO.eliminar(u,true);
 			}
 		}
 	}
@@ -183,16 +183,16 @@ public class Manager {
 	public void eliminarTests() {
 		for (User u : UserDAO.leerUsers()) {
 			if ("nombre".equals(u.getName())) {
-				UserDAO.eliminar(u);
+				UserDAO.eliminar(u,true);
 			}
 			if ("asistente".equals(u.getName())) {
-				UserDAO.eliminar(u);
+				UserDAO.eliminar(u,true);
 			}
 			if ("admin".equals(u.getName())) {
-				UserDAO.eliminar(u);
+				UserDAO.eliminar(u,true);
 			}
 			if ("admin2".equals(u.getName())) {
-				UserDAO.eliminar(u);
+				UserDAO.eliminar(u,true);
 			}
 		}
 		for (Actividad a : ActividadDAO.leerActividades(true)) {

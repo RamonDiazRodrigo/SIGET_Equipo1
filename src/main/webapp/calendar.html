@@ -12,15 +12,15 @@
 <body>
 	<div class="row">
 		<div class="col-xs-12">
-		<div id="b">
-		<label>Leyenda: </label>
-		<label style="color:#9eec8ac5;">Restriccion,</label ><label style="color:#3d5ce7c5;">Reunion</label>
-		</div>
+			<div id="b">
+				<label>Leyenda: </label> <label style="color: #9eec8ac5;">Restriccion,</label><label
+					style="color: #3d5ce7c5;">Reunion</label>
+			</div>
 			<div id="calendar" class="calendar">
-			
+
 				<div class="calendar-timeline"
 					style="padding-top: 51px; margin-top: 60px;">
-					
+
 					<ul>
 						<li style="height: 50px;"><span>00:00</span></li>
 						<li style="height: 50px;"><span>00:30</span></li>
@@ -70,15 +70,16 @@
 						<li style="height: 50px;"><span>22:30</span></li>
 						<li style="height: 50px;"><span>23:00</span></li>
 						<li style="height: 50px;"><span>23:30</span></li>
-						
+
 					</ul>
 				</div>
 				<div class="calendar-events">
-				<input type="button" id="volver" value="Volver" onClick="window.history.back()">
+					<input type="button" id="volver" value="Volver"
+						onClick="window.history.back()">
 					<div class="calendar-month weektomonth"
 						style="height: 30px; text-align: center; padding-top: 5px;">
 						Noviembre 2020</div>
-					
+
 					<ul>
 						<li class="calendar-events-day" data-time="1603753200"
 							style="width: 14.2457%;"><div class="calendar-day-header"
@@ -145,19 +146,32 @@
 								</li>
 								<!-- /ko -->
 							</ul></li>
-						<li class="calendar-events-day" data-time="1603753200"
-							style="width: 14.2857%;">
-							<div class="calendar-day-header" style="height: 68px;">
+						<li class="calendar-events-day" data-time="1604012400"
+							style="width: 14.2857%;"><div class="calendar-day-header"
+								style="height: 68px;">
 								<span class="weektoday" style="width: 100%;">Sabado</span>
 							</div>
-							<ul style="height: 2400px;"></ul>
-						</li>
-						<li class="calendar-events-day" data-time="1604185200"
-							style="width: 13.5857%;"><div class="calendar-day-header"
+							<ul id="sabado" style="height: 2400px;">
+								<!-- ko foreach : { data: listaReunionesS, as :"reunion" } -->
+								<li
+									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
+								</li>
+								<!-- /ko -->
+							</ul></li>
+						<li class="calendar-events-day" data-time="1604012400"
+							style="width: 13.2857%;"><div class="calendar-day-header"
 								style="height: 68px;">
-								<span class="weektoday" style="width: 100%;">Domingo </span>
+								<span class="weektoday" style="width: 100%;">Domingo</span>
 							</div>
-							<ul style="height: 2400px;"></ul></li>
+							<ul id="domingo" style="height: 2400px;">
+								<!-- ko foreach : { data: listaReunionesD, as :"reunion" } -->
+								<li
+									style="background: rgb(142, 224, 243); top: 300px; height: 150px; left: 0px; width: 25%; opacity: 1; float: left; position: relative">
+									<em data-bind="html : name" style="overflow-wrap: break-word"></em>
+								</li>
+								<!-- /ko -->
+							</ul></li>
 					</ul>
 				</div>
 			</div>

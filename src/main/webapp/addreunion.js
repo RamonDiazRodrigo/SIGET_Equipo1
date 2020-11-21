@@ -57,7 +57,7 @@ function ViewModel() {
 				minutoInicio: dateInicio[1],
 				minutoFinal: dateFinal[1]
 			};
-			self.convocarCorrectamente();
+
 			self.sws.send(JSON.stringify(info));
 		} else {
 			document.getElementById("horaInicio").style.background = "red";
@@ -69,43 +69,44 @@ function ViewModel() {
 	};
 	self.convocarCorrectamente = function() {
 
-			// When site loaded, load the Popupbox First
-			loadPopupBox();
+		// When site loaded, load the Popupbox First
+		loadPopupBox();
 
-			$('#container').click(function() {
-				unloadPopupBox();
+		$('#container').click(function() {
+			unloadPopupBox();
+		});
+
+		function unloadPopupBox() {    // TO Unload the Popupbox
+			$('#popup_box').fadeOut("slow");
+			$("#container").css({ // this is just for style        
+				"opacity": "1"
+			});
+			window.location.href = "usuario.html";
+
+		}
+
+		function loadPopupBox() {    // To Load the Popupbox
+
+			var counter = 5;
+			var id;
+			$('#popup_box').fadeIn("slow");
+			$("#container").css({ // this is just for style
+				"opacity": "0.3"
 			});
 
-			function unloadPopupBox() {    // TO Unload the Popupbox
-				$('#popup_box').fadeOut("slow");
-				$("#container").css({ // this is just for style        
-					"opacity": "1"
-				});
+			id = setInterval(function() {
+				counter--;
+				if (counter < 0) {
+					clearInterval(id);
 
-			}
+					unloadPopupBox();
+				} else {
+					$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
+				}
+			}, 500);
 
-			function loadPopupBox() {    // To Load the Popupbox
-
-				var counter = 5;
-				var id;
-				$('#popup_box').fadeIn("slow");
-				$("#container").css({ // this is just for style
-					"opacity": "0.3"
-				});
-
-				id = setInterval(function() {
-					counter--;
-					if (counter < 0) {
-						clearInterval(id);
-
-						unloadPopupBox();
-					} else {
-						$("#countDown").text("it closed  after " + counter.toString() + " seconds.");
-					}
-				}, 500);
-
-			}
-		};
+		}
+	};
 
 	self.addReunion = function() {
 		for (var i = 0; i < self.listaUsuarios().length; i++) {
@@ -125,14 +126,9 @@ function ViewModel() {
 			minutoInicio: dateInicio[1],
 			minutoFinal: dateFinal[1],
 			usuarios: self.usuariosSeleccionados(),
-			success: function() {
-				alert('Se ha creado correctamente');
-			},
-			error: function() {
 
-				alert('Se ha creado incorrectamente');
-			}
 		};
+		self.convocarCorrectamente();
 		self.sws.send(JSON.stringify(info));
 	};
 

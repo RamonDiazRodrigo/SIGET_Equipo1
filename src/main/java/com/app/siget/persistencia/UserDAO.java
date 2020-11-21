@@ -103,16 +103,19 @@ public final class UserDAO {
 		}
 	}
 
-	public static void eliminar(User user) {
+	public static void eliminar(User user, boolean permanente) {
+
 		Document document;
 		MongoCollection<Document> coleccion;
 
 		if (user != null) {
 			coleccion = AgenteDB.get().getBd(USUARIO);
 			document = new Document("name", user.getName());
-			if ("ASISTENTE".equals(user.getRol())) {
+			if (permanente && "ASISTENTE".equals(user.getRol())) {
 				for (Actividad a : ActividadDAO.leerActividades(user.getName())) {
-					ActividadDAO.eliminar(a);
+					if (!a.isReunion()) {
+						ActividadDAO.eliminar(a);
+					}
 				}
 			}
 			coleccion.findOneAndDelete(document);
@@ -121,7 +124,7 @@ public final class UserDAO {
 
 	public static void modificar(User u) {
 		// Mismo metodo para modificar usuario tanto para Asistente como para Admin
-		UserDAO.eliminar(u);
+		UserDAO.eliminar(u, false);
 		UserDAO.insertar(u);
 	}
 

@@ -6,6 +6,8 @@ function viewModel() {
 	self.listaReunionesX = ko.observableArray([]);
 	self.listaReunionesJ = ko.observableArray([]);
 	self.listaReunionesV = ko.observableArray([]);
+	self.listaReunionesS = ko.observableArray([]);
+	self.listaReunionesD = ko.observableArray([]);
 
 	const url = 'wss://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
@@ -83,6 +85,18 @@ function viewModel() {
 				}
 				estilizarLI(posTop, length, reunion);
 				break;
+			case 'SABADO':
+				if (self.listaReunionesS().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesS.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+				estilizarLI(posTop, length, reunion);
+				break;
+			case 'DOMINGO':
+				if (self.listaReunionesD().some(r => r.name === reunion.name) === false) {
+					self.listaReunionesD.push(new Reunion(reunion.name, reunion.dia, horaIn[0], horaIn[1], horaFi[0], horaFi[1]));
+				}
+				estilizarLI(posTop, length, reunion);
+				break;
 			default:
 				break;
 		}
@@ -96,9 +110,9 @@ function viewModel() {
 			if (itemsL[n].innerText === reunion.name) {
 				itemsL[n].style.top = posTop.toString() + 'px';
 				itemsL[n].style.height = length.toString() + 'px';
-				if(reunion.Reunion){
+				if (reunion.Reunion) {
 					itemsL[n].style.background = '#3d5ce7c5';
-				}else{
+				} else {
 					itemsL[n].style.background = '#9eec8ac5';
 				}
 			}
