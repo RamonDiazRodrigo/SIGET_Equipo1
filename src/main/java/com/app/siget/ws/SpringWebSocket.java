@@ -64,7 +64,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 					jso.getString("rol"));
 			break;
 		case "infoUsuarios":
-			session.sendMessage(new TextMessage(Manager.get().leer().toString()));
+			session.sendMessage(new TextMessage(Manager.get().leerUsuarios().toString()));
 			break;
 		case "modificar":
 			// Misma condicion para modificar usuario tanto para Asistente como para Admin

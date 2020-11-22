@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import org.json.JSONObject;
 
 public class Actividad {
-	// private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
 	private String name;
 	private DiaSemana dia;

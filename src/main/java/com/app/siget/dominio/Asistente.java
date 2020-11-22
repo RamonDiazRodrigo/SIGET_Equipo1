@@ -35,7 +35,7 @@ public class Asistente extends User {
 
 	}
 
-	public void insertarActividad(Actividad actividad) throws Exception {
+	public void insertarActividad(Actividad actividad) throws FranjaHorariaOcupadaException {
 
 		if (!this.horario.estaOcupado(actividad)) {
 			this.horario.insertarActividad(actividad);

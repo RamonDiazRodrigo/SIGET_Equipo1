@@ -1,7 +1,6 @@
 var url = "wss://" + window.location.host + "/SIGETEquipo1";
 var sws = new WebSocket(url);
 
-
 sws.onopen = function(event) {
 	var msg = {
 		type: "infoUsuarios"
@@ -11,7 +10,13 @@ sws.onopen = function(event) {
 sws.onmessage = function(event) {
 	var data = event.data;
 	data = JSON.parse(data);
-	sessionStorage.users = data.usuarios;
+	var users = [];
+
+	for (var j = 0; j < data.usuarios.length; j++) {
+		users[j] = data.usuarios[j].name;
+	}
+
+	sessionStorage.users = JSON.stringify(users);
 };
 
 window.onbeforeunload = function() {
@@ -20,44 +25,57 @@ window.onbeforeunload = function() {
 
 let register = function() {
 
-	if (contrasenaValida($('#pwd1').val()) && usernameValido($('#username').val())) {
-		const info = {
-			type: 'Register',
-			userName: $('#username').val(),
-			email: $('#email').val(),
-			pwd: $('#pwd1').val(),
-			pwd2: $('#pwd2').val(),
-			rol: $('#rol').val()
-		};
-		const data = {
-			data: JSON.stringify(info),
-			url: 'register',
-			type: 'post',
-			contentType: 'application/json',
-			success: function() {
-				document.getElementById("pwd1").style.backgroundColor = "green";
-				document.getElementById("pwd2").style.backgroundColor = "green";
-				document.getElementById("username").style.backgroundColor = "green";
-				document.getElementById("email").style.backgroundColor = "green";
-				registroCorrecto();
-			},
-			error: function() {
-				document.getElementById("pwd1").style.backgroundColor = "red";
-				document.getElementById("pwd2").style.backgroundColor = "red";
-			}
-		};
-		$.ajax(data);
+	document.getElementById("pwd1").style.backgroundColor = "transparent";
+	document.getElementById("pwd2").style.backgroundColor = "transparent";
+	document.getElementById("username").style.backgroundColor = "transparent";
+	document.getElementById("email").style.backgroundColor = "transparent";
+
+	if (usernameValido($('#username').val())) {
+		if (contrasenaValida($('#pwd1').val())) {
+			const info = {
+				type: 'Register',
+				userName: $('#username').val(),
+				email: $('#email').val(),
+				pwd: $('#pwd1').val(),
+				pwd2: $('#pwd2').val(),
+				rol: $('#rol').val()
+			};
+			const data = {
+				data: JSON.stringify(info),
+				url: 'register',
+				type: 'post',
+				contentType: 'application/json',
+				success: function() {
+					document.getElementById("pwd1").style.backgroundColor = "green";
+					document.getElementById("pwd2").style.backgroundColor = "green";
+					document.getElementById("username").style.backgroundColor = "green";
+					document.getElementById("email").style.backgroundColor = "green";
+					registroCorrecto();
+				},
+				error: function() {
+					document.getElementById("pwd1").style.backgroundColor = "red";
+					document.getElementById("pwd2").style.backgroundColor = "red";
+				}
+			};
+			$.ajax(data);
+		}
+	} else {
+		document.getElementById("username").style.backgroundColor = "red";
 	}
 };
 
 function usernameValido(userName) {
 
 
-	var users = sessionStorage.users;
+	var users = JSON.parse('[' + sessionStorage.getItem('users') + ']');
+	users = users[0];
+	
+	if(userName === ''){
+		return false;
+	}
 
 	for (var j = 0; j < users.length; j++) {
-		var usuario = users[j];
-		if (usuario.name === userName) {
+		if (users[j] === userName) {
 			return false;
 		}
 	}
@@ -128,7 +146,6 @@ function registroCorrecto() {
 		$("#container").css({ // this is just for style        
 			"opacity": "1"
 		});
-		window.location.href = "index.html";
 	}
 
 	function loadPopupBox() {    // To Load the Popupbox

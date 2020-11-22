@@ -147,7 +147,7 @@ function ViewModel() {
 				$("#container").css({ // this is just for style        
 					"opacity": "1"
 				});
-
+				window.location.href = window.location.href;
 			}
 
 			function loadPopupBox() {    // To Load the Popupbox
@@ -223,7 +223,7 @@ function ViewModel() {
 
 		}
 
-		
+
 
 
 
