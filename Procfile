@@ -1,1 +1,1 @@
-web: java -jar target/sigetequipo1-1.0-SNAPSHOT.jar --server.port=$PORT
+web: java -jar target/sigetequipo1-2.0-SNAPSHOT.jar --server.port=$PORT
