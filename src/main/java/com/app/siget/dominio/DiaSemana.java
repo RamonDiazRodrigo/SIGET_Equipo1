@@ -79,8 +79,6 @@ public enum DiaSemana {
 		}
 	};
 
-	public int getValue() {
-		return 0;
-	}
+	abstract public int getValue();
 
 }
