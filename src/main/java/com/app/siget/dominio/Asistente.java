@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 
 public class Asistente extends User {
@@ -28,13 +26,13 @@ public class Asistente extends User {
 	}
 
 	public void setReunionesPendientes(String reunionesPendientes) {
-		if(reunionesPendientes !=null) {
+		if (reunionesPendientes != null) {
 			JSONArray jsa = new JSONArray(reunionesPendientes);
 			for (int i = 0; i < jsa.length(); i++) {
 				this.reunionesPendientes.add(jsa.getInt(i));
 			}
 		}
-		
+
 	}
 
 	public void insertarActividad(Actividad actividad) throws Exception {
@@ -46,10 +44,10 @@ public class Asistente extends User {
 		}
 
 	}
-	
+
 	public void insertarReunionPendiente(Actividad a) {
 		this.reunionesPendientes.add(a.getId());
-		
+
 	}
 
 	public Horario getHorario() {
@@ -71,9 +69,9 @@ public class Asistente extends User {
 
 	public void quitarReunionPendiente(int id) {
 		for (int i = 0; i < this.reunionesPendientes.size(); i++) {
-			if (this.reunionesPendientes.get(i)== id) {
-				this.reunionesPendientes.remove(i);	
+			if (this.reunionesPendientes.get(i) == id) {
+				this.reunionesPendientes.remove(i);
 			}
-		}	
+		}
 	}
 }

@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.springframework.stereotype.Repository;
 
 import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Asistente;
 import com.app.siget.dominio.DiaSemana;
 import com.app.siget.dominio.User;
-import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
@@ -143,7 +141,7 @@ public final class ActividadDAO {
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
-			UserDAO.eliminar(user,false);
+			UserDAO.eliminar(user, false);
 			coleccion.insertOne(document);
 		}
 
@@ -161,7 +159,7 @@ public final class ActividadDAO {
 			user.insertarReunionPendiente(actividad);
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
-			UserDAO.eliminar(user,false);
+			UserDAO.eliminar(user, false);
 			coleccion.insertOne(document);
 		}
 

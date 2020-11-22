@@ -1,7 +1,6 @@
 package com.app.siget.dominio;
 
 import java.time.LocalTime;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONObject;
 

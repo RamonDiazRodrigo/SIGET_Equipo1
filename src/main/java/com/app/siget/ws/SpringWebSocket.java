@@ -8,7 +8,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.siget.dominio.Manager;
-import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {

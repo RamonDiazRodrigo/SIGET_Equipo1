@@ -47,6 +47,8 @@ body {
 	border-radius: 25px;
 	height: 600px;
 	margin-bottom: 20px;
+	flex-wrap: wrap;
+	margin: 20px;
 }
 
 .box h1 {
@@ -62,7 +64,6 @@ h2 {
 }
 
 .box input[type="text"], .box input[type="password"], .box select {
-	border: 0;
 	background: #161616c5;
 	display: block;
 	margin: 20px auto;
@@ -82,10 +83,7 @@ h2 {
 	color: black;
 }
 
-
-
 .box button[type="button"] {
-	border: 0;
 	background: none;
 	font-size: 18px;
 	display: block;
@@ -121,12 +119,6 @@ h2 {
 	transform: scale(0.9);
 }
 
-.box {
-	flex-wrap: wrap;
-	margin: 20px;
-	margin-bottom: 0px;
-}
-
 #goToLogin {
 	border-color: grey;
 	background-color: grey;
@@ -160,20 +152,4 @@ h2 {
 
 .selectrol {
 	position: relative;
-}
-
-select-selected {
-	background-color: DodgerBlue;
-}
-
-/* Style the arrow inside the select element: */
-select-selected:after {
-	position: absolute;
-	content: "";
-	top: 14px;
-	right: 10px;
-	width: 0;
-	height: 0;
-	border: 6px solid transparent;
-	border-color: #fff transparent transparent transparent;
 }

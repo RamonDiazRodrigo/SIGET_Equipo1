@@ -13,7 +13,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
-import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.app.siget.persistencia.ActividadDAO;
 import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
@@ -165,7 +164,7 @@ public class Manager {
 	public void eliminarUsuario(String usuario) {
 		for (User u : UserDAO.leerUsers()) {
 			if (usuario.equals(u.getName()) && ASISTENTE.equals(u.getRol())) {
-				UserDAO.eliminar(u,true);
+				UserDAO.eliminar(u, true);
 			}
 		}
 	}
@@ -184,16 +183,16 @@ public class Manager {
 	public void eliminarTests() {
 		for (User u : UserDAO.leerUsers()) {
 			if ("nombre".equals(u.getName())) {
-				UserDAO.eliminar(u,true);
+				UserDAO.eliminar(u, true);
 			}
 			if ("asistente".equals(u.getName())) {
-				UserDAO.eliminar(u,true);
+				UserDAO.eliminar(u, true);
 			}
 			if ("admin".equals(u.getName())) {
-				UserDAO.eliminar(u,true);
+				UserDAO.eliminar(u, true);
 			}
 			if ("admin2".equals(u.getName())) {
-				UserDAO.eliminar(u,true);
+				UserDAO.eliminar(u, true);
 			}
 		}
 		for (Actividad a : ActividadDAO.leerActividades(true)) {
@@ -365,15 +364,15 @@ public class Manager {
 			byte[] messageDigest = md.digest(input.getBytes());
 			BigInteger number = new BigInteger(1, messageDigest);
 			String hashtext = number.toString(16);
-			
+
 			int diff = 32 - hashtext.length();
 			StringBuilder bld = new StringBuilder();
-			
-			while (diff>1) {
+
+			while (diff > 1) {
 				bld.append("0");
 				diff--;
 			}
-			
+
 			return bld.toString() + hashtext;
 
 		} catch (NoSuchAlgorithmException e) {
