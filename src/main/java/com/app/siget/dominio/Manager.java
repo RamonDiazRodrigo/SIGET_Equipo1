@@ -13,6 +13,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
+import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.app.siget.persistencia.ActividadDAO;
 import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
@@ -141,7 +142,7 @@ public class Manager {
 	}
 
 	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario, String reunion) {
+			String minutosF, String usuario, String reunion) throws Exception {
 
 		List<User> users = UserDAO.leerUsers();
 
@@ -311,7 +312,7 @@ public class Manager {
 		return jsa;
 	}
 
-	public void aceptarReunion(String usuario, int id) {
+	public void aceptarReunion(String usuario, int id) throws Exception {
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(usuario)) {
 				((Asistente) u).quitarReunionPendiente(id);

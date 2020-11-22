@@ -6,6 +6,9 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.app.siget.excepciones.CredencialesInvalidasException;
+import com.app.siget.excepciones.FranjaHorariaOcupadaException;
+
 public class Asistente extends User {
 
 	private Horario horario;
@@ -34,12 +37,12 @@ public class Asistente extends User {
 		
 	}
 
-	public void insertarActividad(Actividad actividad) {
+	public void insertarActividad(Actividad actividad) throws Exception {
 
 		if (!this.horario.estaOcupado(actividad)) {
 			this.horario.insertarActividad(actividad);
 		} else {
-			System.out.println("mandar error porque ya esta ocupado");
+			throw new FranjaHorariaOcupadaException();
 		}
 
 	}

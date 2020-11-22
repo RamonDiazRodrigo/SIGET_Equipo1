@@ -13,6 +13,7 @@ import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Asistente;
 import com.app.siget.dominio.DiaSemana;
 import com.app.siget.dominio.User;
+import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
@@ -133,13 +134,13 @@ public final class ActividadDAO {
 
 	}
 
-	public static void insertarActividad(Asistente user, Actividad actividad) {
+	public static void insertarActividad(Asistente user, Actividad actividad) throws Exception {
 
 		if (user != null) {
+			user.insertarActividad(actividad);
 			insertarActividad(actividad);
 			Document document = generarDocument(user);
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
-			user.insertarActividad(actividad);
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
 			UserDAO.eliminar(user,false);

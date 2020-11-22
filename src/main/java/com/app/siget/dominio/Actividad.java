@@ -6,16 +6,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONObject;
 
 public class Actividad {
-	private static final AtomicInteger count = new AtomicInteger(1);
+	// private static final AtomicInteger count = new AtomicInteger(1);
 	private int id;
 	private String name;
 	private DiaSemana dia;
 	private LocalTime horaI;
 	private LocalTime horaF;
 	private boolean reunion;
-	//a
+
+	// a
 	public Actividad(String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion) {
-		this.id = count.incrementAndGet();
+		this.id = Math.abs((int) System.currentTimeMillis());
 		this.name = name;
 		this.dia = dia;
 		this.horaI = horaI;
@@ -67,11 +68,11 @@ public class Actividad {
 	public int getId() {
 		return this.id;
 	}
-	
+
 	public void setReunion(boolean reunion) {
 		this.reunion = reunion;
 	}
-	
+
 	public boolean isReunion() {
 		return this.reunion;
 	}
@@ -83,7 +84,7 @@ public class Actividad {
 		jso.put("dia", this.getDia());
 		jso.put("HoraI", this.getHoraI());
 		jso.put("HoraF", this.getHoraF());
-		jso.put("Reunion",this.isReunion());
+		jso.put("Reunion", this.isReunion());
 		return jso;
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.siget.dominio.Manager;
+import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 
 @Component
 public class SpringWebSocket extends TextWebSocketHandler {
@@ -27,8 +28,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	}
 
 	@Override
-	public void handleMessage(WebSocketSession session, 
-			WebSocketMessage<?> message) throws Exception {
+	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		JSONObject jso = new JSONObject(message.getPayload().toString());
 		switch (jso.getString(TYPE)) {
 		case "ready":

@@ -47,7 +47,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
 
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
@@ -223,15 +223,7 @@ function ViewModel() {
 
 		}
 
-		self.ascender = function() {
-			var p = {
-				type: "ascender",
-				nombre: self.nombreUsuario()
-
-			};
-			self.sws.send(JSON.stringify(p));
-
-		};
+		
 
 
 
@@ -263,6 +255,16 @@ function ViewModel() {
 			self.sws.send(JSON.stringify(p));
 			window.location.href = window.location.href;
 		}
+		ascender = function() {
+			var p = {
+				type: "ascender",
+				nombre: this.name
+
+			};
+			self.sws.send(JSON.stringify(p));
+			window.location.href = window.location.href;
+
+		};
 
 		infoUsuarios() {
 			var p = {

@@ -1,6 +1,7 @@
 package com.app.siget.cucumber.pruebas;
 
 import com.app.siget.dominio.Manager;
+import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.app.siget.excepciones.UsuarioNoExisteException;
 
 import cucumber.api.java.en.Given;
@@ -11,7 +12,7 @@ public class CasoDePruebaIntroducirRestricciones {
 
 	@Given("^\"([^\"]*)\", \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\",  \"([^\"]*)\", \"([^\"]*)\" involucrado y si es \"([^\"]*)\"$")
 	public void involucrado_y_si_es(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario, String reunion) throws NumberFormatException {
+			String minutosF, String usuario, String reunion) throws NumberFormatException, Exception {
 		nombre="asistente";
 		dia="LUNES";
 		horaI="10";

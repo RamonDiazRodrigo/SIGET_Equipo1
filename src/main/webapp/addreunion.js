@@ -26,7 +26,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onmessage = function(event) {
@@ -48,6 +48,8 @@ function ViewModel() {
 		var dateFinal = $('#horaFinal').val().split(":");
 
 		if ((dateInicio[1] === "30" || dateInicio[1] === "00") && (dateFinal[1] === "30" || dateFinal[1] === "00")) {
+			document.getElementById("horaInicio").style.background = "white";
+			document.getElementById("horaFinal").style.background = "white";
 			const info = {
 				type: 'check',
 				nombre: $('#actividad').val(),

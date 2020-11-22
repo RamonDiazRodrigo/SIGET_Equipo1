@@ -69,7 +69,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
@@ -99,27 +99,26 @@ function ViewModel() {
 		var dateInicio = $('#horaInicio').val().split(":");
 		var dateFinal = $('#horaFinal').val().split(":");
 
-		const info = {
-			type: 'insertar',
-			nombre: $('#nombreActividad').val(),
-			dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
-			horaInicio: dateInicio[0],
-			horaFinal: dateFinal[0],
-			minutoInicio: dateInicio[1],
-			minutoFinal: dateFinal[1],
-			usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
-			success: function() {
-				sessionStorage.userName = $('#username').val();
+		if ((dateInicio[1] === "30" || dateInicio[1] === "00") && (dateFinal[1] === "30" || dateFinal[1] === "00")) {
+			document.getElementById("horaInicio").style.background = "white";
+			document.getElementById("horaFinal").style.background = "white";
+			const info = {
+				type: 'insertar',
+				nombre: $('#nombreActividad').val(),
+				dia: document.getElementById("dia").options[document.getElementById("dia").selectedIndex].text,
+				horaInicio: dateInicio[0],
+				horaFinal: dateFinal[0],
+				minutoInicio: dateInicio[1],
+				minutoFinal: dateFinal[1],
+				usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
+			};
+			self.actividadCreada();
+			self.sws.send(JSON.stringify(info));
 
-			},
-			error: function(response) {
-
-				document.getElementById("pwd1").style.backgroundColor = "green";
-
-			}
-		};
-		self.actividadCreada();
-		self.sws.send(JSON.stringify(info));
+		} else {
+			document.getElementById("horaInicio").style.background = "red";
+			document.getElementById("horaFinal").style.background = "red";
+		}
 	};
 	self.actividadCreada = function() {
 
