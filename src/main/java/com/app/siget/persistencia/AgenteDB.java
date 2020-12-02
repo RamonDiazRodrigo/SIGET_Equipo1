@@ -16,10 +16,10 @@ public class AgenteDB {
 	public AgenteDB() {
 
 		uri = new MongoClientURI(
-				"mongodb://david:david123@cluster0" + "-shard-00-00.xmqnt.mongodb.net:27017,cluster0-shard"
-						+ "-00-01.xmqnt.mongodb.net:27017,cluster0-shard-00-02."
-						+ "xmqnt.mongodb.net:27017/Equipo1?ssl=true&replicaSet=Cluster0"
-						+ "-shard-0&authSource=admin&retryWrites=true&w=majority");
+				"mongodb://pepe:pepe@clusterproyecto-shard-00-00.4zhu5.mongodb.net:27017,"
+				+ "clusterproyecto-shard-00-01.4zhu5.mongodb.net:27017,"
+				+ "clusterproyecto-shard-00-02.4zhu5.mongodb.net:27017/"
+				+ "<dbname>?ssl=true&replicaSet=atlas-wocgox-shard-0&authSource=admin&retryWrites=true&w=majority");
 		mongoClient = new MongoClient(uri);
 		database = mongoClient.getDatabase("Equipo1");
 
