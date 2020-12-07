@@ -29,3 +29,21 @@ Feature: Aniadir usuario
     Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
     When "password" y "confirmacionPassword" son distintas
     Then se lanza la excepcion DiferentesContrasenas  
+
+   @tag3
+  Scenario: Aniadir usuario con password no valida
+    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
+    When "password" no cumple requisitos de contrasena
+    Then se lanza la excepcion contrasenaNoValida
+
+    @tag4
+  Scenario: Aniadir usuario con nombre no valido
+    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
+    When "nombre" existe
+    Then se lanza la excepcion nombreNoValido
+
+    @tag5
+  Scenario: Aniadir usuario con email no valido
+    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
+    When "email"  no valido
+    Then se lanza la excepcion emailNoValido
