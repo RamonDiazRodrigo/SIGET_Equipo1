@@ -33,8 +33,17 @@ Feature: Login
   
   @tag3
   Scenario: Acceder a la aplicacion con la contrasena mal puesta
-    Given acceso con "nombre" y "password"
+    Given acceso con "nombre" correcto y "password" incorrecto
     When intento acceder con el "nombre" correcto y "password" mal
     Then se lanza la excepcion CredencialesInvalidas
+    
+  @tag4
+  Scenario: Acceder a la aplicacion con el nombre mal puesto
+    Given acceso con "nombre" incorrecto y "password" correcto
+    When intento acceder con el "nombre" mal y "password" bien
+    Then se lanza la excepcion de CredencialesInvalidas
+    
+    
+
 
     
