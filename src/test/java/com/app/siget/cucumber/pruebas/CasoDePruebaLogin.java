@@ -15,13 +15,9 @@ public class CasoDePruebaLogin {
 	//Caso 1
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos asistente$")
 	public void acceso_con_y_correctos_asistente(String nombre, String password){
-		nombre="Daniel";
-		password="Daniel1";
 	    try {
 		Manager.get().login(nombre, password);
 	    }catch(Exception e) {
-	    	System.out.println("Ha entrado aqui 1");
-	    
             exception = true;
         }
 	}
@@ -40,12 +36,9 @@ public class CasoDePruebaLogin {
 	@Given("^acceso con \"([^\"]*)\" y \"([^\"]*)\" correctos admin$")
 	public void acceso_con_y_correctos_admin(String nombre, String password){
 		exception = false;
-		nombre="chema";
-		password="Chema1";
 		  try {
 				Manager.get().login(nombre, password);
 			    }catch(Exception e) {
-			    	System.out.println("Ha entrado aqui 2");
 		            exception = true;
 		        }
 	}
@@ -64,12 +57,9 @@ public class CasoDePruebaLogin {
 	@Given("^acceso con \"([^\"]*)\" correcto y \"([^\"]*)\" incorrecto$")
 	public void acceso_con_correcto_y_incorrecto(String nombre, String password){
 		exception = false;
-		nombre="Daniel";
-		password="Password2";
 		  try {
 				Manager.get().login(nombre, password);
 			    }catch(Exception e) {
-			    	System.out.println("Ha entrado aqui 3");
 		            exception = true;
 		        }
 	}
@@ -88,12 +78,9 @@ public class CasoDePruebaLogin {
 	@Given("^acceso con \"([^\"]*)\" incorrecto y \"([^\"]*)\" correcto$")
 	public void acceso_con_incorrecto_y_correcto(String nombre, String password){
 		exception = false;
-		nombre="daniel";
-		password="Daniel1";
 		  try {
 				Manager.get().login(nombre, password);
 			    }catch(Exception e) {
-			    	System.out.println("Ha entrado aqui 3");
 		            exception = true;
 		        }
 	}

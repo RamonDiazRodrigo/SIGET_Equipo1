@@ -359,7 +359,7 @@ public class Manager {
 
 	}
 
-	private static String encriptarMD5(String input) {
+	public String encriptarMD5(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(input.getBytes());

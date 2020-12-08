@@ -21,25 +21,25 @@ Feature: Login
 
   @tag1
   Scenario: Acceder a la aplicacion satisfactoriamente Asistente
-    Given acceso con "nombre" y "password" correctos asistente
+    Given acceso con "Daniel" y "Daniel1" correctos asistente
     When los datos son correctos y de un asistente
     Then Accedo a la pantalla principal de asistente
   
   @tag2
   Scenario: Acceder a la aplicacion satisfactoriamente Admin
-    Given acceso con "nombre" y "password" correctos admin
+    Given acceso con "chema" y "Chema1" correctos admin
     When los datos son correctos y de un administrador
     Then Accedo a la pantalla principal de admin
   
   @tag3
   Scenario: Acceder a la aplicacion con la contrasena mal puesta
-    Given acceso con "nombre" correcto y "password" incorrecto
+    Given acceso con "Daniel" correcto y "Password2" incorrecto
     When intento acceder con el "nombre" correcto y "password" mal
     Then se lanza la excepcion CredencialesInvalidas
     
   @tag4
   Scenario: Acceder a la aplicacion con el nombre mal puesto
-    Given acceso con "nombre" incorrecto y "password" correcto
+    Given acceso con "daniel" incorrecto y "Daniel1" correcto
     When intento acceder con el "nombre" mal y "password" bien
     Then se lanza la excepcion de CredencialesInvalidas
     
