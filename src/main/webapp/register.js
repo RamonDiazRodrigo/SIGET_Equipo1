@@ -51,6 +51,7 @@ let register = function() {
 					document.getElementById("username").style.backgroundColor = "green";
 					document.getElementById("email").style.backgroundColor = "green";
 					registroCorrecto();
+
 				},
 				error: function() {
 					document.getElementById("pwd1").style.backgroundColor = "red";
@@ -131,12 +132,16 @@ function esNumero(digito) {
 
 }
 
+function volverAtras(){
+	window.location.href = "index.html"
+}
+
 
 function registroCorrecto() {
 
 	// When site loaded, load the Popupbox First
 	loadPopupBox();
-
+	volverAtras()
 	$('#container').click(function() {
 		unloadPopupBox();
 	});
@@ -169,6 +174,7 @@ function registroCorrecto() {
 		}, 500);
 
 	}
+	
 }
 
 
