@@ -37,12 +37,6 @@ Feature: Aniadir usuario
     Then se lanza la excepcion contrasenaNoValida
 
     @tag4
-  Scenario: Aniadir usuario con nombre no valido
-    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
-    When "nombre" existe
-    Then se lanza la excepcion nombreNoValido
-
-    @tag5
   Scenario: Aniadir usuario con email no valido
     Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
     When "email"  no valido
