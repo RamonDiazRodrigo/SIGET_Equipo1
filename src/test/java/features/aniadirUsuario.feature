@@ -22,6 +22,7 @@ Feature: Aniadir usuario
   @tag1
   Scenario: Aniadir usuario
     Given En la vista admin "nombre","email","password", "confirmacionPassword" y "rol"
+    when los datos son correctos
 		Then Se ha creado el usuario correctamente
 
   @tag2
