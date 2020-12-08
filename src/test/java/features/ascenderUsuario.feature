@@ -23,10 +23,10 @@ Feature: Ascender usuario
   Scenario: Ascender usuario
     Given un usuario "nombre"
     When un administrador asciende al usuario "nombre"
-    Then el usuario ahora es administrador
+    Then el usuario "nombre" ahora es administrador
   @tag2
   Scenario: Ascender usuario que ya es administrador
     Given un usuario "nombre"
     When un administrador asciende al usuario "nombre"
-    And el usuario ya es administrador
-    Then el usuario sigue siendo administrador
+    And el usuario "nombre" ya es administrador
+    Then el usuario "nombre" sigue siendo administrador
