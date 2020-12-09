@@ -21,11 +21,17 @@ Feature: Registrarse
 
   @tag1
   Scenario: Registro correcto
-    Given "nombre","email","password", "confirmacionPassword" y "rol"
-    Then Crea un usuario "nombre"
+    Given "PruebaRegistro","registro@registro.com","Password1", "Password1" y "ASISTENTE"
+    Then Crea un usuario "PruebaRegistro"
     
   @tag2
   Scenario: Registro con password distintas
-    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
-    When "password" y "confirmacionPassword" son distintas
-    Then se lanza la excepcion DiferentesContrasenas
+    Given "PruebaRegistro","registro@registro.com","Password1", "Password2" y "ASISTENTE" distintas
+    When "Password1" y "Password2" son distintas
+    Then se lanza la excepcion DiferentesContrasenas "PruebaRegistro"
+    
+  @tag3
+  Scenario: Registro usuario ya existente
+    Given "PruebaRegistro","registro@registro.com","Password1", "Password1" y "ASISTENTE" distintas
+    When ya existe "PruebaRegistro" 
+    Then se lanza la excepcion usuario ya existe "PruebaRegistro" 
