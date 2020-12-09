@@ -21,7 +21,7 @@ Feature: Aniadir usuario
 
  @tag1
   Scenario: Aniadir usuario
-  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ADMIN"
+  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
   Then el usuario se ha creado el usuario correctamente "PruebaDani1"
 
  @tag2
@@ -32,12 +32,12 @@ Feature: Aniadir usuario
   
  @tag3
   Scenario: Aniadir usuario con password no valida
-  Given "PruebaDani3","email@email.com","password", "password" y "ADMIN" no valida
+  Given "PruebaDani3","email@email.com","password", "password" y "ASISTENTE" no valida
   When "password" no cumple requisitos de contrasena
   Then se lanza la excepcion contrasenaNoValida "PruebaDani3"
   
  @tag4
   Scenario: Aniadir usuario con email no valido
-  Given "PruebaDani4","emailemail.com","Password1", "Password1" y "ADMIN" email no valido
+  Given "PruebaDani4","emailemail.com","Password1", "Password1" y "ASISTENTE" email no valido
   When "emailemail.com"  no valido
   Then se lanza la excepcion emailNoValido "PruebaDani4"
