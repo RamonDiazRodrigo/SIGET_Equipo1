@@ -24,12 +24,6 @@ Feature: Registrarse
     Given los datos"PruebaRegistro1","registro1@registro.com","Password1", "Password1", "ASISTENTE"
     Then el usuario se ha creado correctamente "PruebaRegistro1" 
     
-  @tag2
-  Scenario: Registro con password distintas
-    Given "PruebaRegistro2","registro2@gmail.com","Password1", "Password2" y "ASISTENTE" distintas
-    When "Password1" y "Password2" son distintas
-    Then se lanza la excepcion DiferentesContrasenas "PruebaRegistro2"
-    
   @tag3
   Scenario: Registro usuario ya existente
     Given el usuario "PruebaRegistro3","registro3@registro.com","Password1", "Password1", "ASISTENTE"
