@@ -9,7 +9,7 @@ function viewModel() {
 	self.listaReunionesS = ko.observableArray([]);
 	self.listaReunionesD = ko.observableArray([]);
 
-	const url = 'ws://' + window.location.host + '/SIGETEquipo1';
+	const url = 'wss://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function() {
