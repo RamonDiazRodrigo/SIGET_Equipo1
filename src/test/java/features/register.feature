@@ -24,7 +24,7 @@ Feature: Registrarse
     Given los datos"PruebaRegistro1","registro1@registro.com","Password1", "Password1", "ASISTENTE"
     Then el usuario se ha creado correctamente "PruebaRegistro1" 
     
-  @tag3
+  @tag2
   Scenario: Registro usuario ya existente
     Given el usuario "PruebaRegistro3","registro3@registro.com","Password1", "Password1", "ASISTENTE"
     When ya existe "PruebaRegistro3" 
