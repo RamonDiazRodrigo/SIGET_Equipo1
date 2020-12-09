@@ -19,29 +19,14 @@
 @tag
 Feature: Modificar usuario
 
-  @tag1
-  Scenario: Modificar nombre usuario
-    Given En la vista admin "nombre","email","password" y "rol"
-    When "nombre", "nombreNuevo" son distintas
-		Then Se ha modificado el usuario correctamente
+ @tag1
+  Scenario: Modificar email usuario
+    Given Como admin en la vista del user "Alvaro","alvaro@gmail.com","Alvaro1"
+    When Como admin el user"Alvaro"con contraseña "Alvaro1" ha sido modificado "alvarito@gmail.com"
+		Then Como admin el user"Alvaro"ha sido modificado el correo "alvarito@gmail.com" correctamente
 		
 	@tag2
-  Scenario: Modificar email usuario
-    Given En la vista admin "nombre","email","password" y "rol"
-    When "email", "emailNuevo" son distintas
-		Then Se ha modificado el usuario correctamente
-		
-	@tag3
   Scenario: Modificar password usuario
-    Given En la vista admin "nombre","email","password" y "rol"
-    When "password", "passwordNueva" son distintas
-		Then Se ha modificado el usuario correctamente
-	
-	
-	@tag4
-  Scenario: Modificar rol usuario
-    Given En la vista admin "nombre","email","password" y "rol"
-    When "rol", "rolNuevo" son distintas
-		Then Se ha modificado el usuario correctamente
-	
-
+    Given Como admin en la vista del user "Alvaro","alvaro@gmail.com","Alvaro1"
+    When Como admin el user "Alvaro" con el correo "alvaro@gmail.com"  ha sido modificado "Contraseña1"
+		Then Como admin el user "Alvaro" ha sido modificado la contraseña "Contraseña1" correctamente
