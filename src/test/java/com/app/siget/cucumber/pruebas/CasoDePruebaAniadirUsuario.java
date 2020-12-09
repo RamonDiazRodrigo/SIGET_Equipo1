@@ -12,8 +12,6 @@ import cucumber.api.java.en.When;
 
 public class CasoDePruebaAniadirUsuario {
 
-	private boolean exception = false;
-
 	// Caso 1
 	@Given("^En la vista admin \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\"$")
 	public void en_la_vista_admin_y(String nombre, String email, String password,
@@ -22,7 +20,6 @@ public class CasoDePruebaAniadirUsuario {
 			Manager.get().register(nombre, email, password, rol);
 		} catch (Exception e) {
 			System.out.println("Ha ocurrido un error");
-			exception = true;
 		}
 	}
 
@@ -61,7 +58,6 @@ public class CasoDePruebaAniadirUsuario {
 			//Manager.get().register(nombre, email, password, rol);
 		} catch (Exception e) {
 			System.out.println("Ha entrado aqui caso 3");
-			exception = true;
 		}
 	}
 
