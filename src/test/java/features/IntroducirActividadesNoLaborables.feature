@@ -21,14 +21,29 @@ Feature: Introducir actividades no laborables
 
   @tag1
   Scenario: Introduccion valida de actividad no laborable
-    Given "nombre periodo no laborable", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin", "usuario" involucrado y si es "reunion" 
-    Then se aniade la actividad no laborable con "nombre periodo no laborable", "dia de la semana", "hora de inicio", "minutos de inicio", "hora de fin", "minutos de fin", "reunion" y se vincula al "usuario"
+    Given "Descanso", "SABADO",  "10",  "00",  "11",  "30", "Usuario" involucrado y si es "false" 
+    Then se aniade la actividad no laborable con "Descanso", "SABADO", "10",  "00",  "11",  "30", "false" y se vincula al "Usuario"
 
   @tag2
   Scenario: Introduccion invalida de actividad no laborable usuario no existe
-    Given "nombre periodo no laborable", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin", "usuario" involucrado y si es "reunion" 
+    Given "Descanso", "MARTES",  "10",  "00",  "11",  "30", "FEDERICOOO" involucrado y si es "false" 
     When usuario no esta registrado
-    Then se lanza excepcion UsuarioNoExiste
+    Then no se aniade la actividad no laborable con "Descanso", "MARTES", "10",  "00",  "11",  "30", "false" y se vincula al "FEDERICOO"
     
-
+	@tag3
+  Scenario: Introduccion invalida de actividad no laborable dia no existe
+    Given "Descanso", "CAMA",  "10",  "00",  "11",  "30", "Usuario" involucrado y si es "false" 
+    When el dia no es correcto
+    Then no se aniade la actividad no laborable con "Descanso", "CAMA", "10",  "00",  "11",  "30", "false" y se vincula al "Usuario"
     
+	@tag4
+  Scenario: Introduccion invalida de actividad no laborable hora inicial no existe
+    Given "Descanso", "LUNES",  "30",  "00",  "11",  "30", "Usuario" involucrado y si es "false" 
+    When la hora inicial no es correcta
+    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "30",  "00",  "11",  "30", "false" y se vincula al "Usuario"
+    
+   @tag5
+  Scenario: Introduccion invalida de actividad no laborable hora final no existe
+    Given "Descanso", "LUNES",  "30",  "00",  "30",  "30", "Usuario" involucrado y si es "false" 
+    When la hora final no es correcta
+    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "10",  "00",  "30",  "30", "false" y se vincula al "Usuario"
