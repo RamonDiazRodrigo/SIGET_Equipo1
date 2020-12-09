@@ -21,9 +21,7 @@ Feature: vistaGeneral
 
   @tag1
   Scenario: Consultar agenda general
-    Given acceso con "nombre" y "password" admin
-    When en la vista admin.html se clicka el boton verAgendaGeneral
-    Then veo la agenda general
-
+    Given como admin 
+    Then veo todas las reuniones
 
     
