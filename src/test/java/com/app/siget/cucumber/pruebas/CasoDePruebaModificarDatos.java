@@ -1,24 +1,45 @@
 package com.app.siget.cucumber.pruebas;
 
-import com.app.siget.dominio.Manager;
+import static org.junit.Assert.assertEquals;
 
+import com.app.siget.dominio.Manager;
+import com.app.siget.persistencia.UserDAO;
+
+import cucumber.api.java.en.When;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 public class CasoDePruebaModificarDatos {
-	@Given("^En la vista user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\" y \"([^\"]*)\"$")
-	public void en_la_vista_user_y(String nombre, String email, String password, String rol) throws Throwable {
-	    password="Password2";
-	    nombre="admin2";
-	    rol="ADMIN";
-		Manager.get().modificarUsuario(nombre,email,password);
-	    Manager.get().login(nombre, password);
+	
+	@Given("^En la vista user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+	public void en_la_vista_user(String nombre, String email, String password) throws Throwable {
 	   
 	}
+	
+	@When("^El user \"([^\"]*)\" con contrasenia \"([^\"]*)\" ha modificado \"([^\"]*)\"$")
+	public void el_user_con_contrasenia_ha_modificado(String nombre, String contraseña, String emailNuevo) {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	}
 
-	@Then("^Se han modificado los datos correctamente$")
-	public void se_han_modificado_los_datos_correctamente() throws Throwable {
-	    
+	@Then("^El user \"([^\"]*)\" ha modificado el correo \"([^\"]*)\" correctamente$")
+	public void el_user_ha_modificado_el_correo_correctamente(String nombre, String email) throws Throwable {
+	assertEquals(email,UserDAO.findUser(nombre).getEmail());
+	//Modificamos de nuevo el usuario para dejarlo como estaba
+	Manager.get().modificarUsuario("Daniel","daniel@gmail.com","Daniel1");
+	}
+	
+	
+	
+	@When("^El user \"(.*?)\" con el correo \"(.*?)\"  ha modificado \"(.*?)\"$")
+	public void el_user_con_el_correo_ha_modificado(String nombre, String emailNuevo, String contraseña) {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	}
+
+	@Then("^El user \"([^\"]*)\" ha modificado la contrasenia \"([^\"]*)\" correctamente$")
+	public void el_user_ha_modificado_la_contrasenia_correctamente(String nombre, String contraseña) throws Throwable {
+	assertEquals(Manager.get().encriptarMD5(contraseña),UserDAO.findUser(nombre).getPassword());
+	//Modificamos de nuevo el usuario para dejarlo como estaba
+	Manager.get().modificarUsuario("Daniel","daniel@gmail.com","Daniel1");
 	}
 	
 }

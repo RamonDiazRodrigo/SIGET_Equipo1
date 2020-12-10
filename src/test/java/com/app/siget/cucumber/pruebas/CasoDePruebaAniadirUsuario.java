@@ -4,6 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.app.siget.dominio.Manager;
 import com.app.siget.persistencia.UserDAO;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.app.siget.dominio.Manager;
+import com.app.siget.excepciones.DiferentesContrasenasException;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
