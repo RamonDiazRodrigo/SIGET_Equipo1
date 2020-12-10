@@ -16,8 +16,8 @@ public class CasoDePruebaModificarDatos {
 	   
 	}
 	
-	@When("^El user \"([^\"]*)\" con contraseña \"([^\"]*)\" ha modificado \"([^\"]*)\"$")
-	public void el_user_con_contraseña_ha_modificado(String nombre, String contraseña, String emailNuevo) {
+	@When("^El user \"([^\"]*)\" con contrasenia \"([^\"]*)\" ha modificado \"([^\"]*)\"$")
+	public void el_user_con_contrasenia_ha_modificado(String nombre, String contraseña, String emailNuevo) {
 		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
 	}
 
@@ -35,8 +35,8 @@ public class CasoDePruebaModificarDatos {
 		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
 	}
 
-	@Then("^El user \"([^\"]*)\" ha modificado la contraseña \"([^\"]*)\" correctamente$")
-	public void el_user_ha_modificado_la_contraseña_correctamente(String nombre, String contraseña) throws Throwable {
+	@Then("^El user \"([^\"]*)\" ha modificado la contrasenia \"([^\"]*)\" correctamente$")
+	public void el_user_ha_modificado_la_contrasenia_correctamente(String nombre, String contraseña) throws Throwable {
 	assertEquals(Manager.get().encriptarMD5(contraseña),UserDAO.findUser(nombre).getPassword());
 	//Modificamos de nuevo el usuario para dejarlo como estaba
 	Manager.get().modificarUsuario("Daniel","daniel@gmail.com","Daniel1");

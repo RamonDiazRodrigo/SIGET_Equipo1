@@ -16,8 +16,8 @@ public class CasoDePruebaModificarUsuario {
 	   
 	}
 	
-	@When("^Como admin el user\"(.*?)\"con contraseña \"(.*?)\" ha sido modificado \"(.*?)\"$")
-	public void como_admin_el_user_con_contraseña_ha_sido_modificado(String nombre, String contraseña, String emailNuevo) {
+	@When("^Como admin el user\"(.*?)\"con contrasenia \"(.*?)\" ha sido modificado \"(.*?)\"$")
+	public void como_admin_el_user_con_contrasenia_ha_sido_modificado(String nombre, String contraseña, String emailNuevo) {
 		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
 	}
 
@@ -35,8 +35,8 @@ public class CasoDePruebaModificarUsuario {
 		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
 	}
 
-	@Then("^Como admin el user \"([^\"]*)\" ha sido modificado la contraseña \"([^\"]*)\" correctamente$")
-	public void como_admin_el_user_ha_sido_modificado_la_contraseña_correctamente(String nombre, String contraseña) throws Throwable {
+	@Then("^Como admin el user \"([^\"]*)\" ha sido modificado la contrasenia \"([^\"]*)\" correctamente$")
+	public void como_admin_el_user_ha_sido_modificado_la_contrasenia_correctamente(String nombre, String contraseña) throws Throwable {
 	assertEquals(Manager.get().encriptarMD5(contraseña),UserDAO.findUser(nombre).getPassword());
 	//Modificamos de nuevo el usuario para dejarlo como estaba
 	Manager.get().modificarUsuario("Alvaro","alvaro@gmail.com","Alvaro1");
