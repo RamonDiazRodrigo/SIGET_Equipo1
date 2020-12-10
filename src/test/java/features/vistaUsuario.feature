@@ -22,7 +22,7 @@ Feature: vistaUsuario
 
   @tag1
   Scenario: Consultar agenda del usuario
-    Given acceso con "nombre" y "password" asistente
-    Then veo la agenda del "usuario"
+    Given como usuario "nombre" 
+    Then veo la agenda del usuario "nombre"
 
 
