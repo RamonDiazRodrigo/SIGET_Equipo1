@@ -21,6 +21,30 @@ Feature: Convocar Reuniones
 
   @tag1
   Scenario: Convocar reunion
-    Given "nombre reunion", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin" y "usuarios" involucrados
-    Then Crea una reunion "nombre reunion" y la aniade a reuniones pendientes si no tienen ese horario ocupado
+    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" y "usuarios" involucrados
+    Then Crea una reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" y "usuarios" y la aniade a reuniones pendientes si no tienen ese horario ocupado
+    
+   @tag2
+  Scenario: Convocar reunion ya existente
+    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "usuarios"
+    When ya existe "PruebaConvocar1" 
+    Then se lanza la excepcion ya existe reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" "usuarios"
+    
+    @tag3
+  Scenario: Convocar reunion dia mal
+    Given la reunion "PruebaConvocar3", "JUERNES",  "12",  "00",  "13",  "00", "usuarios"
+    When  el dia no existe
+    Then se lanza la excepcion dia no existe
+    
+    @tag4
+    Scenario: Convocar reunion hora inicial no existe
+    Given la reunion "PruebaConvocar4", "LUNES",  "54",  "70",  "13",  "00", "usuarios" con la hora incial mal
+    When  la hora inicial no existe
+    Then se lanza la excepcion hora inicial no existe
+    
+    @tag5
+    Scenario: Convocar reunion hora Final no existe
+    Given la reunion "PruebaConvocar4", "LUNES",  "12",  "00",  "12",  "89", "usuarios" con la hora final mal
+    When  la hora final no existe
+    Then se lanza la excepcion hora final no existe
     
