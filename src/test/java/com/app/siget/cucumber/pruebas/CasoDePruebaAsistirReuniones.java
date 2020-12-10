@@ -33,13 +33,28 @@ public class CasoDePruebaAsistirReuniones {
 		assertEquals(true,reunion);
 	}
 
-	@Given("^el usuario \"([^\"]*)\" acepta la reunion \"([^\"]*)\"$")
+	@Given("^el usuario \"([^\"]*)\" rechaza la reunion \"([^\"]*)\"$")
 	public void el_usuario_rechaza_la_reunion(String nombre, String id) throws FranjaHorariaOcupadaException {
 		Manager.get().rechazarReunion(nombre, Integer.parseInt(id));
 	}
 
-	@Then("^el usuario \"([^\"]*)\" tiene la reunion \"([^\"]*)\" en su agenda$")
+	@Then("^el usuario \"([^\"]*)\" no tiene la reunion \"([^\"]*)\" en su agenda$")
 	public void el_usuario_no_tiene_la_reunion_en_su_agenda(String usuario, String id) throws Throwable {
+		User u = UserDAO.findUser(usuario);
+		int[][] horario = ((Asistente) u).getHorario().getMatrizHorario();
+		boolean reunion = false;
+		for(int i =0; i< horario.length;i++) {
+			for(int j =0; j<horario[i].length;j++) {
+				if(horario[i][j] == Integer.parseInt(id)) {
+					reunion = true;
+				}
+			}
+		}
+		assertEquals(false,reunion);
+	}
+	
+	@Then("^el usuario \"(.*?)\" no tiene la reunion \"(.*?)\" en su agenda por coincidir la hora$")
+	public void el_usuario_no_tiene_la_reunion_en_su_agenda_por_coincidir_la_hora(String usuario, String id) throws Throwable {
 		User u = UserDAO.findUser(usuario);
 		int[][] horario = ((Asistente) u).getHorario().getMatrizHorario();
 		boolean reunion = false;
