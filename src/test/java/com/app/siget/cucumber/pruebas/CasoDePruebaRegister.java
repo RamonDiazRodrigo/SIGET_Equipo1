@@ -11,51 +11,38 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class CasoDePruebaRegister {
-
-	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\"$")
-	public void y(String nombre, String email, String password, String confirmacionPassword, String rol)
-			throws Exception {
-		rol = "ADMIN";
-		password="Password2";
-		Manager.get().register(nombre, email, password, rol);
-		nombre="admin";
-		password="Password3";
-		Manager.get().register(nombre, email, password, rol);
-	}
-
-	@Then("^Crea un usuario \"([^\"]*)\"$")
-	public void crea_un_usuario(String nombre) throws Exception {
-		JSONObject jso = Manager.get().leerUsuarios();
-		JSONArray jsa = jso.getJSONArray("usuarios");
-		Boolean passed = false;
-		for (int i = 0; i < jsa.length(); i++) {
-			if (jsa.get(i) == nombre) {
-				passed = true;
-			}
+	
+	//Caso 1
+	@Given("^los datos\"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
+	public void los_datos(String nombre, String email, String password,
+			String passwordConfirm, String rol) throws Throwable {
+		try {
+			Manager.get().register(nombre, email, password, rol);
+		}catch (Exception e) {
+			System.out.println("Ha entrado en la excepcion");
 		}
-		if (!passed) {
-			System.out.println("No se ha creado");
-		}
-
 	}
-
-	@Given("^\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\" y \"([^\"]*)\" distintas$")
-	public void y_distintas(String nombre, String email, String password, String confirmacionPassword, String rol)
-			throws Exception {
-		rol = "ASISTENTE";
-		nombre="asistente";
-		password="Password1";
+	
+	@Then("^el usuario se ha creado correctamente \"(.*?)\"$")
+	public void el_usuario_se_ha_creado_correctamente(String usuario) throws Throwable {
+		Manager.get().eliminarUsuario(usuario);
+	}
+	
+	//Caso 2
+	@Given("^el usuario \"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
+	public void el_usuario(String nombre, String email, String password,
+			String passwordConfirm, String rol) {
+		
 		Manager.get().register(nombre, email, password, rol);
+		
 	}
-
-	@When("^\"([^\"]*)\" y \"([^\"]*)\" son distintas$")
-	public void y_son_distintas(String arg1, String arg2) {
-
-	}
-
-	@Then("^se lanza la excepcion DiferentesContrasenas$")
-	public void se_lanza_la_excepcion_DiferentesContrasenas() throws DiferentesContrasenasException {
-
+	
+	@When("^ya existe \"(.*?)\"$")
+	public void ya_existe(String arg1) throws Throwable {}
+	
+	@Then("^se lanza la excepcion ya existe \"(.*?)\"$")
+	public void se_lanza_la_excepcion_ya_existe(String usuario){
+		Manager.get().eliminarUsuario(usuario);
 	}
 
 }
