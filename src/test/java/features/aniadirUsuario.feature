@@ -21,23 +21,15 @@ Feature: Aniadir usuario
 
  @tag1
   Scenario: Aniadir usuario
-  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ADMIN"
+  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
   Then el usuario se ha creado el usuario correctamente "PruebaDani1"
 
  @tag2
-  Scenario: Aniadir usuario con rol no valido
-  Given "PruebaDani2","admin@admin.com","Password1", "Password2" y "Rolmal" rol no valido
-  When "Password1" y "Password2" son distintas
-  Then se lanza la excepcion DiferentesContrasenas "PruebaDani2"
+  Scenario: Aniadir usuario vacio
+  Given En la vista admin "","","", "" y ""
+  Then no se ha registrado el usuario vacio ""
   
- @tag3
-  Scenario: Aniadir usuario con password no valida
-  Given "PruebaDani3","email@email.com","password", "password" y "ADMIN" no valida
-  When "password" no cumple requisitos de contrasena
-  Then se lanza la excepcion contrasenaNoValida "PruebaDani3"
-  
- @tag4
-  Scenario: Aniadir usuario con email no valido
-  Given "PruebaDani4","emailemail.com","Password1", "Password1" y "ADMIN" email no valido
-  When "emailemail.com"  no valido
-  Then se lanza la excepcion emailNoValido "PruebaDani4"
+  @tag3
+  Scenario: Aniadir usuario existente
+  Given En la vista admin "Daniel","admin@admin.com","Password2", "Password2" y "ASISTENTE"
+  Then no se registrado el usuario "Daniel"
