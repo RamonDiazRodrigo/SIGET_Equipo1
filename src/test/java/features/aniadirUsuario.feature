@@ -24,10 +24,12 @@ Feature: Aniadir usuario
   Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
   Then el usuario se ha creado el usuario correctamente "PruebaDani1"
 
+
  @tag2
   Scenario: Aniadir usuario vacio
   Given En la vista admin "","","", "" y ""
   Then no se ha registrado el usuario vacio ""
+  
   
   @tag3
   Scenario: Aniadir usuario existente
