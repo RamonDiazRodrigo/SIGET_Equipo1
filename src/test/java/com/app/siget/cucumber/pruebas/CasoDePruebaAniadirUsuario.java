@@ -1,66 +1,55 @@
 package com.app.siget.cucumber.pruebas;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import java.util.ArrayList;
 
 import com.app.siget.dominio.Manager;
-import com.app.siget.excepciones.DiferentesContrasenasException;
+import com.app.siget.dominio.User;
+import com.app.siget.persistencia.UserDAO;
+
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 
-public class CasoDePruebaRegister {
-	
-	//Caso 1
-	@Given("^los datos\"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
-	public void los_datos(String nombre, String email, String password,
+public class CasoDePruebaAniadirUsuario {
+
+	// Caso 1
+	@Given("^En la vista admin \"([^\"])\",\"([^\"])\",\"([^\"])\", \"([^\"])\" y \"([^\"]*)\"$")
+	public void en_la_vista_admin_y(String nombre, String email, String password,
 			String passwordConfirm, String rol) throws Throwable {
-		try {
 			Manager.get().register(nombre, email, password, rol);
-		}catch (Exception e) {
-			System.out.println("Ha entrado en la excepcion");
-		}
+	
 	}
-	
-	@Then("^el usuario se ha creado correctamente \"(.*?)\"$")
-	public void el_usuario_se_ha_creado_correctamente(String usuario) throws Throwable {
-		Manager.get().eliminarUsuario(usuario);
+
+	@Then("^el usuario se ha creado el usuario correctamente \"(.*?)\"$")
+	public void el_usuario_se_ha_creado_el_usuario_correctamente(String nombre) throws Throwable {
+		assertEquals(nombre,UserDAO.findUser(nombre).getName());
+		Manager.get().eliminarUsuario(nombre);
 	}
+
+
+
 	
-	//Caso 2
-	@Given("^\"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\" y \"(.*?)\" distintas$")
-	public void y_distintas(String nombre, String email, String password, String passwordConfirm, String rol) throws Throwable {
-		try {
-			Manager.get().register(nombre, email, password, rol);
-		} catch (Exception e) {
-			System.out.println("Ha ocurrido un error");
-		}
-	}
-	
-	@When("^\"(.*?)\" y \"(.*?)\" son distintas$")
-	public void y_son_distintas(String arg1, String arg2) throws Throwable {}
-	
-	@Then("^se lanza la excepcion DiferentesContrasenas \"(.*?)\"$")
-	public void se_lanza_la_excepcion_DiferentesContrasenas(String usuario){
-		Manager.get().eliminarUsuario(usuario);
-	}
-	
-	//Caso 3
-	@Given("^el usuario \"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
-	public void el_usuario(String nombre, String email, String password,
-			String passwordConfirm, String rol) {
-		
-		Manager.get().register(nombre, email, password, rol);
+	@Then("^no se ha registrado el usuario vacio \"(.*?)\"$")
+	public void no_se_ha_registrado_el_usuario_vacio(String nombre) throws Throwable {
+		assertNotEquals(nombre,UserDAO.findUser(nombre).getName());
 		
 	}
 	
-	@When("^ya existe \"(.*?)\"$")
-	public void ya_existe(String arg1) throws Throwable {}
 	
-	@Then("^se lanza la excepcion ya existe \"(.*?)\"$")
-	public void se_lanza_la_excepcion_ya_existe(String usuario){
-		Manager.get().eliminarUsuario(usuario);
+	@Then("^no se registrado el usuario \"(.*?)\"$")
+	public void sno_se_ha_registrado_el_usuario(String nombre) throws Throwable {
+		int repeticiones=0;
+		ArrayList<User> listausers= (ArrayList) UserDAO.leerUsers();
+		for(int i=0; i<listausers.size();i++) {
+			if(nombre.equals(listausers.get(i).getName()))
+				repeticiones ++;
+		}
+		assertEquals(1,repeticiones);
+
 	}
+		
 
 }
