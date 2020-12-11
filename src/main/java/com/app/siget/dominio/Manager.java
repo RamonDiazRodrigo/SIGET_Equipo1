@@ -82,6 +82,9 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) {
+		
+		User usuario = UserDAO.findUser(name);
+		if(usuario==null)
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
