@@ -21,12 +21,12 @@ Feature: Eliminar usuario
 
   @tag1
   Scenario: Eliminar usuario
-    Given Como administrador borro el usuario "UsuarioBorrado" 
-    Then Se ha eliminado el usuario "UsuarioBorrado"    
+    Given Como administrador borro el usuario "PruebaRegistro1" 
+    Then Se ha eliminado el usuario "PruebaRegistro1"    
  @tag2
   Scenario: Eliminar usuario no existe
-    Given Como admin borro el usuario "UsuarioBorrado" 
-    Then El usuario "UsuarioBorrado" no existe   
+    Given Como admin borro el usuario "PruebaRegistro1" 
+    Then El usuario "PruebaRegistro1" no existe   
     @tag3
   Scenario: Eliminar usuario admin
     Given Como admin borro el admin "morales" 

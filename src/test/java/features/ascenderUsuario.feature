@@ -21,12 +21,10 @@ Feature: Ascender usuario
 
   @tag1
   Scenario: Ascender usuario
-    Given un usuario "nombre"
-    When un administrador asciende al usuario "nombre"
-    Then el usuario "nombre" ahora es administrador
+    Given un administrador asciende al usuario "PruebaRegistro1"
+    Then el usuario "PruebaRegistro1" ahora es administrador
   @tag2
   Scenario: Ascender usuario que ya es administrador
-    Given un usuario "nombre"
-    When un administrador asciende al usuario "nombre"
-    And el usuario "nombre" ya es administrador
-    Then el usuario "nombre" sigue siendo administrador
+    Given un administrador asciende al usuario "PruebaRegistro1"
+    When el usuario "PruebaRegistro1" ya es administrador
+    Then el usuario "PruebaRegistro1" sigue siendo administrador

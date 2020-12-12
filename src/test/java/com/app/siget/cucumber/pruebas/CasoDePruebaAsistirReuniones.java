@@ -2,10 +2,15 @@ package com.app.siget.cucumber.pruebas;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalTime;
+
+import com.app.siget.dominio.Actividad;
 import com.app.siget.dominio.Asistente;
+import com.app.siget.dominio.DiaSemana;
 import com.app.siget.dominio.Manager;
 import com.app.siget.dominio.User;
 import com.app.siget.excepciones.FranjaHorariaOcupadaException;
+import com.app.siget.persistencia.ActividadDAO;
 import com.app.siget.persistencia.UserDAO;
 
 import cucumber.api.java.en.Given;
@@ -15,6 +20,10 @@ public class CasoDePruebaAsistirReuniones {
 
 	@Given("^el usuario \"([^\"]*)\" acepta la reunion \"([^\"]*)\"$")
 	public void el_usuario_acepta_la_reunion(String nombre, String id) throws FranjaHorariaOcupadaException {
+		LocalTime horaIni = LocalTime.of(Integer.parseInt("12"), Integer.parseInt("00"));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt("13"), Integer.parseInt("00"));
+		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true);
+		ActividadDAO.insertarActividad(act);
 		Manager.get().aceptarReunion(nombre, Integer.parseInt(id));
 	}
 
@@ -35,6 +44,10 @@ public class CasoDePruebaAsistirReuniones {
 
 	@Given("^el usuario \"([^\"]*)\" rechaza la reunion \"([^\"]*)\"$")
 	public void el_usuario_rechaza_la_reunion(String nombre, String id) throws FranjaHorariaOcupadaException {
+		LocalTime horaIni = LocalTime.of(Integer.parseInt("12"), Integer.parseInt("00"));
+		LocalTime horaFin = LocalTime.of(Integer.parseInt("13"), Integer.parseInt("00"));
+		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true);
+		ActividadDAO.insertarActividad(act);
 		Manager.get().rechazarReunion(nombre, Integer.parseInt(id));
 	}
 

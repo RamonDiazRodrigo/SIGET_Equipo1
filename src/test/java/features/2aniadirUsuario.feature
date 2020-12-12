@@ -31,5 +31,5 @@ Feature: Aniadir usuario
   
   @tag3
   Scenario: Aniadir usuario existente
-  Given En la vista admin "Daniel","admin@admin.com","Password2", "Password2" y "ASISTENTE"
-  Then no se registrado el usuario "Daniel"
+  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
+  Then no se registrado el usuario "PruebaDani1"

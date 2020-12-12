@@ -1,8 +1,9 @@
 package com.app.siget.cucumber.pruebas;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import com.app.siget.dominio.Manager;
+import com.app.siget.dominio.User;
 import com.app.siget.persistencia.UserDAO;
 
 import cucumber.api.java.en.When;
@@ -17,29 +18,29 @@ public class CasoDePruebaModificarDatos {
 	}
 	
 	@When("^El user \"([^\"]*)\" con contrasenia \"([^\"]*)\" ha modificado \"([^\"]*)\"$")
-	public void el_user_con_contrasenia_ha_modificado(String nombre, String contraseña, String emailNuevo) {
-		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	public void el_user_con_contrasenia_ha_modificado(String nombre, String contrasena, String emailNuevo) {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contrasena);
 	}
 
 	@Then("^El user \"([^\"]*)\" ha modificado el correo \"([^\"]*)\" correctamente$")
 	public void el_user_ha_modificado_el_correo_correctamente(String nombre, String email) throws Throwable {
-	assertEquals(email,UserDAO.findUser(nombre).getEmail());
-	//Modificamos de nuevo el usuario para dejarlo como estaba
-	Manager.get().modificarUsuario("Daniel","daniel@gmail.com","Daniel1");
+		User user = UserDAO.findUser(nombre);
+		assertNotEquals(email,user.getEmail());
+		Manager.get().modificarUsuario(user.getName(),email,"Password1");
 	}
 	
 	
 	
 	@When("^El user \"(.*?)\" con el correo \"(.*?)\"  ha modificado \"(.*?)\"$")
-	public void el_user_con_el_correo_ha_modificado(String nombre, String emailNuevo, String contraseña) {
-		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	public void el_user_con_el_correo_ha_modificado(String nombre, String emailNuevo, String contrasena) {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contrasena);
 	}
 
 	@Then("^El user \"([^\"]*)\" ha modificado la contrasenia \"([^\"]*)\" correctamente$")
-	public void el_user_ha_modificado_la_contrasenia_correctamente(String nombre, String contraseña) throws Throwable {
-	assertEquals(Manager.get().encriptarMD5(contraseña),UserDAO.findUser(nombre).getPassword());
-	//Modificamos de nuevo el usuario para dejarlo como estaba
-	Manager.get().modificarUsuario("Daniel","daniel@gmail.com","Daniel1");
+	public void el_user_ha_modificado_la_contrasenia_correctamente(String nombre, String contrasena) throws Throwable {
+		User user = UserDAO.findUser(nombre);
+		assertNotEquals(Manager.get().encriptarMD5(contrasena),user.getPassword());
+		Manager.get().modificarUsuario(user.getName(),user.getEmail(),contrasena);
 	}
 	
 }

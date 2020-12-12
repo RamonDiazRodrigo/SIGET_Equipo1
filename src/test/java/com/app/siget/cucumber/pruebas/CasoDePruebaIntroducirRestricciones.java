@@ -20,7 +20,8 @@ public class CasoDePruebaIntroducirRestricciones {
 			String minutosF, String usuario, String reunion) throws Exception {
 		try {
 		Manager.get().insertarActividad(nombre, dia, horaI, minutosI, horaF, minutosF, usuario, reunion);
-		}catch(Exception e) {}
+		}catch(Exception e) {
+		}
 	}
 
 	@Then("^se aniade la actividad no laborable con \"(.*?)\", \"(.*?)\", \"(.*?)\",  \"(.*?)\",  \"(.*?)\",  \"(.*?)\", \"(.*?)\" y se vincula al \"(.*?)\"$")
@@ -29,7 +30,8 @@ public class CasoDePruebaIntroducirRestricciones {
 			throws NumberFormatException {
 		boolean comprobado = false;
 		ArrayList<Actividad> actividades = ActividadDAO.leerActividades(usuario);
-		while (!actividades.isEmpty() && comprobado) {
+
+		while (!actividades.isEmpty()) {
 			Actividad actividaduser = actividades.remove(0);
 			if (actividaduser.getName().equals(nombre) && actividaduser.getDia().equals(dia))
 				comprobado = true;

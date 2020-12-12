@@ -21,12 +21,12 @@ Feature: Modificar usuario
 
  @tag1
   Scenario: Modificar email usuario
-    Given Como admin en la vista del user "Alvaro","alvaro@gmail.com","Alvaro1"
-    When Como admin el user"Alvaro"con contraseniaa "Alvaro1" ha sido modificado "alvarito@gmail.com"
-		Then Como admin el user"Alvaro"ha sido modificado el correo "alvarito@gmail.com" correctamente
+    Given Como admin en la vista del user "PruebaRegistro1","registro1@registro.com","Password1"
+    When Como admin el user"PruebaRegistro1"con contraseniaa "Password1" ha sido modificado "alvarito@gmail.com"
+		Then Como admin el user"PruebaRegistro1"ha sido modificado el correo "registro1@registro.com" correctamente
 		
 	@tag2
   Scenario: Modificar password usuario
     Given Como admin en la vista del user "Alvaro","alvaro@gmail.com","Alvaro1"
-    When Como admin el user "Alvaro" con el correo "alvaro@gmail.com"  ha sido modificado "Contraseña1"
-		Then Como admin el user "Alvaro" ha sido modificado la contraseniaa "Contraseña1" correctamente
+    When Como admin el user "PruebaRegistro1" con el correo "registro1@registro.com"  ha sido modificado "Contrasena1"
+		Then Como admin el user "PruebaRegistro1" ha sido modificado la contraseniaa "Password1" correctamente

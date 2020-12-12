@@ -18,6 +18,7 @@ public class CasoDePruebaLogin {
 	    try {
 		Manager.get().login(nombre, password);
 	    }catch(Exception e) {
+	    	
             exception = true;
         }
 	}
