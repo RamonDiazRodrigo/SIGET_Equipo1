@@ -19,13 +19,14 @@
 @tag
 Feature: Registrarse
 
+  
   @tag1
   Scenario: Registro correcto
-    Given "nombre","email","password", "confirmacionPassword" y "rol"
-    Then Crea un usuario "nombre"
+    Given el usuario "PruebaRegistro1","registro1@registro.com","Password1", "Password1", "ASISTENTE"
+    Then el usuario se ha creado correctamente "PruebaRegistro1" 
     
   @tag2
-  Scenario: Registro con password distintas
-    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
-    When "password" y "confirmacionPassword" son distintas
-    Then se lanza la excepcion DiferentesContrasenas
+  Scenario: Registro usuario ya existente
+    Given el usuario "Daniel","registro3@registro.com","Password1", "Password1", "ASISTENTE"
+    Then ya existe el usuario "Daniel"
+
