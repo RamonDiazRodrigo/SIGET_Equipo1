@@ -17,22 +17,12 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Asistir Reuniones
+
+Feature: vistaUsuario
 
   @tag1
-  Scenario: Aceptar reunion
-		Given el usuario "nombre" acepta la reunion "1" 
-  	Then el usuario "nombre" tiene la reunion "1" en su agenda
-  @tag2
-  Scenario: Aceptar reunion con hora ocupada
-		Given el usuario "nombre" acepta la reunion "2" 
-  	Then el usuario "nombre" no tiene la reunion "2" en su agenda por coincidir la hora
-  @tag3
-  Scenario: Rechazar reunion
-		Given el usuario "nombre" rechaza la reunion "2" 
-  	Then el usuario "nombre" no tiene la reunion "2" en su agenda
-  	
-  
-  		
-  	
-  
+  Scenario: Consultar agenda del usuario
+    Given como usuario "PruebaRegistro1" 
+    Then veo la agenda del usuario "PruebaRegistro1"
+
+

@@ -21,14 +21,14 @@ Feature: Modificar datos
 
 	@tag1
   Scenario: Modificar email usuario
-    Given En la vista user "Daniel","daniel@gmail.com","Daniel1"
-    When El user "Daniel" con contrasenia "Daniel1" ha modificado "danielito@gmail.com"
-		Then El user "Daniel" ha modificado el correo "danielito@gmail.com" correctamente
+    Given En la vista user "PruebaRegistro1","registro1@registro.com","Password1"
+    When El user "PruebaRegistro1" con contrasenia "Password1" ha modificado "danielito@gmail.com"
+		Then El user "PruebaRegistro1" ha modificado el correo "registro1@registro.com" correctamente
 		
 	@tag2
   Scenario: Modificar password usuario
-    Given En la vista user "Daniel","daniel@gmail.com","Daniel1"
-    When El user "Daniel" con el correo "daniel@gmail.com"  ha modificado "Contraseña1"
-		Then El user "Daniel" ha modificado la contrasenia "Contraseña1" correctamente
+    Given En la vista user "PruebaRegistro1","registro1@registro.com","Daniel1"
+    When El user "PruebaRegistro1" con el correo "registro1@registro.com"  ha modificado "Contrasena1"
+		Then El user "PruebaRegistro1" ha modificado la contrasenia "Password1" correctamente
 	
 	

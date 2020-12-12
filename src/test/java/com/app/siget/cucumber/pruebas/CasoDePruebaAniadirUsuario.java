@@ -13,17 +13,19 @@ import cucumber.api.java.en.Then;
 public class CasoDePruebaAniadirUsuario {
 
 	// Caso 1
-	@Given("^En la vista admin \"([^\"])\",\"([^\"])\",\"([^\"])\", \"([^\"])\" y \"([^\"]*)\"$")
+	@Given("^En la vista admin \"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\" y \"(.*?)\"$")
 	public void en_la_vista_admin_y(String nombre, String email, String password,
 			String passwordConfirm, String rol) throws Throwable {
 			Manager.get().register(nombre, email, password, rol);
 	
 	}
 
+
 	@Then("^el usuario se ha creado el usuario correctamente \"(.*?)\"$")
 	public void el_usuario_se_ha_creado_el_usuario_correctamente(String nombre) throws Throwable {
+		System.out.println(UserDAO.findUser(nombre).toString());
 		assertEquals(nombre,UserDAO.findUser(nombre).getName());
-		Manager.get().eliminarUsuario(nombre);
+		UserDAO.eliminar(UserDAO.findUser(nombre), true);
 	}
 
 

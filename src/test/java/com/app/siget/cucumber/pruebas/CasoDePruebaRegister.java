@@ -34,13 +34,11 @@ public class CasoDePruebaRegister {
 	@Then("^el usuario se ha creado correctamente \"(.*?)\"$")
 	public void el_usuario_se_ha_creado_correctamente(String nombre) throws Throwable {
 		assertNotEquals(null, UserDAO.findUser(nombre));
-		Manager.get().eliminarUsuario(nombre);
 	}
-
-	@When("^ya existe \"(.*?)\"$")
-	public void ya_existe(String arg1) throws Throwable {
+	@Given("^el usuario \"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
+	public void el_usuario(String nombre, String email, String password, String passwordConfirm, String rol) throws Throwable {
+		Manager.get().register(nombre, email, password, rol);
 	}
-
 	@Then("^ya existe el usuario \"(.*?)\"$")
 	public void ya_existe_el_usuario(String nombre) {
 		int repeticiones=0;

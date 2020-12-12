@@ -1,8 +1,10 @@
 package com.app.siget.cucumber.pruebas; 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import com.app.siget.dominio.Manager;
+import com.app.siget.dominio.User;
 import com.app.siget.persistencia.UserDAO;
 
 import cucumber.api.java.en.Given;
@@ -16,30 +18,35 @@ public class CasoDePruebaModificarUsuario {
 	   
 	}
 	
-	@When("^Como admin el user\"(.*?)\"con contrasenia \"(.*?)\" ha sido modificado \"(.*?)\"$")
-	public void como_admin_el_user_con_contrasenia_ha_sido_modificado(String nombre, String contraseña, String emailNuevo) {
-		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	@When("^Como admin el user\"(.*?)\"con contraseniaa \"(.*?)\" ha sido modificado \"(.*?)\"$")
+	public void como_admin_el_user_con_contraseniaa_ha_sido_modificado(String nombre, String emailNuevo, String contrasena) throws Throwable {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contrasena);
 	}
 
 	@Then("^Como admin el user\"(.*?)\"ha sido modificado el correo \"(.*?)\" correctamente$")
 	public void como_admin_el_user_ha_sido_modificado_el_correo_correctamente(String nombre, String email) throws Throwable {
-	assertEquals(email,UserDAO.findUser(nombre).getEmail());
-	//Modificamos de nuevo el usuario para dejarlo como estaba
-	Manager.get().modificarUsuario("Alvaro","alvaro@gmail.com","Alvaro1");
+		User user = UserDAO.findUser(nombre);
+		assertNotEquals(email,user.getEmail());
+		Manager.get().modificarUsuario(user.getName(),user.getEmail(),"Password1");
 	}
 	
 	
 	
 	@When("^Como admin el user \"(.*?)\" con el correo \"(.*?)\"  ha sido modificado \"(.*?)\"$")
-	public void como_admin_el_user_con_el_correo_ha_sido_modificado(String nombre, String emailNuevo, String contraseña) {
-		Manager.get().modificarUsuario(nombre,emailNuevo,contraseña);
+	public void como_admin_el_user_con_el_correo_ha_sido_modificado(String nombre, String emailNuevo, String contrasena) {
+		Manager.get().modificarUsuario(nombre,emailNuevo,contrasena);
 	}
 
-	@Then("^Como admin el user \"([^\"]*)\" ha sido modificado la contrasenia \"([^\"]*)\" correctamente$")
-	public void como_admin_el_user_ha_sido_modificado_la_contrasenia_correctamente(String nombre, String contraseña) throws Throwable {
-	assertEquals(Manager.get().encriptarMD5(contraseña),UserDAO.findUser(nombre).getPassword());
-	//Modificamos de nuevo el usuario para dejarlo como estaba
-	Manager.get().modificarUsuario("Alvaro","alvaro@gmail.com","Alvaro1");
+	@Then("^Como admin el user \"(.*?)\" ha sido modificado la contraseniaa \"(.*?)\" correctamente$")
+	public void como_admin_el_user_ha_sido_modificado_la_contraseniaa_correctamente(String nombre, String contrasena) throws Throwable {
+		User user = UserDAO.findUser(nombre);
+		assertNotEquals(Manager.get().encriptarMD5(contrasena),user.getPassword());
+		Manager.get().modificarUsuario(user.getName(),user.getEmail(),contrasena);
 	}
+
+
+
+	
+
 	
 }

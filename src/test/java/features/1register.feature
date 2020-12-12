@@ -19,5 +19,5 @@ Feature: Registrarse
     
   @tag2
   Scenario: Registro usuario ya existente
-    Given el usuario "Daniel","registro3@registro.com","Password1", "Password1", "ASISTENTE"
-    Then ya existe el usuario "Daniel"
+    Given el usuario "PruebaRegistro1","registro3@registro.com","Password1", "Password1", "ASISTENTE"
+    Then ya existe el usuario "PruebaRegistro1"
