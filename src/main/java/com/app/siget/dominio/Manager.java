@@ -154,7 +154,9 @@ public class Manager {
 
 		for (Actividad a : ActividadDAO.leerActividades(nombre)) {
 			jsa.put(a.toJSON());
+			
 		}
+		
 		jso.put("actividades", jsa);
 		return jso;
 	}
@@ -398,6 +400,24 @@ public class Manager {
 		} catch (NoSuchAlgorithmException e) {
 			return "";
 		}
+	}
+
+	public Object filtrarPorSemanaUsuario(String semana, String usuario) {
+		JSONObject jso = new JSONObject();
+		JSONArray jsa = new JSONArray();
+		System.out.println(semana);
+		for (Actividad a : ActividadDAO.leerActividades(usuario)) {
+			System.out.println(a.getSemana());
+			if(a.getSemana().equals(semana)) {
+			jsa.put(a.toJSON());
+			System.out.println("Ha entrado en el if");
+			}else {
+				System.out.println(a.getName());
+			}
+		}
+		
+		jso.put("actividades", jsa);
+		return jso;
 	}
 
 }

@@ -156,9 +156,11 @@ public final class ActividadDAO {
 			if (leerActividad(actividad.getId()) == null) {
 				insertarActividad(actividad);
 			}
+			System.out.println("usuario: "+ user);
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			Document document = generarDocument(user);
 			user.insertarReunionPendiente(actividad);
+			System.out.println("Usuario: "+ user.getName());
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
 			UserDAO.eliminar(user, false);
