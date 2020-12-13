@@ -57,7 +57,8 @@ function ViewModel() {
 				horaInicio: dateInicio[0],
 				horaFinal: dateFinal[0],
 				minutoInicio: dateInicio[1],
-				minutoFinal: dateFinal[1]
+				minutoFinal: dateFinal[1],
+				semana: $('#semana').val(),
 			};
 
 			self.sws.send(JSON.stringify(info));
