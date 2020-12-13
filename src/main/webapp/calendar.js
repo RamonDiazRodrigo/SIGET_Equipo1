@@ -57,6 +57,13 @@ function viewModel() {
 		} else if (data.type == 'buscarPorSemana') {
 			console.log(data);
 			self.reuniones = [];
+			self.listaReunionesL([]);
+			self.listaReunionesM([]);
+			self.listaReunionesX([]);
+			self.listaReunionesJ([]);
+			self.listaReunionesV([]);
+			self.listaReunionesS([]);
+			self.listaReunionesD([]);
 			self.reuniones = data.actividades;
 			for (let i = 0; i < self.reuniones.length; i++) {
 				const reunion = self.reuniones[i];
