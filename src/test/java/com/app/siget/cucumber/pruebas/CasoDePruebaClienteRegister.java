@@ -49,8 +49,8 @@ public class CasoDePruebaClienteRegister {
 	String testCase = "";
 	 List<Map<String, String>> a;
 
-	@Given("^registro")
-	public void los_datos(String nombre, String email, String password, String passwordConfirm, String rol)
+	@Given("Quiero registrar un usuario")
+	public void Quiero_registrar_un_usuario()
 			throws Throwable {
 		Path path = FileSystems.getDefault().getPath("src/test/resources/geckodriver.exe");
 		System.setProperty("webdriver.gecko.driver", path.toString());
@@ -62,8 +62,8 @@ public class CasoDePruebaClienteRegister {
 		
 	}
 
-	@When("introducir los datos de registro")
-	public void se_introducen_los_datos(DataTable dataTable) throws Throwable{
+	@When("introduzco los valores")
+	public void introduzco_los_valores(DataTable dataTable) throws Throwable{
 		
 	a = dataTable.asMaps(String.class, String.class);
 	driver.manage().window().setSize(new Dimension(1102, 634));
@@ -81,7 +81,7 @@ public class CasoDePruebaClienteRegister {
 	
 	
 	@Then("le damos a registrar")
-	public void le_damos_a_registrar(String nombre) throws Throwable {
+	public void le_damos_a_registrar() throws Throwable {
 		 String expectedUrl = driver.getCurrentUrl();
 		    
 		    if (testCase.equals("Case1")) {

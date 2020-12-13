@@ -22,7 +22,7 @@ import cucumber.api.java.en.When;
 public class CasoDePruebaRegister {
 
 	// Caso 1
-	@Given("^el usuario \"(.?)\",\"(.?)\",\"(.?)\", \"(.?)\", \"(.*?)\"$")
+	@Given("^el usuario \"(.*?)\",\"(.*?)\",\"(.*?)\", \"(.*?)\", \"(.*?)\"$")
 	public void los_datos(String nombre, String email, String password, String passwordConfirm, String rol)
 			throws Throwable {
 		
