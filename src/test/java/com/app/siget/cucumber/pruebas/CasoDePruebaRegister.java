@@ -25,7 +25,7 @@ public class CasoDePruebaRegister {
 	@Given("^el usuario \"(.?)\",\"(.?)\",\"(.?)\", \"(.?)\", \"(.*?)\"$")
 	public void los_datos(String nombre, String email, String password, String passwordConfirm, String rol)
 			throws Throwable {
-		
+		System.out.println("En la prueba: nombre: " + nombre + "email: " + email + "pass: " + password + "rol: " + rol);
 			Manager.get().register(nombre, email, password, rol);
 		}
 

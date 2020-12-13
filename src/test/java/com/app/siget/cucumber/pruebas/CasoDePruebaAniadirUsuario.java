@@ -23,7 +23,7 @@ public class CasoDePruebaAniadirUsuario {
 
 	@Then("^el usuario se ha creado el usuario correctamente \"(.*?)\"$")
 	public void el_usuario_se_ha_creado_el_usuario_correctamente(String nombre) throws Throwable {
-		System.out.println(UserDAO.findUser(nombre).toString());
+	
 		assertEquals(nombre,UserDAO.findUser(nombre).getName());
 		UserDAO.eliminar(UserDAO.findUser(nombre), true);
 	}

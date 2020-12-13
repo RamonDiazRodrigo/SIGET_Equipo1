@@ -82,15 +82,19 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) {
-		
-		User usuario = UserDAO.findUser(name);
+		System.out.println("nombre: " + name + "email: " + email + "pass: " + password + "rol: " + rol);
+		if(name=="" || email=="" || password=="" || rol=="") {
+			System.out.println("Holaaaa");
+		}else{
+			System.out.println("HolaaaaEntrooooooooooo");
+			User usuario = UserDAO.findUser(name);
 		if(usuario==null)
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
 			UserDAO.insertar(new Asistente(name, email, encriptarMD5(password)));
 		}
-
+		}
 	}
 
 	public JSONObject leerUsuarios() {
