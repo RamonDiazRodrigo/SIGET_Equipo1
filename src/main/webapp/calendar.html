@@ -16,6 +16,11 @@
 				<label>Leyenda: </label> <label style="color: #9eec8ac5;">Restriccion,</label><label
 					style="color: #3d5ce7c5;">Reunion</label>
 			</div>
+			<div>
+				<input type="button" id="volver" value="Volver" onClick="window.history.back()" style="margin-left:5%">
+				<input type="week" id="selectSemana" value="Elegir semana" style="margin-left:5%">
+				<input type="button" id="buscar" value="Buscar" data-bind="click:$root.buscarPorSemana">
+			</div>
 			<div id="calendar" class="calendar">
 
 				<div class="calendar-timeline"
@@ -74,12 +79,6 @@
 					</ul>
 				</div>
 				<div class="calendar-events">
-					<input type="button" id="volver" value="Volver"
-						onClick="window.history.back()">
-					<div class="calendar-month weektomonth"
-						style="height: 30px; text-align: center; padding-top: 5px;">
-						Noviembre 2020</div>
-
 					<ul>
 						<li class="calendar-events-day" data-time="1603753200"
 							style="width: 14.2457%;"><div class="calendar-day-header"

@@ -20,6 +20,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	private static final String HI = "horaInicio";
 	private static final String MF = "minutoFinal";
 	private static final String MI = "minutoInicio";
+	public static final String SEMANA = "semana";
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -36,13 +37,13 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		case "convocarReunion":
 			Manager.get().convocarReunion(jso.getString(NOMBRE), jso.getString(DIA), jso.getString(HI),
-					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.get("usuarios").toString(), "true");
+					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.get("usuarios").toString(), "true", jso.getString("semana"));
 			break;
 
 		case "check":
 			session.sendMessage(
 					new TextMessage(Manager.get().usuariosDisponibles(jso.getString(NOMBRE), jso.getString(DIA),
-							jso.getString(HI), jso.getString(MI), jso.getString(HF), jso.getString(MF)).toString()));
+							jso.getString(HI), jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("semana")).toString()));
 			break;
 		case "leer":
 			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
@@ -54,7 +55,7 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			break;
 		case "insertar":
 			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString(DIA), jso.getString(HI),
-					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("usuarios"), "false");
+					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("usuarios"), "false", jso.getString("semana"));
 			break;
 		case "eliminar":
 			Manager.get().eliminarUsuario((String) jso.get(NOMBRE));
@@ -86,6 +87,9 @@ public class SpringWebSocket extends TextWebSocketHandler {
 		case "reunionesPendientes":
 			session.sendMessage(
 					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
+			break;
+		case "buscarPorSemana":
+			session.sendMessage(new TextMessage(Manager.get().filtrarPorSemana(jso.getString(SEMANA)).toString()));
 			break;
 		default:
 			break;
