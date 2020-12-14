@@ -400,5 +400,20 @@ public class Manager {
 			return "";
 		}
 	}
+	
+	public Object filtrarPorSemanaUsuario(String semana, String usuario) {
+		JSONObject jso = new JSONObject();
+		JSONArray jsa = new JSONArray();
+		
+		for (Actividad a : ActividadDAO.leerActividades(usuario)) {
+			if(a.getSemana().equals(semana)) {
+			jsa.put(a.toJSON());
+			}
+		}
+
+		jso.put("actividades", jsa);
+		return jso;
+	}
+
 
 }

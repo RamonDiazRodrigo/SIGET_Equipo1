@@ -120,6 +120,7 @@ public final class ActividadDAO {
 		document.append(HORAF, actividad.getHoraF().getHour());
 		document.append(MINUTOSF, actividad.getHoraF().getMinute());
 		document.append(REUNION, actividad.isReunion());
+		document.append(SEMANA, actividad.getSemana());
 		coleccion.insertOne(document);
 
 	}

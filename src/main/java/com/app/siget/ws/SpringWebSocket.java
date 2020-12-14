@@ -55,7 +55,13 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			break;
 			
 		case "buscarPorSemana":
-			session.sendMessage(new TextMessage(Manager.get().filtrarPorSemana(jso.getString(SEMANA)).toString()));
+			System.out.println("Buscar por semana");
+
+			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
+				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemana(jso.getString(SEMANA)).toString()));
+			} else {
+				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemanaUsuario(jso.getString(SEMANA),(String) jso.get(NOMBRE)).toString()));
+			}
 			break;
 			
 		case "insertar":
