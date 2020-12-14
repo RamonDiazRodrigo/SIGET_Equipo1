@@ -51,7 +51,7 @@ public final class ActividadDAO {
 					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true, document.getString(SEMANA));
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false, document.getString(SEMANA));
 					actividades.add(act);
 				}
 			}
