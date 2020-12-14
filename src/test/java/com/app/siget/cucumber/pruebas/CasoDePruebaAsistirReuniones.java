@@ -22,7 +22,7 @@ public class CasoDePruebaAsistirReuniones {
 	public void el_usuario_acepta_la_reunion(String nombre, String id) throws FranjaHorariaOcupadaException {
 		LocalTime horaIni = LocalTime.of(Integer.parseInt("12"), Integer.parseInt("00"));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt("13"), Integer.parseInt("00"));
-		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true);
+		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true,semana);
 		ActividadDAO.insertarActividad(act);
 		Manager.get().aceptarReunion(nombre, Integer.parseInt(id));
 	}
@@ -46,7 +46,7 @@ public class CasoDePruebaAsistirReuniones {
 	public void el_usuario_rechaza_la_reunion(String nombre, String id) throws FranjaHorariaOcupadaException {
 		LocalTime horaIni = LocalTime.of(Integer.parseInt("12"), Integer.parseInt("00"));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt("13"), Integer.parseInt("00"));
-		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true);
+		Actividad act = new Actividad(Integer.parseInt(id),nombre, DiaSemana.valueOf("LUNES"), horaIni, horaFin,true,semana);
 		ActividadDAO.insertarActividad(act);
 		Manager.get().rechazarReunion(nombre, Integer.parseInt(id));
 	}

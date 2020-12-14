@@ -197,7 +197,7 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		jso.put(USUARIOS, Manager.get().leerAsistentes());
 		jso.put("actividades", Manager.get().leerReuniones());
-		//jso.put("type", "leer");
+		jso.put("type", "leer");
 		return jso;
 	}
 
