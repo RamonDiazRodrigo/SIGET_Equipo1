@@ -9,7 +9,11 @@ function viewModel() {
 	self.listaReunionesS = ko.observableArray([]);
 	self.listaReunionesD = ko.observableArray([]);
 
-	const url = 'ws://' + window.location.host + '/SIGETEquipo1';
+	if("localhost:8080"== window.location.host){
+		var url = 'ws://' + window.location.host + '/SIGETEquipo1';
+	}else{
+		var url = 'wss://' + window.location.host + '/SIGETEquipo1';
+	}
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function() {
@@ -57,6 +61,13 @@ function viewModel() {
 	} else if (data.type == 'buscarPorSemana') {
 		console.log(data);
 		self.reuniones = [];
+		self.listaReunionesL([]);
+			self.listaReunionesM([]);
+			self.listaReunionesX([]);
+			self.listaReunionesJ([]);
+			self.listaReunionesV([]);
+			self.listaReunionesS([]);
+			self.listaReunionesD([]);
 		self.reuniones = data.actividades;
 		for (let i = 0; i < self.reuniones.length; i++) {
 			const reunion = self.reuniones[i];

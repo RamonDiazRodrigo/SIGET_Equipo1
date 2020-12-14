@@ -26,7 +26,11 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "ws://" + window.location.host + "/SIGETEquipo1";
+	if("localhost:8080"== window.location.host){
+		var url = 'ws://' + window.location.host + '/SIGETEquipo1';
+	}else{
+		var url = 'wss://' + window.location.host + '/SIGETEquipo1';
+	}
 	self.sws = new WebSocket(url);
 
 	self.sws.onmessage = function(event) {
@@ -57,7 +61,8 @@ function ViewModel() {
 				horaInicio: dateInicio[0],
 				horaFinal: dateFinal[0],
 				minutoInicio: dateInicio[1],
-				minutoFinal: dateFinal[1]
+				minutoFinal: dateFinal[1],
+				semana: $('#semana').val()
 			};
 
 			self.sws.send(JSON.stringify(info));
