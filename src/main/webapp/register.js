@@ -1,8 +1,4 @@
-if("localhost:8080"== window.location.host){
-	var url = 'ws://' + window.location.host + '/SIGETEquipo1';
-}else{
-	var url = 'wss://' + window.location.host + '/SIGETEquipo1';
-}
+var url = "wss://" + window.location.host + "/SIGETEquipo1";
 var sws = new WebSocket(url);
 
 sws.onopen = function(event) {

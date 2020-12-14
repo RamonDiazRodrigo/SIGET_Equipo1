@@ -7,8 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
@@ -131,22 +129,6 @@ public class Manager {
 		return jsa;
 
 	}
-	
-	public JSONObject filtrarPorSemana(String semana) {
-		JSONObject jso = new JSONObject();
-		jso.put("type","buscarPorSemana");
-		JSONArray jsa = new JSONArray();
-		List<Actividad> actividades = ActividadDAO.leerActividades(true);
-		if (!actividades.isEmpty()) {
-			for (Actividad act : actividades) {
-				if (Objects.nonNull(act.getSemana()) && act.getSemana().equals(semana)) {
-					jsa.put(act.toJSON());
-				}
-			}
-		}
-		jso.put("actividades", jsa);
-		return jso;
-	}
 
 	public JSONObject leerActividades(String nombre) {
 		JSONObject jso = new JSONObject();
@@ -154,15 +136,13 @@ public class Manager {
 
 		for (Actividad a : ActividadDAO.leerActividades(nombre)) {
 			jsa.put(a.toJSON());
-			
 		}
-		
 		jso.put("actividades", jsa);
 		return jso;
 	}
 
 	public void insertarActividad(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String usuario, String reunion, String semana) throws FranjaHorariaOcupadaException {
+			String minutosF, String usuario, String reunion) throws FranjaHorariaOcupadaException {
 
 		List<User> users = UserDAO.leerUsers();
 
@@ -173,7 +153,7 @@ public class Manager {
 		for (User user : users) {
 			if (usuario.equals(user.getName()) && ASISTENTE.equals(user.getRol())) {
 				ActividadDAO.insertarActividad((Asistente) user,
-						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB, semana));
+						new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, reunionB));
 			}
 		}
 	}
@@ -198,7 +178,6 @@ public class Manager {
 		JSONObject jso = new JSONObject();
 		jso.put(USUARIOS, Manager.get().leerAsistentes());
 		jso.put("actividades", Manager.get().leerReuniones());
-		jso.put("type", "leer");
 		return jso;
 	}
 
@@ -241,13 +220,13 @@ public class Manager {
 	}
 
 	public void convocarReunion(String nombre, String dia, String horaI, String minutosI, String horaF, String minutosF,
-			String usuarios, String reunion, String semana) {
+			String usuarios, String reunion) {
 
 		JSONArray jsa = new JSONArray(usuarios);
 		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
 		Actividad reunionPendiente = new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin,
-				Boolean.parseBoolean(reunion), semana);
+				Boolean.parseBoolean(reunion));
 
 		for (int i = 0; i < jsa.length(); i++) {
 			for (User u : UserDAO.leerUsers()) {
@@ -264,14 +243,14 @@ public class Manager {
 	// Este metodo comprueba si la reunion que se quiere convocar se solapa con
 	// otras actividades de usuarios. Devuelve el listado de usuarios disponibles
 	public JSONArray usuariosDisponibles(String nombre, String dia, String horaI, String minutosI, String horaF,
-			String minutosF, String semana) {
+			String minutosF) {
 		JSONArray jsa = new JSONArray();
 		LocalTime horaIni = LocalTime.of(Integer.parseInt(horaI), Integer.parseInt(minutosI));
 		LocalTime horaFin = LocalTime.of(Integer.parseInt(horaF), Integer.parseInt(minutosF));
 
 		for (User u : UserDAO.leerUsers()) {
 			if (!isAdmin(u.getName()) && !((Asistente) u).getHorario()
-					.estaOcupado(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, true, semana))) {
+					.estaOcupado(new Actividad(nombre, DiaSemana.valueOf(dia), horaIni, horaFin, true))) {
 
 				jsa.put(u.toJSON());
 			}
@@ -380,7 +359,7 @@ public class Manager {
 
 	}
 
-	private static String encriptarMD5(String input) {
+	public String encriptarMD5(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(input.getBytes());
@@ -400,24 +379,6 @@ public class Manager {
 		} catch (NoSuchAlgorithmException e) {
 			return "";
 		}
-	}
-
-	public Object filtrarPorSemanaUsuario(String semana, String usuario) {
-		JSONObject jso = new JSONObject();
-		JSONArray jsa = new JSONArray();
-		System.out.println(semana);
-		for (Actividad a : ActividadDAO.leerActividades(usuario)) {
-			System.out.println(a.getSemana());
-			if(a.getSemana().equals(semana)) {
-			jsa.put(a.toJSON());
-			System.out.println("Ha entrado en el if");
-			}else {
-				System.out.println(a.getName());
-			}
-		}
-		
-		jso.put("actividades", jsa);
-		return jso;
 	}
 
 }

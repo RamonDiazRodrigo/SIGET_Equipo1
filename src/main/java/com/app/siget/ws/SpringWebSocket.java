@@ -20,7 +20,6 @@ public class SpringWebSocket extends TextWebSocketHandler {
 	private static final String HI = "horaInicio";
 	private static final String MF = "minutoFinal";
 	private static final String MI = "minutoInicio";
-	public static final String SEMANA = "semana";
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -37,33 +36,25 @@ public class SpringWebSocket extends TextWebSocketHandler {
 
 		case "convocarReunion":
 			Manager.get().convocarReunion(jso.getString(NOMBRE), jso.getString(DIA), jso.getString(HI),
-					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.get("usuarios").toString(), "true", jso.getString("semana"));
+					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.get("usuarios").toString(), "true");
 			break;
 
 		case "check":
 			session.sendMessage(
 					new TextMessage(Manager.get().usuariosDisponibles(jso.getString(NOMBRE), jso.getString(DIA),
-							jso.getString(HI), jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("semana")).toString()));
+							jso.getString(HI), jso.getString(MI), jso.getString(HF), jso.getString(MF)).toString()));
 			break;
 		case "leer":
 			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
-				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemana(jso.getString(SEMANA)).toString()));
+				session.sendMessage(new TextMessage(Manager.get().leer().toString()));
 			} else {
-				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemanaUsuario(jso.getString(SEMANA),(String) jso.get(NOMBRE)).toString()));
-			}
-			break;
-		case "buscarPorSemana":
-			System.out.println("Buscar por semana");
-		
-			if (Manager.get().isAdmin(jso.getString(NOMBRE)) || "gestionUsuarios".equals(jso.getString(VISTA))) {
-				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemana(jso.getString(SEMANA)).toString()));
-			} else {
-				session.sendMessage(new TextMessage(Manager.get().filtrarPorSemanaUsuario(jso.getString(SEMANA),(String) jso.get(NOMBRE)).toString()));
+				session.sendMessage(
+						new TextMessage(Manager.get().leerActividades((String) jso.get(NOMBRE)).toString()));
 			}
 			break;
 		case "insertar":
 			Manager.get().insertarActividad((String) jso.get(NOMBRE), jso.getString(DIA), jso.getString(HI),
-					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("usuarios"), "false", jso.getString("semana"));
+					jso.getString(MI), jso.getString(HF), jso.getString(MF), jso.getString("usuarios"), "false");
 			break;
 		case "eliminar":
 			Manager.get().eliminarUsuario((String) jso.get(NOMBRE));
@@ -96,7 +87,6 @@ public class SpringWebSocket extends TextWebSocketHandler {
 			session.sendMessage(
 					new TextMessage(Manager.get().cargarReunionesPendientes(jso.getString(NOMBRE)).toString()));
 			break;
-	
 		default:
 			break;
 		}

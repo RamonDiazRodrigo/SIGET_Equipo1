@@ -8,42 +8,25 @@ function viewModel() {
 	self.listaReunionesV = ko.observableArray([]);
 	self.listaReunionesS = ko.observableArray([]);
 	self.listaReunionesD = ko.observableArray([]);
-	
-	if("localhost:8080"== window.location.host){
-		var url = 'ws://' + window.location.host + '/SIGETEquipo1';
-	}else{
-		var url = 'wss://' + window.location.host + '/SIGETEquipo1';
-	}
-	console.log(window.location.host)
+
+	const url = 'wss://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
 
-	self.sws.onopen = function () {
-		const info = {
+	self.sws.onopen = function() {
+		const msg = {
 			type: 'leer',
 			nombre: sessionStorage.userName,
-			semana: $('#selectSemana').val(),
 			vista: "calendar"
 		};
-		self.sws.send(JSON.stringify(info));
+		self.sws.send(JSON.stringify(msg));
 	};
 
-	self.sws.onmessage = function (event) {
+	self.sws.onmessage = function(event) {
 		let data = event.data;
 		data = JSON.parse(data);
-		self.reuniones = [];
-		console.log(data);
-		self.reuniones = [];
-		self.listaReunionesL([]);
-		self.listaReunionesM([]);
-		self.listaReunionesX([]);
-		self.listaReunionesJ([]);
-		self.listaReunionesV([]);
-		self.listaReunionesS([]);
-		self.listaReunionesD([]);
-		self.reuniones = data.actividades;
-		console.log(self.reuniones.length);
-		for (let i = 0; i < self.reuniones.length; i++) {
-			const reunion = self.reuniones[i];
+		const reuniones = data.actividades;
+		for (let i = 0; i < reuniones.length; i++) {
+			const reunion = reuniones[i];
 			const horaIn = reunion.HoraI.split(':');
 			const horaFi = reunion.HoraF.split(':');
 			let posTop = 0;
@@ -66,10 +49,8 @@ function viewModel() {
 			} else {
 				posTop = (parseInt(horaIn[0], 10)) * nmediaHora * px;
 			}
-			console.log(reunion);
 			aniadirReunion(posTop, length, reunion, horaIn, horaFi);
 		}
-
 	};
 
 	function aniadirReunion(posTop, length, reunion, horaIn, horaFi) {
@@ -138,17 +119,6 @@ function viewModel() {
 		}
 	}
 
-	self.buscarPorSemana = function () {
-		const info = {
-			type: 'buscarPorSemana',
-			nombre: sessionStorage.userName,
-			semana: $('#selectSemana').val(),
-			vista: "calendar"
-		};
-		self.sws.send(JSON.stringify(info));
-
-	}
-
 	class Reunion {
 		constructor(name, dia, horaI, minutosI, horaF, minutosF) {
 			this.name = name;
@@ -160,6 +130,5 @@ function viewModel() {
 		}
 	}
 }
-
 const vm = new viewModel();
 ko.applyBindings(vm);
