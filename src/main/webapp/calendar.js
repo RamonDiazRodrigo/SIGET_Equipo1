@@ -8,68 +8,54 @@ function viewModel() {
 	self.listaReunionesV = ko.observableArray([]);
 	self.listaReunionesS = ko.observableArray([]);
 	self.listaReunionesD = ko.observableArray([]);
-	
-	if("localhost:8080"== window.location.host){
+
+	if ("localhost:8080" == window.location.host) {
 		var url = 'ws://' + window.location.host + '/SIGETEquipo1';
-	}else{
+	} else {
 		var url = 'wss://' + window.location.host + '/SIGETEquipo1';
 	}
-	console.log(window.location.host)
 	self.sws = new WebSocket(url);
-
-	self.sws.onopen = function () {
-		const info = {
-			type: 'leer',
-			nombre: sessionStorage.userName,
-			semana: $('#selectSemana').val(),
-			vista: "calendar"
-		};
-		self.sws.send(JSON.stringify(info));
-	};
 
 	self.sws.onmessage = function (event) {
 		let data = event.data;
 		data = JSON.parse(data);
 		self.reuniones = [];
-		console.log(data);
-		self.reuniones = [];
-		self.listaReunionesL([]);
-		self.listaReunionesM([]);
-		self.listaReunionesX([]);
-		self.listaReunionesJ([]);
-		self.listaReunionesV([]);
-		self.listaReunionesS([]);
-		self.listaReunionesD([]);
-		self.reuniones = data.actividades;
-		console.log(self.reuniones.length);
-		for (let i = 0; i < self.reuniones.length; i++) {
-			const reunion = self.reuniones[i];
-			const horaIn = reunion.HoraI.split(':');
-			const horaFi = reunion.HoraF.split(':');
-			let posTop = 0;
-			let length = 0;
-			const px = 50.18;
-			const nmediaHora = 2;
-			const mediaHora = 0.5;
-			// Si los minutajes son distintos
-			if (horaIn[1] !== horaFi[1]) {
-				if (horaIn[1] < horaFi[1]) {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+			self.reuniones = [];
+			self.listaReunionesL([]);
+			self.listaReunionesM([]);
+			self.listaReunionesX([]);
+			self.listaReunionesJ([]);
+			self.listaReunionesV([]);
+			self.listaReunionesS([]);
+			self.listaReunionesD([]);
+			self.reuniones = data.actividades;
+			for (let i = 0; i < self.reuniones.length; i++) {
+				const reunion = self.reuniones[i];
+				const horaIn = reunion.HoraI.split(':');
+				const horaFi = reunion.HoraF.split(':');
+				let posTop = 0;
+				let length = 0;
+				const px = 50.18;
+				const nmediaHora = 2;
+				const mediaHora = 0.5;
+				// Si los minutajes son distintos
+				if (horaIn[1] !== horaFi[1]) {
+					if (horaIn[1] < horaFi[1]) {
+						length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+					} else {
+						length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - mediaHora) * nmediaHora * px;
+					}
 				} else {
-					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - mediaHora) * nmediaHora * px;
+					length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * nmediaHora * px;
 				}
-			} else {
-				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * nmediaHora * px;
+				if ('30' === horaIn[1]) {
+					posTop = (parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+				} else {
+					posTop = (parseInt(horaIn[0], 10)) * nmediaHora * px;
+				}
+				aniadirReunion(posTop, length, reunion, horaIn, horaFi);
 			}
-			if ('30' === horaIn[1]) {
-				posTop = (parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
-			} else {
-				posTop = (parseInt(horaIn[0], 10)) * nmediaHora * px;
-			}
-			console.log(reunion);
-			aniadirReunion(posTop, length, reunion, horaIn, horaFi);
-		}
-
+		
 	};
 
 	function aniadirReunion(posTop, length, reunion, horaIn, horaFi) {
@@ -146,7 +132,6 @@ function viewModel() {
 			vista: "calendar"
 		};
 		self.sws.send(JSON.stringify(info));
-
 	}
 
 	class Reunion {
@@ -157,6 +142,7 @@ function viewModel() {
 			this.minutosI = minutosI;
 			this.horaF = horaF;
 			this.minutosF = minutosF;
+			
 		}
 	}
 }

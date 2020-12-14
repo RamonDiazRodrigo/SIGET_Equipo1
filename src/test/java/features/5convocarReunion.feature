@@ -21,20 +21,20 @@ Feature: Convocar Reuniones
 
   @tag1
   Scenario: Convocar reunion
-    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" y "PruebaRegistro1" involucrados
-    Then Crea una reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" y "PruebaRegistro1" y la aniade a reuniones pendientes si no tienen ese horario ocupado
+    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "2020-W52" y "PruebaRegistro1" involucrados
+    Then Crea una reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "2020-W52" y "PruebaRegistro1" y la aniade a reuniones pendientes si no tienen ese horario ocupado
     
    @tag2
   Scenario: Convocar reunion ya existente
-    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "PruebaRegistro1"
+    Given los datos "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "2020-W52", "PruebaRegistro1"
     When ya existe "PruebaConvocar1" 
-    Then se lanza la excepcion ya existe reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00" "PruebaRegistro1"
+    Then se lanza la excepcion ya existe reunion "PruebaConvocar1", "LUNES",  "12",  "00",  "13",  "00", "2020-W52", "PruebaRegistro1"
     
     @tag3
   Scenario: Convocar reunion dia mal
-    Given la reunion "PruebaConvocar3", "JUERNES",  "12",  "00",  "13",  "00", "PruebaRegistro1"
+    Given la reunion "PruebaConvocar3", "JUERNES",  "12",  "00",  "13",  "00", "2020-W52", "PruebaRegistro1"
     When  el dia no existe
-    Then se lanza la excepcion dia no existe para la reunion "PruebaConvocar3", "LUNES",  "12",  "00",  "13",  "00" "PruebaRegistro1"
+    Then se lanza la excepcion dia no existe para la reunion "PruebaConvocar3", "LUNES",  "12",  "00",  "13",  "00", "2020-W52", "PruebaRegistro1"
     
     @tag4
     Scenario: Convocar reunion hora inicial no existe

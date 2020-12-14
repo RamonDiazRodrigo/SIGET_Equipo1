@@ -21,29 +21,29 @@ Feature: Introducir actividades no laborables
 
   @tag1
   Scenario: Introduccion valida de actividad no laborable
-    Given "Descanso", "SABADO",  "10",  "00",  "11",  "30", "PruebaRegistro1" involucrado y si es "false" 
-    Then se aniade la actividad no laborable con "Descanso", "SABADO", "10",  "00",  "11",  "30", "false" y se vincula al "PruebaRegistro1"
+    Given "Descanso", "SABADO",  "10",  "00",  "11",  "30","2020-W52", "PruebaRegistro1" involucrado y si es "false" 
+    Then se aniade la actividad no laborable con "Descanso", "SABADO", "10",  "00",  "11",  "30", "2020-W52", "false" y se vincula al "PruebaRegistro1"
 
   @tag2
   Scenario: Introduccion invalida de actividad no laborable usuario no existe
     Given "Descanso", "MARTES",  "10",  "00",  "11",  "30", "FEDERICOOO" involucrado y si es "false" 
     When usuario no esta registrado
-    Then no se aniade la actividad no laborable con "Descanso", "MARTES", "10",  "00",  "11",  "30", "false" y se vincula al "FEDERICOO"
+    Then no se aniade la actividad no laborable con "Descanso", "MARTES", "10",  "00",  "11",  "30", "2020-W52", "false" y se vincula al "FEDERICOO"
     
 	@tag3
   Scenario: Introduccion invalida de actividad no laborable dia no existe
     Given "Descanso", "CAMA",  "10",  "00",  "11",  "30", "PruebaRegistro1" involucrado y si es "false" 
     When el dia no es correcto
-    Then no se aniade la actividad no laborable con "Descanso", "CAMA", "10",  "00",  "11",  "30", "false" y se vincula al "PruebaRegistro1"
+    Then no se aniade la actividad no laborable con "Descanso", "CAMA", "10",  "00",  "11",  "30", "2020-W52", "false" y se vincula al "PruebaRegistro1"
     
 	@tag4
   Scenario: Introduccion invalida de actividad no laborable hora inicial no existe
     Given "Descanso", "LUNES",  "30",  "00",  "11",  "30", "PruebaRegistro1" involucrado y si es "false" 
     When la hora inicial no es correcta
-    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "30",  "00",  "11",  "30", "false" y se vincula al "PruebaRegistro1"
+    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "30",  "00",  "11",  "30", "2020-W52", "false" y se vincula al "PruebaRegistro1"
     
    @tag5
   Scenario: Introduccion invalida de actividad no laborable hora final no existe
     Given "Descanso", "LUNES",  "30",  "00",  "30",  "30", "PruebaRegistro1" involucrado y si es "false" 
     When la hora final no es correcta
-    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "10",  "00",  "30",  "30", "false" y se vincula al "PruebaRegistro1"
+    Then no se aniade la actividad no laborable con "Descanso", "LUNES", "10",  "00",  "30",  "30", "2020-W52", "false" y se vincula al "PruebaRegistro1"

@@ -115,12 +115,12 @@ function ViewModel() {
 				minutoInicio: dateInicio[1],
 				minutoFinal: dateFinal[1],
 				usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
-				semana: $('#semana').val(),
+				semana: $('#semana').val()
 			};
 			console.log(info);
 			self.actividadCreada();
 			self.sws.send(JSON.stringify(info));
-			
+
 		} else {
 			document.getElementById("horaInicio").style.background = "red";
 			document.getElementById("horaFinal").style.background = "red";

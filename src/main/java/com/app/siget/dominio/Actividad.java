@@ -21,7 +21,7 @@ public class Actividad {
 		this.horaI = horaI;
 		this.horaF = horaF;
 		this.reunion = reunion;
-		this.semana = semana;
+		this.semana=semana;
 	}
 
 	public Actividad(int id, String name, DiaSemana dia, LocalTime horaI, LocalTime horaF, boolean reunion, String semana) {
@@ -31,7 +31,7 @@ public class Actividad {
 		this.horaI = horaI;
 		this.horaF = horaF;
 		this.reunion = reunion;
-		this.semana = semana;
+		this.semana=semana;
 	}
 
 	public String getName() {
@@ -77,7 +77,7 @@ public class Actividad {
 	public boolean isReunion() {
 		return this.reunion;
 	}
-
+	
 	public String getSemana() {
 		return semana;
 	}

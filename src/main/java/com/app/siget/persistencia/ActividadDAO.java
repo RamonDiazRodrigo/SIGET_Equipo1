@@ -71,7 +71,7 @@ public final class ActividadDAO {
 
 	}
 
-	public static List<Actividad> leerActividades(String nombre) {
+	public static ArrayList<Actividad> leerActividades(String nombre) {
 
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
@@ -83,9 +83,9 @@ public final class ActividadDAO {
 	}
 
 	// Este metodo encuentra las actividades que estan en el horario del usuario
-	private static List<Actividad> buscarActividades(int[][] horario) {
+	private static ArrayList<Actividad> buscarActividades(int[][] horario) {
 		Actividad a;
-		List<Actividad> actividades = new ArrayList<>();
+		ArrayList<Actividad> actividades = new ArrayList<>();
 		for (int i = 0; i < horario.length; i++) {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
@@ -156,11 +156,9 @@ public final class ActividadDAO {
 			if (leerActividad(actividad.getId()) == null) {
 				insertarActividad(actividad);
 			}
-			System.out.println("usuario: "+ user);
 			MongoCollection<Document> coleccion = AgenteDB.get().getBd(USUARIO);
 			Document document = generarDocument(user);
 			user.insertarReunionPendiente(actividad);
-			System.out.println("Usuario: "+ user.getName());
 			document.append("horario", user.getHorario().toString());
 			document.append("reunionesPendientes", user.getReunionesPendientes().toString());
 			UserDAO.eliminar(user, false);

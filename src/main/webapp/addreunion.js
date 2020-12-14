@@ -62,7 +62,7 @@ function ViewModel() {
 				horaFinal: dateFinal[0],
 				minutoInicio: dateInicio[1],
 				minutoFinal: dateFinal[1],
-				semana: $('#semana').val(),
+				semana: $('#semana').val()
 			};
 
 			self.sws.send(JSON.stringify(info));
@@ -133,7 +133,8 @@ function ViewModel() {
 			minutoInicio: dateInicio[1],
 			minutoFinal: dateFinal[1],
 			usuarios: self.usuariosSeleccionados(),
-			semana: $('#semana').val(),
+			semana: $('#semana').val()
+
 		};
 		self.convocarCorrectamente();
 		self.sws.send(JSON.stringify(info));

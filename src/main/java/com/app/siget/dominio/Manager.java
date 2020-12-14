@@ -7,8 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
@@ -19,6 +17,7 @@ import com.app.siget.excepciones.FranjaHorariaOcupadaException;
 import com.app.siget.persistencia.ActividadDAO;
 import com.app.siget.persistencia.TokenDAO;
 import com.app.siget.persistencia.UserDAO;
+import java.util.Objects;
 
 public class Manager {
 
@@ -84,6 +83,8 @@ public class Manager {
 	}
 
 	public void register(String name, String email, String password, String rol) {
+		User usuario = UserDAO.findUser(name);
+		if(usuario==null)
 		if ("ADMIN".equals(rol)) {
 			UserDAO.insertar(new Admin(name, email, encriptarMD5(password)));
 		} else {
@@ -154,9 +155,7 @@ public class Manager {
 
 		for (Actividad a : ActividadDAO.leerActividades(nombre)) {
 			jsa.put(a.toJSON());
-			
 		}
-		
 		jso.put("actividades", jsa);
 		return jso;
 	}
@@ -380,7 +379,7 @@ public class Manager {
 
 	}
 
-	private static String encriptarMD5(String input) {
+	public String encriptarMD5(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(input.getBytes());
@@ -401,23 +400,20 @@ public class Manager {
 			return "";
 		}
 	}
-
+	
 	public Object filtrarPorSemanaUsuario(String semana, String usuario) {
 		JSONObject jso = new JSONObject();
 		JSONArray jsa = new JSONArray();
-		System.out.println(semana);
+		
 		for (Actividad a : ActividadDAO.leerActividades(usuario)) {
-			System.out.println(a.getSemana());
 			if(a.getSemana().equals(semana)) {
 			jsa.put(a.toJSON());
-			System.out.println("Ha entrado en el if");
-			}else {
-				System.out.println(a.getName());
 			}
 		}
-		
+
 		jso.put("actividades", jsa);
 		return jso;
 	}
+
 
 }
