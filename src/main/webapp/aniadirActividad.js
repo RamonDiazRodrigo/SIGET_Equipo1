@@ -69,7 +69,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable("");
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function(event) {
@@ -111,7 +111,9 @@ function ViewModel() {
 				minutoInicio: dateInicio[1],
 				minutoFinal: dateFinal[1],
 				usuarios: document.getElementById("select").options[document.getElementById("select").selectedIndex].text,
+				semana: $('#semana').val()
 			};
+			console.log(info);
 			self.actividadCreada();
 			self.sws.send(JSON.stringify(info));
 

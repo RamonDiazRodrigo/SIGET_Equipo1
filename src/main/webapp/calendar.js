@@ -9,7 +9,7 @@ function viewModel() {
 	self.listaReunionesS = ko.observableArray([]);
 	self.listaReunionesD = ko.observableArray([]);
 
-	const url = 'wss://' + window.location.host + '/SIGETEquipo1';
+	const url = 'ws://' + window.location.host + '/SIGETEquipo1';
 	self.sws = new WebSocket(url);
 
 	self.sws.onopen = function() {
@@ -24,9 +24,42 @@ function viewModel() {
 	self.sws.onmessage = function(event) {
 		let data = event.data;
 		data = JSON.parse(data);
-		const reuniones = data.actividades;
-		for (let i = 0; i < reuniones.length; i++) {
-			const reunion = reuniones[i];
+		self.reuniones = [];
+		if (data.type == "leer") {
+			console.log(data);
+			self.reuniones = data.actividades;
+			for (let i = 0; i < self.reuniones.length; i++) {
+				const reunion = self.reuniones[i];
+				const horaIn = reunion.HoraI.split(':');
+				const horaFi = reunion.HoraF.split(':');
+				let posTop = 0;
+				let length = 0;
+				const px = 50.18;
+				const nmediaHora = 2;
+				const mediaHora = 0.5;
+				// Si los minutajes son distintos
+				if (horaIn[1] !== horaFi[1]) {
+					if (horaIn[1] < horaFi[1]) {
+						length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+					} else {
+						length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10) - mediaHora) * nmediaHora * px;
+					}
+			} else {
+				length = (parseInt(horaFi[0], 10) - parseInt(horaIn[0], 10)) * nmediaHora * px;
+			}
+			if ('30' === horaIn[1]) {
+				posTop = (parseInt(horaIn[0], 10) + mediaHora) * nmediaHora * px;
+			} else {
+				posTop = (parseInt(horaIn[0], 10)) * nmediaHora * px;
+			}
+			aniadirReunion(posTop, length, reunion, horaIn, horaFi);
+		}
+	} else if (data.type == 'buscarPorSemana') {
+		console.log(data);
+		self.reuniones = [];
+		self.reuniones = data.actividades;
+		for (let i = 0; i < self.reuniones.length; i++) {
+			const reunion = self.reuniones[i];
 			const horaIn = reunion.HoraI.split(':');
 			const horaFi = reunion.HoraF.split(':');
 			let posTop = 0;
@@ -51,6 +84,7 @@ function viewModel() {
 			}
 			aniadirReunion(posTop, length, reunion, horaIn, horaFi);
 		}
+	}
 	};
 
 	function aniadirReunion(posTop, length, reunion, horaIn, horaFi) {
@@ -119,6 +153,14 @@ function viewModel() {
 		}
 	}
 
+	self.buscarPorSemana = function() {
+		const info = {
+			type: 'buscarPorSemana',
+			semana: $('#selectSemana').val(),
+		};
+		self.sws.send(JSON.stringify(info));
+	}
+
 	class Reunion {
 		constructor(name, dia, horaI, minutosI, horaF, minutosF) {
 			this.name = name;
@@ -130,5 +172,6 @@ function viewModel() {
 		}
 	}
 }
+
 const vm = new viewModel();
 ko.applyBindings(vm);

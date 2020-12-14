@@ -26,7 +26,7 @@ function ViewModel() {
 	self.listaUsuarios = ko.observableArray([]);
 	self.nombreUsuario = ko.observable('');
 	self.usuariosSeleccionados = ko.observableArray([]);
-	var url = "wss://" + window.location.host + "/SIGETEquipo1";
+	var url = "ws://" + window.location.host + "/SIGETEquipo1";
 	self.sws = new WebSocket(url);
 
 	self.sws.onmessage = function(event) {
@@ -128,6 +128,7 @@ function ViewModel() {
 			minutoInicio: dateInicio[1],
 			minutoFinal: dateFinal[1],
 			usuarios: self.usuariosSeleccionados(),
+			semana: $('#semana').val()
 
 		};
 		self.convocarCorrectamente();

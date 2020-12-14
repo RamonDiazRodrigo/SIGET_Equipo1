@@ -25,6 +25,7 @@ public final class ActividadDAO {
 	public static final String HORAF = "horaF";
 	public static final String MINUTOSI = "minutosI";
 	public static final String MINUTOSF = "minutosf";
+	public static final String SEMANA = "semana";
 
 	private ActividadDAO() {
 		super();
@@ -43,14 +44,14 @@ public final class ActividadDAO {
 				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
+						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true, document.getString(SEMANA));
 				actividades.add(act);
 			} else {
 				if (!onlyReuniones) {
 					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true, document.getString(SEMANA));
 					actividades.add(act);
 				}
 			}
