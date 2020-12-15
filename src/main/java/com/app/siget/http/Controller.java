@@ -15,7 +15,7 @@ import com.app.siget.excepciones.DiferentesContrasenasException;
 
 
 @RestController
-@CrossOrigin(origins= {"http://localhost:8080","https://sigetequipo1.herokuapp.com"},allowedHeaders="*")
+@CrossOrigin(origins= {"http://localhost:8080","https://sige-equipo1-mantenimiento.herokuapp.com"},allowedHeaders="*")
 public class Controller {
 
 	private static final String PASS = "pwd";
