@@ -21,5 +21,13 @@ Feature: Eliminar usuario
 
   @tag1
   Scenario: Eliminar usuario
-    Given En la vista admin ver usuarios seleccionar uno por "nombre" y eliminarlo
-    Then Se eliminar el usuario con nombre "nombre"    
+    Given Como administrador borro el usuario "PruebaRegistro2" 
+    Then Se ha eliminado el usuario "PruebaRegistro2"    
+ @tag2
+  Scenario: Eliminar usuario no existe
+    Given Como admin borro el usuario "PruebaRegistro2" 
+    Then El usuario "PruebaRegistro2" no existe   
+    @tag3
+  Scenario: Eliminar usuario admin
+    Given Como admin borro el admin "ramon" 
+    Then El usuario "ramon" no se ha borrado

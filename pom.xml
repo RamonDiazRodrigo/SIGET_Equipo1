@@ -86,6 +86,21 @@
 			<artifactId>json</artifactId>
 			<version>20200518</version>
 		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<version>3.141.59</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<version>3.141.59</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -93,10 +108,15 @@
 		<start-class>com.app.siget.SigetEquipo1Application</start-class>
 		<sonar.sources>src/main/java,src/main/webapp</sonar.sources>
 		<sonar.tests>src/test/java/com/app/siget/cucumber/pruebas</sonar.tests>
-		<sonar.projectKey>danigcj31_SIGET_Equipo1</sonar.projectKey>
-		<sonar.organization>danigcj31</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		  <sonar.projectKey>RamonDiazRodrigo_SIGET_Equipo1</sonar.projectKey>
+		<sonar.organization>agendae5</sonar.organization>
+		 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<argLine>${surefireArgLine} -Xmx1024m -XX:MaxPermSize=1024m</argLine>
+	
+
+  
+ 
+
 	</properties>
 
 	<build>

@@ -9,10 +9,6 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-  sonarcloud:
-    organization: "danigcj31"
-    token:
-      secure: "aF+5mhvcAhDLwT7p48euBliIPu1cCQusMTCZ/tL5TL3THKLBcCDL24lBEXKBw/VQrQ/kS+d9/ZZg8BUjIxLOvSvD+XHrqH0cU7qBOEF0EZi0Y4VIsvbVhNvwTQL6ynhfnVnHoIrCmVcZbOUS1qudm1wVPgvN2GdsaHjn2sysCCdAEktkOpdr+h0FeX50K3DLNlhTWnzh9XmUPq32EsdSFVU471QV0Zw/1R7QWFm/3Ikeh4kYQ34SGFNKfB8P3BKNxg6+mOVKKdddR1JrY1xNcj4C20mPwLDppz70MqsGfJzVD+DjmIw1xsX18S3zaIFNaLZHxgvpAhT5uW1/jKTCKIw0pcpuZ0Dnko4cBbARkLRMsaaLtey+AcA7rUtfnEgAaK3qVJU0K9xwBamd1YAIzGL0OVNrEXJhHksArxGKkYHAXEg2ZUP7GLASv0TiKGFQri2azVILslQFaKKNGAgMmSYv9ftK+ngZqt6huDvIxCWgmBUt4NoOLdQrJBEi0cBlmIURi4gjhTZ1eidMF0611Iun8/tItjuuvn6VcZDxBhXf3OBUAkpxF7+ymLy7hxSXLQqLctJavL33BSDkcUgjAbOzqJ0HcxerxAI9TFvZ3pJZ3afCuscvmJd6vXZk9Yvyz/yXvBZjpUDYL+JsArwRhR+6FNoywgiXiFuQfBDw9s0="
 
 install:
   - npm install
@@ -26,13 +22,15 @@ script:
 - mvn jacoco:report
 - mvn install
 - mvn package spring-boot:repackage
-- mvn verify sonar:sonar -Dsonar.projectKey=danigcj31_SIGET_Equipo1 -Dsonar.organization=danigcj31
+- mvn verify sonar:sonar -Dsonar.projectKey=RamonDiazRodrigo_SIGET_Equipo1 -Dsonar.organization=agendae5
 
 
 deploy: &heroku
         provider: heroku
-        app: sigetequipo1
-        api_key: 18562f60-1231-4327-8b42-88518f1e5dde
+        app: sige-equipo1-mantenimiento
+        api_key: 
+		secure: "Ln4mRKs5HKf1zVh1h9q+xyFViXxCOsl1xMO1r0wFnRcHk6a6pAEWi/Ygz5CFCHXRTbnokHeBgv1DrRCFQhyr1qxsrPD0OCNIrEb5qHrKUmslv1zTEhcecUCa0fU0PFqMG8/pi9k2ZTJumrkoj8vuWDAx7qAfY8gJkoaX1SzIBRm7Y34Rqd7s3/bPJg/NxvnIkJreUtLSkXokkhGXdTC3hhHx9aXqbM8SpJIGJUDQkBBhGuBtO1/EMkXvWguGhcM1ONUBu+/Q/sdxNoLBJ5RtRsY5SPmG7CSTrOQPYLDywbXrq0D1Yziqf/nbVpJt1J776vsjxuWrJyqaxNRUv4UIdGvO4xeOsV/ayKoknSOmPD99k2a61UX71GIEfVR9F+d0KgOQC3VrywZUckKj8+8/D7zjAsV+MwBX+RlYfE/GBU0yxw1cMr/mthXmwNmB4xxx1o2vIJQK6e4f6UlNmVhDJxBaGfg/2XpPSMpoI/pKB0Txkr369YyCn6Jc3f6VKHqq18uv8qKAnT7yJB0ydUXxXaXbhaeHwwDa+BwMkB9IG6RfNGbwSiA1cE46+1C9HMgIurqgFOtqegjShQgZloFs17q+K5ZA1p2SZuwQ0xT4keSgZcc1cNpj6p17AzEGv1S7+opksEhdn2e+1JFL0UJMrwvhzqKATEOVfJ//OQ7mj2o="
+
 
 server:
         port: $PORT

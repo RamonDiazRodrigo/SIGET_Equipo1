@@ -1,4 +1,8 @@
-var url = "wss://" + window.location.host + "/SIGETEquipo1";
+if("localhost:8080"== window.location.host){
+	var url = 'ws://' + window.location.host + '/SIGETEquipo1';
+}else{
+	var url = 'wss://' + window.location.host + '/SIGETEquipo1';
+}
 var sws = new WebSocket(url);
 
 sws.onopen = function(event) {
@@ -51,6 +55,7 @@ let register = function() {
 					document.getElementById("username").style.backgroundColor = "green";
 					document.getElementById("email").style.backgroundColor = "green";
 					registroCorrecto();
+
 				},
 				error: function() {
 					document.getElementById("pwd1").style.backgroundColor = "red";
@@ -131,12 +136,16 @@ function esNumero(digito) {
 
 }
 
+function volverAtras(){
+	window.location.href = "index.html"
+}
+
 
 function registroCorrecto() {
 
 	// When site loaded, load the Popupbox First
 	loadPopupBox();
-
+	volverAtras()
 	$('#container').click(function() {
 		unloadPopupBox();
 	});
@@ -169,6 +178,7 @@ function registroCorrecto() {
 		}, 500);
 
 	}
+	
 }
 
 

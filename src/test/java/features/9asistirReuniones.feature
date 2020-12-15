@@ -21,11 +21,14 @@ Feature: Asistir Reuniones
 
   @tag1
   Scenario: Aceptar reunion
-		Given "nombre reunion", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin" y un "usuario"   
-  	Then el "usuario" acepta la reunion "id" y aparece en su agenda
-  
-  @tag1
+		Given el usuario "PruebaRegistro1" acepta la reunion "1" 
+  	Then el usuario "PruebaRegistro1" tiene la reunion "1" en su agenda
+  @tag2
   Scenario: Rechazar reunion
-		Given "nombre reunion", "dia de la semana",  "hora de inicio",  "minutos de inicio",  "hora de fin",  "minutos de fin" y un "usuario"   
-  	Then el "usuario" acepta la reunion "id" y no aparece en su agenda
+		Given el usuario "PruebaRegistro1" rechaza la reunion "2" 
+  	Then el usuario "PruebaRegistro1" no tiene la reunion "2" en su agenda
   	
+  
+  		
+  	
+  

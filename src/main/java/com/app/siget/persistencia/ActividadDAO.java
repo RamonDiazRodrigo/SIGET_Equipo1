@@ -25,6 +25,7 @@ public final class ActividadDAO {
 	public static final String HORAF = "horaF";
 	public static final String MINUTOSI = "minutosI";
 	public static final String MINUTOSF = "minutosf";
+	public static final String SEMANA = "semana";
 
 	private ActividadDAO() {
 		super();
@@ -43,14 +44,14 @@ public final class ActividadDAO {
 				LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 				LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 				act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true);
+						DiaSemana.valueOf(document.getString("dia")), horaI, horaF, true, document.getString(SEMANA));
 				actividades.add(act);
 			} else {
 				if (!onlyReuniones) {
 					LocalTime horaI = LocalTime.of(document.getInteger(HORAI, 0), document.getInteger(MINUTOSI, 0));
 					LocalTime horaF = LocalTime.of(document.getInteger(HORAF, 0), document.getInteger(MINUTOSF, 0));
 					act = new Actividad(document.getInteger("id", -1), document.getString("name"),
-							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false);
+							DiaSemana.valueOf(document.getString("dia")), horaI, horaF, false, document.getString(SEMANA));
 					actividades.add(act);
 				}
 			}
@@ -70,7 +71,7 @@ public final class ActividadDAO {
 
 	}
 
-	public static List<Actividad> leerActividades(String nombre) {
+	public static ArrayList<Actividad> leerActividades(String nombre) {
 
 		for (User u : UserDAO.leerUsers()) {
 			if (u.getName().equals(nombre)) {
@@ -82,9 +83,9 @@ public final class ActividadDAO {
 	}
 
 	// Este metodo encuentra las actividades que estan en el horario del usuario
-	private static List<Actividad> buscarActividades(int[][] horario) {
+	private static ArrayList<Actividad> buscarActividades(int[][] horario) {
 		Actividad a;
-		List<Actividad> actividades = new ArrayList<>();
+		ArrayList<Actividad> actividades = new ArrayList<>();
 		for (int i = 0; i < horario.length; i++) {
 			for (int j = 0; j < horario[0].length; j++) {
 				if (horario[i][j] != 0) {
@@ -119,6 +120,7 @@ public final class ActividadDAO {
 		document.append(HORAF, actividad.getHoraF().getHour());
 		document.append(MINUTOSF, actividad.getHoraF().getMinute());
 		document.append(REUNION, actividad.isReunion());
+		document.append(SEMANA, actividad.getSemana());
 		coleccion.insertOne(document);
 
 	}

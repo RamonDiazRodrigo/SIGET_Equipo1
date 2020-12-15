@@ -3,6 +3,7 @@ package com.app.siget.http;
 import java.io.IOException;
 import java.util.Map;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,9 @@ import com.app.siget.excepciones.AccessNotGrantedException;
 import com.app.siget.excepciones.CredencialesInvalidasException;
 import com.app.siget.excepciones.DiferentesContrasenasException;
 
+
 @RestController
+@CrossOrigin(origins= {"http://localhost:8080","https://sige-equipo1-mantenimiento.herokuapp.com"},allowedHeaders="*")
 public class Controller {
 
 	private static final String PASS = "pwd";

@@ -19,13 +19,17 @@
 @tag
 Feature: Aniadir usuario
 
-  @tag1
+ @tag1
   Scenario: Aniadir usuario
-    Given En la vista admin "nombre","email","password", "confirmacionPassword" y "rol"
-		Then Se ha creado el usuario correctamente
+  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
+  Then el usuario se ha creado el usuario correctamente "PruebaDani1"
 
-  @tag2
-  Scenario: Aniadir usuario con password distintas
-    Given "nombre","email","password", "confirmacionPassword" y "rol" distintas
-    When "password" y "confirmacionPassword" son distintas
-    Then se lanza la excepcion DiferentesContrasenas  
+ @tag2
+  Scenario: Aniadir usuario vacio
+  Given En la vista admin "","","", "" y ""
+  Then no se ha registrado el usuario vacio ""
+  
+  @tag3
+  Scenario: Aniadir usuario existente
+  Given En la vista admin "PruebaDani1","admin@admin.com","Password2", "Password2" y "ASISTENTE"
+  Then no se registrado el usuario "PruebaDani1"
