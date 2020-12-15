@@ -10,7 +10,6 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(features = "src/test/java/features", // archivo feature de login y register
 		glue = "com.app.siget.cucumber.pruebas", // paquete
 		plugin = { "pretty", "html:target/cucumber-html-report", "json:target/cucumber.json" }
-
 )
 
 public class ejecutor {
